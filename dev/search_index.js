@@ -1,0 +1,3 @@
+var documenterSearchIndex = {"docs":
+[{"location":"library/#List-of-constraints","page":"Library","title":"List of constraints","text":"","category":"section"},{"location":"library/","page":"Library","title":"Library","text":"","category":"page"},{"location":"library/","page":"Library","title":"Library","text":"Modules = [Constraints]","category":"page"},{"location":"","page":"Home","title":"Home","text":"CurrentModule = Constraints","category":"page"},{"location":"#Constraints-for-JuliaConstraints-front-packages","page":"Home","title":"Constraints for JuliaConstraints front packages","text":"","category":"section"}]
+}
