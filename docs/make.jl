@@ -4,11 +4,11 @@ using Documenter
 makedocs(;
     modules=[Constraints],
     authors="Jean-François Baffier",
-    repo="https://github.com/azzaare/Constraints.jl/blob/{commit}{path}#L{line}",
+    repo="https://github.com/JuliaConstraints/Constraints.jl/blob/{commit}{path}#L{line}",
     sitename="Constraints.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://azzaare.github.io/Constraints.jl",
+        canonical="https://JuliaConstraints.github.io/Constraints.jl",
         assets=String[],
     ),
     pages=[
@@ -17,5 +17,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/azzaare/Constraints.jl",
+    repo="github.com/JuliaConstraints/Constraints.jl",
 )
