@@ -5,7 +5,10 @@ using Test
 
 # Empty constraint
 c = Constraint()
-@test c.concept(1) == true
-@test c.error(1) == 0.0
+@test concept(c, 1) == true
+@test error_f(c, 1) == 0.0
+
+# Test on usual_constraints
+include("usual_constraints.jl")
 
 end
