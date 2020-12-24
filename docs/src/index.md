@@ -2,11 +2,5 @@
 CurrentModule = Constraints
 ```
 
-# Constraints
+# Constraints for JuliaConstraints front packages
 
-```@index
-```
-
-```@autodocs
-Modules = [Constraints]
-```
