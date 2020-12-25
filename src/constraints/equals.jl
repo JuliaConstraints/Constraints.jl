@@ -31,6 +31,7 @@ _error_all_equal_param(x...; param) = count(y -> y != param, x)
 const _all_equal_param = Constraint(
     concept = _concept_all_equal_param,
     error = _error_all_equal_param,
+    param = 1,
 )
 
 """

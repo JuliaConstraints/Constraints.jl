@@ -21,12 +21,14 @@ struct Constraint{FConcept <: Function, FError <: Function}
 end
 
 concept(c::Constraint) = c._concept
-concept(c::Constraint, x...) = concept(c)(x...)
-# concept(c::Constraint, x...; param...) = concept(c)(x...; param = param)
+function concept(c::Constraint, x...; param = nothing)
+    return isnothing(param) ? concept(c)(x...) : concept(c)(x..., param = param)
+end
 
 error_f(c::Constraint) = c._error
-error_f(c::Constraint, x...) = error_f(c)(x...)
-# error_f(c::Constraint, x...; param...) = error_f(c)(x...; param = param)
+function error_f(c::Constraint, x...; param = nothing)
+    return isnothing(param) ? error_f(c)(x...) : error_f(c)(x..., param = param)
+end
 
 args_length(c::Constraint) = c._args_length
 
