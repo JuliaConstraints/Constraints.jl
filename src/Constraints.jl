@@ -16,7 +16,10 @@ include("constraints/all_different.jl")
 include("constraints/dist_different.jl")
 include("constraints/equals.jl")
 
-# Dict with all the constraint in the package
+"""
+    usual_constraints::Dict
+Dictionary that contains all the usual constraints defined in Constraint.jl. 
+"""
 const usual_constraints = Dict(
     :all_different => _all_different,
     :all_equal => _all_equal,

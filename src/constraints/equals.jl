@@ -19,6 +19,10 @@ function _error_all_equal(x::T...) where {T <: Number}
     return Float64(length(x) - maximum(acc))
 end
 
+"""
+    all_equal
+Global constraint ensuring that all the values of `x` are all equal.
+"""
 const _all_equal = Constraint(
     concept = _concept_all_equal,
     error = _error_all_equal,
@@ -28,14 +32,12 @@ const _all_equal = Constraint(
 _concept_all_equal_param(x...; param) = all(y -> y == param, x)
 _error_all_equal_param(x...; param) = count(y -> y != param, x)
 
+"""
+    all_equal_param
+Global constraint ensuring that all the values of `x` are all equal to a given parameter `param`.
+"""
 const _all_equal_param = Constraint(
     concept = _concept_all_equal_param,
     error = _error_all_equal_param,
     param = 1,
 )
-
-"""
-    all_equal(x::Int...; param::T)
-    all_equal(x::Int...)
-Global constraint ensuring that all the values of `x` are all_equal (to param if given).
-"""
