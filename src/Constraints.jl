@@ -15,6 +15,7 @@ include("constraint.jl")
 include("constraints/all_different.jl")
 include("constraints/dist_different.jl")
 include("constraints/equals.jl")
+include("constraints/ordered.jl")
 
 """
     usual_constraints::Dict
@@ -27,6 +28,7 @@ const usual_constraints = Dict(
     :always_true => Constraint(),
     :dist_difference => _dist_different,
     :eq => _eq,
+    :ordered => _ordered,
 )
 
 end
