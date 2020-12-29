@@ -1,4 +1,3 @@
-
 function _error_all_different(x::T...) where {T <: Number}
     acc = Dictionary{T, Int}()
     foreach(y -> _insert_or_inc(acc, y), x)
