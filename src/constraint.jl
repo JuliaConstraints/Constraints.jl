@@ -2,7 +2,7 @@
     symmetries
 A Dictionary that contains the function to apply for each symmetry to avoid searching a whole space.
 """
-const symmetries = LittleDict(
+const usual_symmetries = Dict(
     :permutable => sort,
 )
 

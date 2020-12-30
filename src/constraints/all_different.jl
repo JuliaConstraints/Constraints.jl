@@ -15,5 +15,5 @@ Global constraint ensuring that all the values of a given configuration are uniq
 const _all_different = Constraint(
     concept = _concept_all_different,
     error = _error_all_different,
-    syms = [:permutable],
+    syms = Set([:permutable]),
 )
