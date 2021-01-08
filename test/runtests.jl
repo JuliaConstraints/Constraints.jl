@@ -5,8 +5,8 @@ using Test
 
 # Empty constraint
 c = Constraint()
-@test concept(c, 1) == true
-@test error_f(c, 1) == 0.0
+@test concept(c, []) == true
+@test error_f(c, []) == 0.0
 
 # Test on usual_constraints
 include("usual_constraints.jl")

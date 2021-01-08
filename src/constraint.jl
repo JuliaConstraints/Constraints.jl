@@ -37,19 +37,19 @@ Return the concept (function) of constraint `c`.
 Apply the concept of `c` to values `x` and optionally `param`.
 """
 concept(c::Constraint) = c._concept
-function concept(c::Constraint, x...; param = nothing)
-    return isnothing(param) ? concept(c)(x...) : concept(c)(x..., param = param)
+function concept(c::Constraint, x; param = nothing)
+    return isnothing(param) ? concept(c)(x) : concept(c)(x, param = param)
 end
 
 """
     error_f(c::Constraint)
 Return the error function of constraint `c`.
-    error_f(c::Constraint, x...; param = nothing)
+    error_f(c::Constraint, x; param = nothing)
 Apply the error function of `c` to values `x` and optionally `param`.
 """
 error_f(c::Constraint) = c._error
-function error_f(c::Constraint, x...; param = nothing)
-    return isnothing(param) ? error_f(c)(x...) : error_f(c)(x..., param = param)
+function error_f(c::Constraint, x; param = nothing)
+    return isnothing(param) ? error_f(c)(x) : error_f(c)(x, param = param)
 end
 
 """
