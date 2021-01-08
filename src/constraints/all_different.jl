@@ -3,10 +3,12 @@ function _error_all_different(x::T...) where {T <: Number}
     foreach(y -> _insert_or_inc(acc, y), x)
     return Float64(sum(acc .- 1))
 end
+_error_all_different(x::AbstractVector) = _error_all_different(x...)
 
 function _concept_all_different(x::T...) where {T <: Number}
     return allunique(x)
 end
+_concept_all_different(x::AbstractVector) = _concept_all_equal(x...)
 
 """
     _all_different

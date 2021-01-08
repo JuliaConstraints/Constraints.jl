@@ -21,8 +21,8 @@ struct Constraint{FConcept <: Function, FError <: Function}
 
     function Constraint(;
         args_length = nothing,
-        concept = (x...) -> true,
-        error = (x...) -> Float64(!concept(x...)),
+        concept = x -> true,
+        error = x -> Float64(!concept(x)),
         param = 0,
         syms = Set{Symbol}(),
     )
