@@ -5,7 +5,7 @@ import Dictionaries: Dictionary, set!
 
 # Exports
 export Constraint, usual_constraints
-export args_length, concept, error_f, params_length
+export args_length, concept, error_f, params_length, symmetries
 
 # Includes internals
 include("utils.jl")

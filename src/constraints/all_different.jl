@@ -1,12 +1,10 @@
-function _error_all_different(x::T...) where {T <: Number}
+function _error_all_different(x::V) where {T <: Number, V <: AbstractVector{T}}
     acc = Dictionary{T, Int}()
     foreach(y -> _insert_or_inc(acc, y), x)
     return Float64(sum(acc .- 1))
 end
 
-function _concept_all_different(x::T...) where {T <: Number}
-    return allunique(x)
-end
+_concept_all_different(x) = allunique(x)
 
 """
     _all_different

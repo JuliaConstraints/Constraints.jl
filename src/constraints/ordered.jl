@@ -1,9 +1,7 @@
-function _concept_ordered(x::T...) where {T <: Number}
-    return issorted(x)
-end
+_concept_ordered(x) = issorted(x)
 
 """
-    ordered(x::Int...)
+    ordered(x)
 Global constraint ensuring that all the values of `x` are ordered.
 """
 const _ordered = Constraint(
