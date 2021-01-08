@@ -12,4 +12,5 @@ for (name, c) in usual_constraints
 
         @test c_concept ? (c_error_f == 0.0) : (c_error_f > 0.0)
     end
+    symmetries(c)
 end
