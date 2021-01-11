@@ -26,7 +26,7 @@ const usual_constraints = Dict(
     :all_equal => _all_equal,
     :all_equal_param => _all_equal_param,
     :always_true => Constraint(),
-    :dist_difference => _dist_different,
+    :dist_different => _dist_different,
     :eq => _eq,
     :ordered => _ordered,
 )
