@@ -1,0 +1,1 @@
+_icn_dist_different = x -> fill(x, 3) .|> [CompositionalNetworks._tr_contiguous_vals_minus_rev, CompositionalNetworks._tr_contiguous_vals_minus, CompositionalNetworks._tr_count_eq_left] |> CompositionalNetworks._ar_sum |> CompositionalNetworks._ag_sum |> CompositionalNetworks._co_vars_minus_val

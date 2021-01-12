@@ -21,15 +21,15 @@ const targets = Dict(
 )
 
 const targets_param = Dict(
-    :all_equal_param => Dict(
-        :domains => [domain(Vector(8:12)) for i in 1:4],
-        :param => 10,
-    ),
+    # :all_equal_param => Dict(
+    #     :domains => [domain(Vector(8:12)) for i in 1:4],
+    #     :param => 10,
+    # ),
 )
 
 const config = Dict(
-    :local_iter => 1000,
-    :global_iter => 100,
+    :local_iter => 100,
+    :global_iter => 10,
     :search => :complete,
     :metric => hamming,
     :population => 400,
@@ -46,6 +46,20 @@ for t in targets
         search = config[:search],
         metric = config[:metric],
         popSize = config[:population],    
+    )
+    name = "_icn_$(t.first)"
+    compose_to_file!(
+        concept(usual_constraints[t.first]),
+        name,
+        joinpath(pwd(), "compositions", "$name.jl");
+        domains = t.second[:domains],
+        param = get(t.second, :param, nothing),
+        local_iter = config[:local_iter],
+        global_iter = config[:global_iter],
+        search = config[:search],
+        metric = config[:metric],
+        popSize = config[:population],
+        language=:Julia,
     )
 end
 
