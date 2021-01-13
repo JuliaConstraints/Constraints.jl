@@ -29,7 +29,7 @@ const targets_param = Dict(
 
 const config = Dict(
     :local_iter => 100,
-    :global_iter => 10,
+    :global_iter => 1,
     :search => :complete,
     :metric => hamming,
     :population => 400,
