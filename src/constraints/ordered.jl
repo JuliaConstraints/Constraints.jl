@@ -6,4 +6,5 @@ Global constraint ensuring that all the values of `x` are ordered.
 """
 const _ordered = Constraint(
     concept = _concept_ordered,
+    error = _make_error(:ordered),
 )

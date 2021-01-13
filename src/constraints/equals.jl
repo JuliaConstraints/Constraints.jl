@@ -8,6 +8,7 @@ Equality between two variables.
 const _eq = Constraint(
     args_length = 2,
     concept = _concept_eq,
+    error = _make_error(:eq),
 )
 
 # _all_equal
@@ -25,7 +26,7 @@ Global constraint ensuring that all the values of `x` are all equal.
 """
 const _all_equal = Constraint(
     concept = _concept_all_equal,
-    error = _error_all_equal,
+    error = _make_error(:all_equal),
 )
 
 # _all_equal_param

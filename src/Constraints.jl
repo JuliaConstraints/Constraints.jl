@@ -2,6 +2,7 @@ module Constraints
 
 # Imports
 import Dictionaries: Dictionary, set!
+import CompositionalNetworks
 
 # Exports
 export Constraint, usual_constraints
@@ -10,6 +11,13 @@ export args_length, concept, error_f, params_length, symmetries
 # Includes internals
 include("utils.jl")
 include("constraint.jl")
+
+# Includes learned errors from ICN
+include("../learn/compositions/_icn_all_different.jl")
+include("../learn/compositions/_icn_all_equal.jl")
+include("../learn/compositions/_icn_dist_different.jl")
+include("../learn/compositions/_icn_eq.jl")
+include("../learn/compositions/_icn_ordered.jl")
 
 # Includes constraints
 include("constraints/all_different.jl")
