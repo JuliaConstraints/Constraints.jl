@@ -23,28 +23,16 @@ function learn_from_icn()
 
     config = Dict(
         :local_iter => 100,
-        :global_iter => 1,
+        :global_iter => 10,
         :search => :complete,
         :metric => hamming,
         :population => 400,
     )
 
     path = joinpath(dirname(pathof(Constraints)),"compositions")
-    @info "path" path
 
     for t in targets
         @info "Starting learning for $(t.first)"
-        @info "param" get(t.second, :param, nothing)
-        err = explore_learn_compose(
-            concept(usual_constraints[t.first]);
-            domains=t.second[:domains],
-            param=get(t.second, :param, nothing),
-            local_iter=config[:local_iter],
-            global_iter=config[:global_iter],
-            search=config[:search],
-            metric=config[:metric],
-            popSize=config[:population],    
-        )
         name = "_icn_$(t.first)"
         compose_to_file!(
             concept(usual_constraints[t.first]),
