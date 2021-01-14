@@ -12,21 +12,21 @@ Parametric stucture with the following fields.
 - `concept`: a Boolean function that, given an assignment `x`, outputs `true` if `x` satisfies the constraint, and `false` otherwise.
 - `error`: a positive function that works as preferences over invalid assignements. Return `0.0` if the constraint is satisfied, and a strictly positive real otherwise.
 """
-struct Constraint{FConcept <: Function, FError <: Function}
-    _args_length::Union{Nothing, Int}
+mutable struct Constraint{FConcept <: Function,FError <: Function}
+    _args_length::Union{Nothing,Int}
     _concept::FConcept
     _error::FError
-    _params_length::Union{Nothing, Int}
+    _params_length::Union{Nothing,Int}
     _symmetries::Set{Symbol}
 
     function Constraint(;
-        args_length = nothing,
-        concept = x -> true,
-        error = x -> Float64(!concept(x)),
-        param = 0,
-        syms = Set{Symbol}(),
-    )
-        new{typeof(concept), typeof(error)}(args_length, concept, error, param, syms)
+        args_length=nothing,
+        concept=x -> true,
+        error=(x; param=nothing, dom_size=0) -> Float64(!concept(x)),
+        param=0,
+        syms=Set{Symbol}(),
+    )   
+        new{typeof(concept),typeof(error)}(args_length, concept, error, param, syms)
     end
 end
 
@@ -37,8 +37,8 @@ Return the concept (function) of constraint `c`.
 Apply the concept of `c` to values `x` and optionally `param`.
 """
 concept(c::Constraint) = c._concept
-function concept(c::Constraint, x; param = nothing)
-    return isnothing(param) ? concept(c)(x) : concept(c)(x, param = param)
+function concept(c::Constraint, x; param=nothing)
+    return isnothing(param) ? concept(c)(x) : concept(c)(x, param=param)
 end
 
 """
@@ -48,8 +48,8 @@ Return the error function of constraint `c`.
 Apply the error function of `c` to values `x` and optionally `param`.
 """
 error_f(c::Constraint) = c._error
-function error_f(c::Constraint, x; param = nothing)
-    return isnothing(param) ? error_f(c)(x) : error_f(c)(x, param = param)
+function error_f(c::Constraint, x; param=nothing, dom_size=0)
+    return isnothing(param) ? error_f(c)(x; dom_size=dom_size) : error_f(c)(x; param=param, dom_size=dom_size)
 end
 
 """
@@ -69,3 +69,11 @@ params_length(c::Constraint) = c._params_length
 Return the list of symmetries of `c`.
 """
 symmetries(c::Constraint) = c._symmetries
+
+function _make_error(symb::Symbol)
+    return begin
+        isdefined(Constraints, Symbol("_icn_$symb")) ? eval(Symbol("_icn_$symb")) :
+        isdefined(Constraints, Symbol("_error_$symb")) ? eval(Symbol("_error_$symb")) :
+        ((x; param=nothing, dom_size=0) -> Float64(!eval(Symbol("_concept_$symb"))))
+    end
+end

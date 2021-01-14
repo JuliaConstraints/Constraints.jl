@@ -2,6 +2,9 @@ module Constraints
 
 # Imports
 import Dictionaries: Dictionary, set!
+import CompositionalNetworks
+import CompositionalNetworks: hamming, explore_learn_compose, compose_to_file!
+import ConstraintDomains: domain
 
 # Exports
 export Constraint, usual_constraints
@@ -10,6 +13,9 @@ export args_length, concept, error_f, params_length, symmetries
 # Includes internals
 include("utils.jl")
 include("constraint.jl")
+
+# Includes learned errors from ICN
+foreach(include, readdir(joinpath(dirname(pathof(Constraints)),"compositions"), join = true))
 
 # Includes constraints
 include("constraints/all_different.jl")
@@ -26,9 +32,12 @@ const usual_constraints = Dict(
     :all_equal => _all_equal,
     :all_equal_param => _all_equal_param,
     :always_true => Constraint(),
-    :dist_difference => _dist_different,
+    :dist_different => _dist_different,
     :eq => _eq,
     :ordered => _ordered,
 )
+
+# include learn script
+include("learn.jl")
 
 end
