@@ -1,4 +1,5 @@
 using Constraints
+using CompositionalNetworks
 using Test
 
 @testset "Constraints.jl" begin

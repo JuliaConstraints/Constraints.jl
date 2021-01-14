@@ -22,7 +22,7 @@ mutable struct Constraint{FConcept <: Function,FError <: Function}
     function Constraint(;
         args_length=nothing,
         concept=x -> true,
-        error=x -> Float64(!concept(x)),
+        error=(x; param=nothing, dom_size=0) -> Float64(!concept(x)),
         param=0,
         syms=Set{Symbol}(),
     )   
@@ -48,8 +48,8 @@ Return the error function of constraint `c`.
 Apply the error function of `c` to values `x` and optionally `param`.
 """
 error_f(c::Constraint) = c._error
-function error_f(c::Constraint, x; param=nothing)
-    return isnothing(param) ? error_f(c)(x) : error_f(c)(x, param=param)
+function error_f(c::Constraint, x; param=nothing, dom_size=0)
+    return isnothing(param) ? error_f(c)(x; dom_size=dom_size) : error_f(c)(x; param=param, dom_size=dom_size)
 end
 
 """
@@ -71,8 +71,9 @@ Return the list of symmetries of `c`.
 symmetries(c::Constraint) = c._symmetries
 
 function _make_error(symb::Symbol)
-    path = "../learn/compositions/_icn_$(symb).jl"
-    expr = ispath(path) ? Symbol("_icn_$symb") : Symbol("_error_$symb")
-    @info expr
-    return eval(expr)
+    return begin
+        isdefined(Constraints, Symbol("_icn_$symb")) ? eval(Symbol("_icn_$symb")) :
+        isdefined(Constraints, Symbol("_error_$symb")) ? eval(Symbol("_error_$symb")) :
+        ((x; param=nothing, dom_size=0) -> Float64(!eval(Symbol("_concept_$symb"))))
+    end
 end

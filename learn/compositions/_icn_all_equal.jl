@@ -1,1 +1,0 @@
-_icn_all_equal = x -> fill(x, 2) .|> [CompositionalNetworks._tr_count_lesser, CompositionalNetworks._tr_count_greater] |> CompositionalNetworks._ar_sum |> CompositionalNetworks._ag_count_positive |> CompositionalNetworks._co_euclidian

@@ -14,7 +14,7 @@ const _eq = Constraint(
 # _all_equal
 _concept_all_equal(x) = all(y -> y == x[1], x)
 
-function _error_all_equal(x::V) where {T <: Number, V <: AbstractVector{T}}
+function _error_all_equal(x::V; param = nothing, dom_size = 0) where {T <: Number, V <: AbstractVector{T}}
     acc = Dictionary{T,Int}()
     foreach(y -> _insert_or_inc(acc, y), x)
     return Float64(length(x) - maximum(acc))
@@ -31,7 +31,7 @@ const _all_equal = Constraint(
 
 # _all_equal_param
 _concept_all_equal_param(x; param) = all(y -> y == param, x)
-_error_all_equal_param(x; param) = count(y -> y != param, x)
+_error_all_equal_param(x; param, dom_size = 0) = count(y -> y != param, x)
 
 """
     all_equal_param
