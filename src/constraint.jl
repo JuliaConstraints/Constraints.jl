@@ -74,6 +74,6 @@ function _make_error(symb::Symbol)
     return begin
         isdefined(Constraints, Symbol("_icn_$symb")) ? eval(Symbol("_icn_$symb")) :
         isdefined(Constraints, Symbol("_error_$symb")) ? eval(Symbol("_error_$symb")) :
-        ((x; param=nothing, dom_size=0) -> Float64(!eval(Symbol("_concept_$symb"))))
+        ((x; param=nothing, dom_size=0) -> Float64(!eval(Symbol("_concept_$symb"))(x)))
     end
 end
