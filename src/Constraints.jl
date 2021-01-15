@@ -7,7 +7,7 @@ import CompositionalNetworks: hamming, explore_learn_compose, compose_to_file!
 import ConstraintDomains: domain
 
 # Exports
-export Constraint, usual_constraints
+export Constraint, usual_constraints, usual_symmetries
 export args_length, concept, error_f, params_length, symmetries
 
 # Includes internals
