@@ -1,14 +1,17 @@
 module Constraints
 
 # Imports
-import Dictionaries: Dictionary, set!
-import CompositionalNetworks
-import CompositionalNetworks: hamming, explore_learn_compose, compose_to_file!
-import ConstraintDomains: domain
+using Dictionaries
+using CompositionalNetworks
+using ConstraintDomains
 
 # Exports
-export Constraint, usual_constraints, usual_symmetries
-export args_length, concept, error_f, params_length, symmetries
+export Constraint
+export concept, error_f
+export args_length, params_length
+export symmetries
+export usual_constraints, usual_symmetries
+export learn_from_icn
 
 # Includes internals
 include("utils.jl")
@@ -25,16 +28,16 @@ include("constraints/ordered.jl")
 
 """
     usual_constraints::Dict
-Dictionary that contains all the usual constraints defined in Constraint.jl. 
+Dictionary that contains all the usual constraints defined in Constraint.jl.
 """
 const usual_constraints = Dict(
-    :all_different => _all_different,
-    :all_equal => _all_equal,
-    :all_equal_param => _all_equal_param,
+    :all_different => all_different,
+    :all_equal => all_equal,
+    :all_equal_param => all_equal_param,
     :always_true => Constraint(),
-    :dist_different => _dist_different,
-    :eq => _eq,
-    :ordered => _ordered,
+    :dist_different => dist_different,
+    :eq => eq,
+    :ordered => ordered,
 )
 
 # include learn script

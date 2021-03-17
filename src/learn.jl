@@ -23,7 +23,7 @@ function learn_from_icn()
 
     config = Dict(
         :local_iter => 100,
-        :global_iter => 10,
+        :global_iter => 100,
         :search => :complete,
         :metric => hamming,
         :population => 400,
@@ -33,7 +33,7 @@ function learn_from_icn()
 
     for t in targets
         @info "Starting learning for $(t.first)"
-        name = "_icn_$(t.first)"
+        name = "icn_$(t.first)"
         compose_to_file!(
             concept(usual_constraints[t.first]),
             name,

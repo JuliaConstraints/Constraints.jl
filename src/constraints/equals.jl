@@ -1,22 +1,23 @@
-# _eq
-_concept_eq(x) = x[1] == x[2]
+# eq
+concept_eq(x) = x[1] == x[2]
 
 """
-    _eq
+    eq
 Equality between two variables.
 """
-const _eq = Constraint(
+const eq = Constraint(
     args_length = 2,
-    concept = _concept_eq,
-    error = _make_error(:eq),
+    concept = concept_eq,
+    error = make_error(:eq),
 )
 
 # _all_equal
-_concept_all_equal(x) = all(y -> y == x[1], x)
+concept_all_equal(x) = all(y -> y == x[1], x)
 
-function _error_all_equal(x::V; param = nothing, dom_size = 0) where {T <: Number, V <: AbstractVector{T}}
+function error_all_equal(x::V; param = nothing, dom_size = 0
+) where {T <: Number, V <: AbstractVector{T}}
     acc = Dictionary{T,Int}()
-    foreach(y -> _insert_or_inc(acc, y), x)
+    foreach(y -> insert_or_inc(acc, y), x)
     return Float64(length(x) - maximum(acc))
 end
 
@@ -24,21 +25,21 @@ end
     all_equal
 Global constraint ensuring that all the values of `x` are all equal.
 """
-const _all_equal = Constraint(
-    concept = _concept_all_equal,
-    error = _make_error(:all_equal),
+const all_equal = Constraint(
+    concept = concept_all_equal,
+    error = make_error(:all_equal),
 )
 
-# _all_equal_param
-_concept_all_equal_param(x; param) = all(y -> y == param, x)
-_error_all_equal_param(x; param, dom_size = 0) = count(y -> y != param, x)
+# all_equal_param
+concept_all_equal_param(x; param) = all(y -> y == param, x)
+error_all_equal_param(x; param, dom_size = 0) = count(y -> y != param, x)
 
 """
     all_equal_param
 Global constraint ensuring that all the values of `x` are all equal to a given parameter `param`.
 """
-const _all_equal_param = Constraint(
-    concept = _concept_all_equal_param,
-    error = _error_all_equal_param,
+const all_equal_param = Constraint(
+    concept = concept_all_equal_param,
+    error = error_all_equal_param,
     param = 1,
 )
