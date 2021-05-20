@@ -1,23 +1,27 @@
 function learn_from_icn()
     targets = Dict(
         :all_different => Dict(
-            :domains => [domain([1,2,3,4]) for i in 1:4],
+            :domains => [domain(1:4) for i in 1:4],
         ),
         :dist_different => Dict(
-            :domains => [domain(Vector(1:4)) for i in 1:4],
+            :domains => [domain(1:4) for i in 1:4],
         ),
         :ordered => Dict(
-            :domains => [domain([1,2,3,4]) for i in 1:4],
+            :domains => [domain(1:4) for i in 1:4],
         ),
         :all_equal => Dict(
-            :domains => [domain([1,2,3,4]) for i in 1:4],
+            :domains => [domain(1:4) for i in 1:4],
         ),
         :eq => Dict(
-            :domains => [domain(Vector(1:10)) for i in 1:2],
+            :domains => [domain(1:10) for i in 1:2],
         ),
         :all_equal_param => Dict(
-            :domains => [domain(Vector(8:12)) for i in 1:4],
+            :domains => [domain(8:12) for i in 1:4],
             :param => 10,
+        ),
+        :sum_equal_param => Dict(
+            :domains => [domain(1:9) for i in 1:3],
+            :param => 15,
         ),
     )
 
