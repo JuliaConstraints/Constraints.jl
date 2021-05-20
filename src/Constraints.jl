@@ -38,6 +38,7 @@ const usual_constraints = Dict(
     :dist_different => dist_different,
     :eq => eq,
     :ordered => ordered,
+    :sum_equal_param => _sum_equal_param,
 )
 
 # include learn script

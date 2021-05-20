@@ -43,3 +43,17 @@ const all_equal_param = Constraint(
     error = error_all_equal_param,
     param = 1,
 )
+
+# _sum_equal_param
+_concept_sum_equal_param(x; param) = sum(x) == param
+_error_sum_equal_param(x; param, dom_size) = ceil(abs(sum(x) - param) / dom_size)
+
+"""
+    sum_equal_param
+Global constraint ensuring that the sum of the values of `x` is equal to a given parameter `param`.
+"""
+const _sum_equal_param = Constraint(
+    concept = _concept_sum_equal_param,
+    error = _error_sum_equal_param,
+    param = 1,
+)
