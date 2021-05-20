@@ -5,7 +5,8 @@ for (name, c) in usual_constraints
         x = rand(1:10, isnothing(al) ? 5 : al)
 
         pl = params_length(c)
-        y = rand(1:10, isnothing(pl) ? 5 : pl)
+        y_aux = rand(1:10, isnothing(pl) ? 5 : pl)
+        y = length(y_aux) == 1 ? first(y_aux) : y_aux
 
         ds = 10
 

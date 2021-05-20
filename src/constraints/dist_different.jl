@@ -7,4 +7,6 @@ Local constraint ensuring that `concept(dist_different, x) = |x[1] - x[2]| ≠ |
 const dist_different = Constraint(
     args_length = 4,
     concept = concept_dist_different,
+    error = make_error(:dist_different),
+    
 )
