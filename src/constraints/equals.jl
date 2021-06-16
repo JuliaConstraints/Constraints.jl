@@ -52,8 +52,23 @@ error_sum_equal_param(x; param, dom_size) = abs(sum(x) - param) / dom_size
     sum_equal_param
 Global constraint ensuring that the sum of the values of `x` is equal to a given parameter `param`.
 """
-const _sum_equal_param = Constraint(
+const sum_equal_param = Constraint(
     concept = concept_sum_equal_param,
     error = make_error(:sum_equal_param),
+    param = 1,
+)
+
+# _minus_equal_param
+concept_minus_equal_param(x; param) = x[1] == param + x[2]
+error_minus_equal_param(x; param, dom_size) = abs(x[1] - x[2] - param) / dom_size
+
+"""
+    sum_equal_param
+Global constraint ensuring that the sum of the values of `x` is equal to a given parameter `param`.
+"""
+const minus_equal_param = Constraint(
+    args_length = 2,
+    concept = concept_minus_equal_param,
+    error = make_error(:minus_equal_param),
     param = 1,
 )

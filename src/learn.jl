@@ -3,21 +3,32 @@ function learn_from_icn()
         :all_different => Dict(
             :domains => [domain(1:4) for i in 1:4],
         ),
-        :dist_different => Dict(
-            :domains => [domain(1:4) for i in 1:4],
-        ),
-        :ordered => Dict(
-            :domains => [domain(1:4) for i in 1:4],
-        ),
         :all_equal => Dict(
+            :domains => [domain(1:4) for i in 1:4],
+        ),
+        :all_equal_param => Dict(
+            :domains => [domain(8:12) for i in 1:4],
+            :param => 10,
+        ),
+        :dist_different => Dict(
             :domains => [domain(1:4) for i in 1:4],
         ),
         :eq => Dict(
             :domains => [domain(1:10) for i in 1:2],
         ),
-        :all_equal_param => Dict(
-            :domains => [domain(8:12) for i in 1:4],
-            :param => 10,
+        :less_than_param => Dict(
+            :domains => [domain(0:4) for i in 1:1],
+            :param => 2,
+        ),
+        :minus_equal_param => Dict(
+            :domains => [domain(0:4) for i in 1:2],
+            :param => 3,
+        ),
+        :ordered => Dict(
+            :domains => [domain(1:4) for i in 1:4],
+        ),
+        :sequential_tasks => Dict(
+            :domains => [domain(1:4) for i in 1:4],
         ),
         :sum_equal_param => Dict(
             :domains => [domain(1:9) for i in 1:3],

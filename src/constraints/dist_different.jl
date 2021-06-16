@@ -8,5 +8,4 @@ const dist_different = Constraint(
     args_length = 4,
     concept = concept_dist_different,
     error = make_error(:dist_different),
-    
 )
