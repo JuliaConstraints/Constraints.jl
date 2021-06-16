@@ -63,8 +63,8 @@ concept_minus_equal_param(x; param) = x[1] == param + x[2]
 error_minus_equal_param(x; param, dom_size) = abs(x[1] - x[2] - param) / dom_size
 
 """
-    sum_equal_param
-Global constraint ensuring that the sum of the values of `x` is equal to a given parameter `param`.
+    minus_equal_param
+Constraint ensuring that the difference between `x[1]` and `x[2]` is equal to a given parameter `param`.
 """
 const minus_equal_param = Constraint(
     args_length = 2,

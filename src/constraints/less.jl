@@ -4,7 +4,7 @@ error_less_than_param(x; param, dom_size = 0) = max(0.0, x[1] - param) / dom_siz
 
 """
     less_than_param
-Global constraint ensuring that the sum of the values of `x` is equal to a given parameter `param`.
+Constraint ensuring that the value of `x` is less than a given parameter `param`.
 """
 const less_than_param = Constraint(
     args_length = 1,
