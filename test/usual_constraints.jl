@@ -1,6 +1,6 @@
 for (name, c) in usual_constraints
     @testset "Constraint: $name" begin
-        for i in 1:1000
+        for i in 1:100000
             al = args_length(c)
             x = rand(1:10, isnothing(al) ? 5 : al)
 
