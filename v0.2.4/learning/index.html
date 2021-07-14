@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Learning (ICN) · Constraints.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link rel="canonical" href="https://JuliaConstraints.github.io/Constraints.jl/learning/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/favicon.ico" rel="icon" type="image/x-icon"/><script src="../assets/github_buttons.js"></script><link href="../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Constraints.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Learning (ICN)</a></li><li><span class="tocitem">Dependencies</span><ul><li><a class="tocitem" href="../domain/">ConstraintDomains.jl</a></li><li><a class="tocitem" href="../icn/">CompositionalNetworks.jl</a></li></ul></li><li><span class="tocitem">Library</span><ul><li><a class="tocitem" href="../public/">Public</a></li><li><a class="tocitem" href="../internal/">Internal</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Learning (ICN)</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Learning (ICN)</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaConstraints/Constraints.jl/blob/master/docs/src/learning.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Learning-through-ICNs"><a class="docs-heading-anchor" href="#Learning-through-ICNs">Learning through ICNs</a><a id="Learning-through-ICNs-1"></a><a class="docs-heading-anchor-permalink" href="#Learning-through-ICNs" title="Permalink"></a></h1><p>This feature is very basic so far, and should follow the procedure below</p><ul><li>Make the package a dev version <code>] dev Constraints</code></li><li>(Recommended) In <code>user_home/.julia/dev/Constraints</code>, <code>git checkout -b newcomposition</code></li><li>Define a new constraint <code>_c</code> and add it to <code>usual_constraint</code> in <code>Constraints.jl</code></li><li>Add it to the list of constraints to be learned in <code>learn.jl</code> (check the function below)</li><li>Enter a new julia session, and run<pre><code class="language-julia">using Constraints
+Constraints.learn_from_icn()</code></pre></li><li>Run tests: <code>] test Constraints</code></li><li>Commit, push, and make a draft PR to the dev branch</li></ul><pre><code class="language-julia">function learn_from_icn()
+    targets = Dict(
+        :all_different =&gt; Dict(
+            :domains =&gt; [domain([1,2,3,4]) for i in 1:4],
+        ),
+        :dist_different =&gt; Dict(
+            :domains =&gt; [domain(Vector(1:4)) for i in 1:4],
+        ),
+        :ordered =&gt; Dict(
+            :domains =&gt; [domain([1,2,3,4]) for i in 1:4],
+        ),
+        :all_equal =&gt; Dict(
+            :domains =&gt; [domain([1,2,3,4]) for i in 1:4],
+        ),
+        :eq =&gt; Dict(
+            :domains =&gt; [domain(Vector(1:10)) for i in 1:2],
+        ),
+        :all_equal_param =&gt; Dict(
+            :domains =&gt; [domain(Vector(8:12)) for i in 1:4],
+            :param =&gt; 10,
+        ),
+    )
+
+    config = Dict(
+        :local_iter =&gt; 100,
+        :global_iter =&gt; 10,
+        :search =&gt; :complete,
+        :metric =&gt; hamming,
+        :population =&gt; 400,
+    )
+
+    path = joinpath(dirname(pathof(Constraints)),&quot;compositions&quot;)
+
+    for t in targets
+        @info &quot;Starting learning for $(t.first)&quot;
+        name = &quot;_icn_$(t.first)&quot;
+        compose_to_file!(
+            concept(usual_constraints[t.first]),
+            name,
+            joinpath(path, &quot;$name.jl&quot;);
+            domains=t.second[:domains],
+            param=get(t.second, :param, nothing),
+            local_iter=config[:local_iter],
+            global_iter=config[:global_iter],
+            search=config[:search],
+            metric=config[:metric],
+            popSize=config[:population],
+            language=:Julia,
+        )
+    end
+
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../domain/">ConstraintDomains.jl »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.3 on <span class="colophon-date" title="Wednesday 14 July 2021 14:16">Wednesday 14 July 2021</span>. Using Julia version 1.6.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
