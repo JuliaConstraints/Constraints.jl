@@ -67,6 +67,7 @@ function learn_from_icn(;
             popSize=config[:population],
             language=config[:lang],
         )
+        println()
     end
 
 end
