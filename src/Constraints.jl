@@ -1,8 +1,6 @@
 module Constraints
 
 # Imports
-using Dictionaries: include
-using CompositionalNetworks: include
 using Dictionaries
 using CompositionalNetworks
 using ConstraintDomains
