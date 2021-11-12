@@ -1,3 +1,4 @@
+# all_equal
 concept_all_equal(x) = all(y -> y == x[1], x)
 
 function error_all_equal(x::V; param = nothing, dom_size = 0
