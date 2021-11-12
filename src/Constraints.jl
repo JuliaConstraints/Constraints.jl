@@ -10,7 +10,7 @@ using PrettyTables
 # Exports
 export Constraint
 export concept, error_f
-export args_length, params_length
+export args, params_length
 export symmetries
 export usual_constraints, usual_symmetries
 export learn_from_icn

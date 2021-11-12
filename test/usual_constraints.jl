@@ -1,10 +1,11 @@
 for (name, c) in usual_constraints
     @testset "Constraint: $name" begin
         for i in 1:100000
-            al = args_length(c)
+            al = c |> args
             x = rand(1:10, isnothing(al) ? 5 : al)
 
             pl = params_length(c)
+
             y_aux = rand(1:10, isnothing(pl) ? 5 : pl)
             y = length(y_aux) == 1 ? first(y_aux) : y_aux
 
