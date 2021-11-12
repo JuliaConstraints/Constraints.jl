@@ -86,23 +86,28 @@ end
 
 macro usual(name::Symbol, param_args_syms...)
     start_syms = 1
+
     param = if 1 ≤ length(param_args_syms) && isa(param_args_syms[1], Int)
-        param_args_syms[1]
         start_syms = 2
+        param_args_syms[1]
     else
         0
     end
+
     args = if length(param_args_syms) ≥ 2 && isa(param_args_syms[2], Int)
-        param_args_syms[2]
         start_syms = 3
+        param_args_syms[2]
     else
         0
     end
+
     syms = Set{Symbol}(param_args_syms[start_syms:end])
     concept = eval(:concept * name)
     error = make_error(name)
     ds = :description * name
+
     description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
+
     push!(
         usual_constraints,
         name => Constraint(; args, concept, description, error, param, syms),

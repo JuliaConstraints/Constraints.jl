@@ -12,6 +12,6 @@ end
 
 const description_cardinality = """Global constraint ensuring that all the values of a given configuration have the cardinality of the values in `param`, a collection of `Pair{T, UnitRange{Int}}`"""
 
-@usual cardinality
+# @usual cardinality
 
 # TODO - cardinality_closed
