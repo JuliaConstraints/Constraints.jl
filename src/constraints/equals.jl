@@ -9,15 +9,8 @@ const description_eq = """Equality between two variables"""
 concept_all_equal_param(x; param) = all(y -> y == param, x)
 error_all_equal_param(x; param, dom_size = 0) = count(y -> y != param, x)
 
-"""
-    all_equal_param
-Global constraint ensuring that all the values of `x` are all equal to a given parameter `param`.
-"""
-const all_equal_param = Constraint(
-    concept = concept_all_equal_param,
-    error = make_error(:all_equal_param),
-    param = 1,
-)
+const description_all_equal_param = """Global constraint ensuring that all the values of `x` are all equal to a given parameter `param`."""
+@usual all_equal_param 1
 
 # _sum_equal_param
 concept_sum_equal_param(x; param) = sum(x) == param
