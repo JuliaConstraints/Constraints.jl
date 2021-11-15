@@ -9,11 +9,16 @@ using PrettyTables
 
 # Exports
 export Constraint
-export concept, error_f
-export args, params_length
-export symmetries
-export usual_constraints, usual_symmetries
+
+export args
+export concept
+export describe
+export error_f
 export learn_from_icn
+export params_length
+export symmetries
+export usual_constraints
+export usual_symmetries
 
 # Includes internals
 include("utils.jl")
