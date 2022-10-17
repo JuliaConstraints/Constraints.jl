@@ -1,3 +1,8 @@
+using CompositionalNetworks
+using ConstraintDomains
+using ConstraintLearning
+using Constraints
+
 const DEFAULT_TARGETS = Dict(
     :all_different => Dict(
         :domains => [domain(1:4) for i in 1:4],
@@ -47,27 +52,36 @@ const DEFAULT_CONFIG = Dict(
 const DEFAULT_PATH = joinpath(dirname(pathof(Constraints)), "compositions")
 
 function learn_from_icn(;
-    targets = DEFAULT_TARGETS,
-    config = DEFAULT_CONFIG,
-    path = DEFAULT_PATH,
+    targets=DEFAULT_TARGETS,
+    config=DEFAULT_CONFIG,
+    path=DEFAULT_PATH
+)
+    optimizer = ICNGeneticOptimizer(;
+        global_iter=config[:global_iter],
+        local_iter=config[:local_iter],
+        pop_size=config[:population]
     )
     for t in targets
         @info "Starting learning for $(t.first)"
+        con = concept(usual_constraints[t.first])
+        domains = t.second[:domains]
+        param = get(t.second, :param, nothing)
+        settings = ExploreSettings(domains; search=config[:search])
+        configurations = explore(domains, con; param, settings)
         name = "icn_$(t.first)"
         compose_to_file!(
-            concept(usual_constraints[t.first]),
+            con,
             name,
             joinpath(path, "$name.jl");
-            domains=t.second[:domains],
-            param=get(t.second, :param, nothing),
-            local_iter=config[:local_iter],
-            global_iter=config[:global_iter],
-            search=config[:search],
-            metric=config[:metric],
-            popSize=config[:population],
-            language=config[:lang],
+            configurations,
+            domains,
+            optimizer,
+            param,
+            metric=config[:metric]
         )
         println()
     end
 
 end
+
+learn_from_icn()

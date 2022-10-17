@@ -70,7 +70,4 @@ include("constraints/sequential_tasks.jl")
 include("constraints/equals.jl")
 include("constraints/less.jl")
 
-# include learn script
-include("learn.jl")
-
 end
