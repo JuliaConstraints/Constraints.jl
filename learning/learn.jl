@@ -3,6 +3,7 @@ using ConstraintDomains
 using ConstraintLearning
 using Constraints
 
+# FIXME - Commented concept have a new name
 const DEFAULT_TARGETS = Dict(
     :all_different => Dict(
         :domains => [domain(1:4) for i in 1:4],
@@ -20,24 +21,24 @@ const DEFAULT_TARGETS = Dict(
     :eq => Dict(
         :domains => [domain(1:10) for i in 1:2],
     ),
-    :less_than_param => Dict(
-        :domains => [domain(0:4) for i in 1:1],
-        :param => 2,
-    ),
-    :minus_equal_param => Dict(
-        :domains => [domain(0:4) for i in 1:2],
-        :param => 3,
-    ),
+    # :less_than_param => Dict(
+    #     :domains => [domain(0:4) for i in 1:1],
+    #     :param => 2,
+    # ),
+    # :minus_equal_param => Dict(
+    #     :domains => [domain(0:4) for i in 1:2],
+    #     :param => 3,
+    # ),
     :ordered => Dict(
         :domains => [domain(1:4) for i in 1:4],
     ),
-    :sequential_tasks => Dict(
-        :domains => [domain(1:4) for i in 1:4],
-    ),
-    :sum_equal_param => Dict(
-        :domains => [domain(1:9) for i in 1:3],
-        :param => 15,
-    ),
+    # :sequential_tasks => Dict(
+    #     :domains => [domain(1:4) for i in 1:4],
+    # ),
+    # :sum_equal_param => Dict(
+    #     :domains => [domain(1:9) for i in 1:3],
+    #     :param => 15,
+    # ),
 )
 
 const DEFAULT_CONFIG = Dict(
