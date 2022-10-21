@@ -1,4 +1,4 @@
-#TODO - Look for an automata/regular language support package]
+#TODO - Look for an automata/regular language support package] -> Automa.jl
 
 abstract type AbstractAutomaton end
 
@@ -18,11 +18,11 @@ function accept(a::Automaton, w)
     return s == a.finish
 end
 
-concept_regular(x; param::AbstractAutomaton) = accept(param, x)
+concept_regular(x; automaton) = accept(automaton, x)
 
 const description_regular = """Constraint ensuring that the word `x` is recognized by the regular language encoded by `param<:AbstractAutomaton`"""
 
-@usual regular 1
+@usual regular
 
 # d = Dict(
 #     (:a, 0) => :a,
@@ -36,4 +36,4 @@ const description_regular = """Constraint ensuring that the word `x` is recogniz
 
 # a = Automaton(d, :a, :e)
 
-# recognize(a, [1, 1, 0, 1])
+# accept(a, [1, 1, 0, 1])
