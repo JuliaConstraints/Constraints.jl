@@ -1,6 +1,6 @@
 #!SECTION - all_equal
-concept_all_equal(x) = all(y -> y == x[1], x)
 concept_all_equal(x; param) = all(y -> y == param, x)
+concept_all_equal(x) = concept_all_equal(x; param = first(x))
 
 function error_all_equal(x; kwargs...)
     acc = Dictionary{eltype(x),Int}()
