@@ -1,17 +1,22 @@
 # cardinality (or global_cardinality or gcc)
-function concept_cardinality(x; param)
-    d = Dict{eltype(param).types[1],Int}()
-    for y in x
-        y ∈ Iterators.map(x -> first(x), param) && (d[y] = get!(d, y, 0) + 1)
+function concept_cardinality(x; closed=false, vals, occurs)
+    counts = zeros(Int, Indices(vals))
+    for t in x
+        if t ∉ vals
+            closed && (return false)
+            continue
+        else
+            incsert!(counts, t)
+        end
     end
-    for (k, r) in param
-        d[k] ∈ r || return false
+    for v in vals
+        counts[v] ∈ occurs(v) || (return false)
     end
     return true
 end
 
-const description_cardinality = """Global constraint ensuring that all the values of a given configuration have the cardinality of the values in `param`, a collection of `Pair{T, UnitRange{Int}}`"""
+const description_cardinality = """Global constraint ensuring that all ...`"""
 
-# @usual cardinality
+@usual cardinality
 
 # TODO - cardinality_closed

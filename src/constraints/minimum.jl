@@ -1,8 +1,8 @@
-concept_minimum(x; param) = x .< param
+concept_minimum(x; op = ==, param) = op(min(x), param)
 
-const _minimum = Constraint(
+const minimum = Constraint(
     concept = concept_minimum,
     error = make_error(:minimum),
 )
 
-# @usual minimum 1
+@usual minimum
