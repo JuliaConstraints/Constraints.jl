@@ -15,3 +15,5 @@ function concept_channel(x, y)
     end
     return true
 end
+
+concept_channel(x::AbstractVector{Bool}; id) = count(x) == 1 == x[id]

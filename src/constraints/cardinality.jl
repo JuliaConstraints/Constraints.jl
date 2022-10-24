@@ -18,5 +18,3 @@ end
 const description_cardinality = """Global constraint ensuring that all ...`"""
 
 @usual cardinality
-
-# TODO - cardinality_closed
