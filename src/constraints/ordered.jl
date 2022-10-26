@@ -28,8 +28,6 @@ const ordered = Constraint(
 
 const description_ordered = """Global constraint ensuring that all the values of `x` are ordered."""
 
-@usual ordered
-
 concept_increasing(x) = issorted(x)
 
 """
@@ -42,8 +40,6 @@ const increasing = Constraint(
 )
 
 const description_increasing = """Global constraint ensuring that all the values of `x` are in an increasing order."""
-
-@usual increasing
 
 concept_decreasing(x) = issorted(x; rev=true)
 
@@ -58,8 +54,6 @@ const decreasing = Constraint(
 
 const description_decreasing = """Global constraint ensuring that all the values of `x` are in a decreasing order."""
 
-@usual decreasing
-
 concept_strictly_increasing(x) = concept_ordered(x; op = <)
 
 """
@@ -72,8 +66,6 @@ const strictly_increasing = Constraint(
 )
 
 const description_sctrictly_increasing = """Global constraint ensuring that all the values of `x` are in a strictly increasing order."""
-
-@usual strictly_increasing
 
 concept_strictly_decreasing(x) = concept_ordered(x; op = >)
 
@@ -88,4 +80,4 @@ const sctrictly_decreasing = Constraint(
 
 const description_strictly_decreasing = """Global constraint ensuring that all the values of `x` are in a strictly decreasing order."""
 
-@usual strictly_decreasing
+@usual ordered decreasing strictly_decreasing increasing strictly_increasing

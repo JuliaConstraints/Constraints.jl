@@ -30,3 +30,5 @@ function concept_circuit(x; op = ≥, val = 1)
 end
 
 const description_circuit = "Global constraint ensuring that the values of `x` form a circuit. If the indices of the variables are not `1:length(x)`, the indices can be indicated as the `param` collection"
+
+@usual circuit

@@ -1,8 +1,4 @@
-function xcsp_no_overlap(;
-    origins,
-    lengths,
-    zero_ignored = true,
-)
+function xcsp_no_overlap(origins, lengths, zero_ignored)
     previous = (-Inf, -1)
     for t in sort(zip(origins, lengths))
         zero_ignored && iszero(t[2]) && continue
@@ -12,10 +8,10 @@ function xcsp_no_overlap(;
     return true
 end
 
-function xcsp_no_overlap(;
+function xcsp_no_overlap(
     origins::AbstractVector{NTuple{K, T}},
     lengths::AbstractVector{NTuple{K, T}},
-    zero_ignored = true,
+    zero_ignored,
 ) where {K, T <: Number}
     return all(
         dim -> xcsp_no_overlap(;
@@ -24,6 +20,10 @@ function xcsp_no_overlap(;
             zero_ignored),
         1:K,
     )
+end
+
+function xcsp_no_overlap(; origins, lengths, zero_ignored = true)
+    return xcsp_no_overlap(origins, lengths, zero_ignored)
 end
 
 function concept_no_overlap(x, pair_vars, _, zero_ignored, ::Val{1})
@@ -40,3 +40,7 @@ end
 function concept_no_overlap(x; pair_vars=ones(eltype(x), length(x)), dim=1, zero_ignored)
     return concept_no_overlap(x, pair_vars, dim, zero_ignored, Val(dim))
 end
+
+const description_no_overlap = """Global constraint ensuring that all ...`"""
+
+@usual no_overlap

@@ -11,3 +11,5 @@ xcsp_all_different(; list, except = nothing) = xcsp_all_different(list, except)
 concept_all_different(x; vals = nothing) = xcsp_all_different(list = x, except = vals)
 
 const description_all_different = """Global constraint ensuring that all the values of a given configuration are unique"""
+
+@usual all_different

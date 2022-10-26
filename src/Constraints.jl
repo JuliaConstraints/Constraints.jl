@@ -25,7 +25,7 @@ export usual_symmetries
 include("constraint.jl")
 
 # Includes learned errors from ICN
-foreach(include, readdir(joinpath(dirname(pathof(Constraints)), "compositions"); join=true))
+# foreach(include, readdir(joinpath(dirname(pathof(Constraints)), "compositions"); join=true))
 
 ## SECTION - Usual constraints (based on and including XCSP3-core categories)
 include("usual_constraints.jl")
