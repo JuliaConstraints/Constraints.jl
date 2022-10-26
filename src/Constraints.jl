@@ -22,13 +22,12 @@ export usual_constraints
 export usual_symmetries
 
 # Includes internals
-include("utils.jl")
 include("constraint.jl")
 
 # Includes learned errors from ICN
 foreach(include, readdir(joinpath(dirname(pathof(Constraints)), "compositions"); join=true))
 
-## SECTION - Usual constraints (based on and including XSP3-core categories)
+## SECTION - Usual constraints (based on and including XCSP3-core categories)
 include("usual_constraints.jl")
 
 # SECTION - Generic Constraints: intension, extension
