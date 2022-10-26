@@ -1,13 +1,26 @@
-## NOTE - constraints of type extension represent a list of supported or conflicted tuples
+##!NOTE - constraints of type extension represent a list of supported or conflicted tuples
 
-concept_support(x; param) = x ∈ param
+xcsp_extension(list, ::Nothing, conflicts) = list ∉ conflicts
+xcsp_extension(list, supports, _) = list ∈ supports
 
-const description_support = """Global constraint ensuring that `x` is in the set of configurations given by `param`: `x ∈ param`"""
+function xcsp_extension(; list, supports=nothing, conflicts=nothing)
+    return xcsp_extension(list, supports, conflicts)
+end
 
-@usual support 1
+function concept_extension(x; pair_vars::Vector{T}) where {T <: Number}
+    return xcsp_extension(list = x, supports = pair_vars[1], conflicts = nothing)
+end
 
-concept_conflict(x; param) = x ∉ param
+function concept_extension(x; pair_vars)
+    supports = pair_vars[1]
+    conflicts = pair_vars[2]
+    return xcsp_extension(; list = x, supports, conflicts)
+end
 
-const description_conflict = """Global constraint ensuring that `x` is not in the set of configurations given by `param`: `x ∉ param`"""
+concept_supports(x; pair_vars) = xcsp_extension(list = x, supports = pair_vars)
 
-@usual conflict 1
+const description_supports = """Global constraint ensuring that `x` is in the set of configurations given by `pair_vars`: `x ∈ pair_vars`"""
+
+concept_conflicts(x; pair_vars) = xcsp_extension(list = x, conflicts = pair_vars)
+
+const description_conflicts = """Global constraint ensuring that `x` is not in the set of configurations given by `pair_vars`: `x ∉ pair_vars`"""

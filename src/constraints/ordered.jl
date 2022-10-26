@@ -1,8 +1,20 @@
-function concept_ordered(x; op = ≤)
-    for (id, e) in enumerate(x[2:end])
-        op(x[id], e) || (return false)
+function xcsp_ordered(list, op, ::Nothing)
+    for (id, e) in enumerate(list[2:end])
+        operator(list[id], e) || (return false)
     end
     return true
+end
+
+function xcsp_ordered(list, operator, lengths)
+    for (id, e) in enumerate(list[2:end])
+        operator(list[id] + lengths[id], e) || (return false)
+    end
+    return true
+end
+xcsp_ordered(; list, operator, lengths = nothing) = xcsp_ordered(list, operator, lengths)
+
+function concept_ordered(x; op = ≤, pair_vars = nothing)
+    return xcsp_ordered(list = x, operator = op, lengths = pair_vars)
 end
 
 """

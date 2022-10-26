@@ -1,13 +1,9 @@
 #!SECTION - all_equal
-concept_all_equal(x; param) = all(y -> y == param, x)
-concept_all_equal(x) = concept_all_equal(x; param = first(x))
 
-function error_all_equal(x; kwargs...)
-    acc = Dictionary{eltype(x),Int}()
-    foreach(y -> insert_or_inc(acc, y), x)
-    return Float64(length(x) - maximum(acc))
-end
+concept_all_equal(x; val::T) where {T <: Number} = all(y -> y == val, x)
+
+xcsp_all_equal(; list) = concept_all_equal(list; val = first(list))
+
+concept_all_equal(x) = xcsp_all_equal(list = x)
 
 const description_all_equal = """Global constraint ensuring that all the values of `x` are all equal"""
-
-@usual all_equal

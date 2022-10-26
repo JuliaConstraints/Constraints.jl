@@ -1,5 +1,13 @@
+function xcsp_circuit(; list, size = nothing)
+    return if isnothing(size)
+        concept_circuit(list)
+    else
+        concept_circuit(list, op = ==, val = size)
+    end
+end
+
 # circuit (full circuit)
-function concept_circuit(x; op = ≥, size = 1)
+function concept_circuit(x; op = ≥, val = 1)
     s = Set(1:length(x))
     d = Dict{Int, Int}()
     while !isempty(s)

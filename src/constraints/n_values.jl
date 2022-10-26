@@ -1,13 +1,19 @@
 #!SECTION - nValues
 
-function concept_nvalues(x; op = ==, param)
+function xcsp_nvalues(list, condition, ::Nothing)
     vals = Set{eltype(x)}()
-    foreach(v -> push!(vals, v), x)
-    return op(length(vals), param)
+    foreach(v -> push!(vals, v), list)
+    return condition[1](length(vals), condition[2])
 end
 
-function concept_nvalues(x; except, kwargs...)
-    return concept_nvalues(Iterators.filter(y -> y ∉ except, x); kwargs...)
+function xcsp_nvalues(list, condition, except)
+    return xcsp_nvalues(Iterators.filter(y -> y ∉ except, list), condition, nothing)
+end
+
+xcsp_nvalues(; list, condition, except = nothing) = xcsp_nvalues(list, condition, except)
+
+function concept_nvalues(x; op = ==, val, vals = nothing)
+    return xcsp_nvalues(list = x, condition = (op, val), except = vals)
 end
 
 const description_nvalues = """Global constraint ensuring that ..."""

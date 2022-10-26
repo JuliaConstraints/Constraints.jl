@@ -2,6 +2,7 @@ module Constraints
 
 # Imports
 using CompositionalNetworks
+using ConstraintCommons
 using ConstraintDomains
 using DataFrames
 using Dictionaries
@@ -65,9 +66,5 @@ include("constraints/circuit.jl")
 # SECTION - Elementary Constraints
 include("constraints/instantiation.jl")
 
-# TODO - where?
-include("constraints/sequential_tasks.jl")
-include("constraints/equals.jl")
-include("constraints/less.jl")
 
 end
