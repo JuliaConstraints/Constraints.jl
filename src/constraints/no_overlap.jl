@@ -37,10 +37,27 @@ function concept_no_overlap(x, pair_vars, dim, zero_ignored, _)
     return xcsp_no_overlap(; origins, lengths, zero_ignored)
 end
 
-function concept_no_overlap(x; pair_vars=ones(eltype(x), length(x)), dim=1, zero_ignored)
+function concept_no_overlap(
+    x;
+    pair_vars=ones(eltype(x), length(x)),
+    dim=1,
+    zero_ignored = true,
+)
     return concept_no_overlap(x, pair_vars, dim, zero_ignored, Val(dim))
 end
 
 const description_no_overlap = """Global constraint ensuring that all ...`"""
 
-@usual no_overlap
+function concept_no_overlap_no_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
+    return concept_no_overlap(x; pair_vars, dim, zero_ignored=true)
+end
+
+const description_no_overlap_no_zero = """Global constraint ensuring that all ...`"""
+
+function concept_no_overlap_with_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
+    return concept_no_overlap(x; pair_vars, dim, zero_ignored=false)
+end
+
+const description_no_overlap_with_zero = """Global constraint ensuring that all ...`"""
+
+@usual no_overlap no_overlap_with_zero no_overlap_no_zero

@@ -1,4 +1,4 @@
-function xcsp_ordered(list, op, ::Nothing)
+function xcsp_ordered(list, operator, ::Nothing)
     for (id, e) in enumerate(list[2:end])
         operator(list[id], e) || (return false)
     end

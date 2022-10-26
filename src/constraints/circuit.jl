@@ -21,7 +21,7 @@ function concept_circuit(x; op = ≥, val = 1)
             end
             l += 1
             δ = get!(d, v, l) - l
-            !iszero(δ) && op(δ, size) && (return true)
+            !iszero(δ) && op(δ, val) && (return true)
             u = v
         end
         setdiff!(s, keys(d))
