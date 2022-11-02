@@ -1,7 +1,7 @@
 #!SECTION - nValues
 
 function xcsp_nvalues(list, condition, ::Nothing)
-    vals = Set{eltype(x)}()
+    vals = Set{eltype(list)}()
     foreach(v -> push!(vals, v), list)
     return condition[1](length(vals), condition[2])
 end

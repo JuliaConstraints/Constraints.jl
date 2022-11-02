@@ -1,4 +1,4 @@
-xcsp_maximum(; list, condition) = condition[1](max(list), condition[2])
+xcsp_maximum(; list, condition) = condition[1](maximum(list), condition[2])
 
 concept_maximum(x; op = ==, val) = xcsp_maximum(; list = x, condition = (op, val))
 

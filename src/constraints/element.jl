@@ -1,11 +1,12 @@
-xcsp_element(list, index, condition::Pair) = condition[1].(list[index], condition[2])
-
+function xcsp_element(list, index, condition::Tuple)
+    condition[1].(list[index], condition[2])
+end
 xcsp_element(list, index, value) = xcsp_element(list, index, (==, value))
 
-xcsp_element(; params...) = xcsp_element(params...)
+xcsp_element(; params...) = xcsp_element(params[:list], params[:index], params[:condition])
 
 function concept_element(x, id, op, val)
-    return xcsp_element(list = x, index = id, condition = (op, val))
+    return xcsp_element(; list = x, index = id, condition = (op, val))
 end
 
 function concept_element(x, ::Nothing, op, ::Nothing)

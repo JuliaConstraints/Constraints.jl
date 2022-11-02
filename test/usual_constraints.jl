@@ -1,26 +1,17 @@
+domains = fill(domain(0:3), 4)
+dom_bool = fill(domain([false, true]), 4)
+
 for (name, c) in usual_constraints
     @testset "Constraint: $name" begin
-        # for i in 1:100000
-        for i in 1:1
-            for params in extract_parameters(c.concept)
-                isempty(params) && continue
-                @info name params
+        @info "Testing $name"
+        for _ in 1:10000
+            for (id, method_params) in enumerate(extract_parameters(c.concept))
+                params = Dict(
+                    map(p -> (p => rand(generate_parameters(domains, p))), method_params)
+                )
+                x = rand(occursin("Bool", Base.arg_decl_parts(methods(c.concept)[id])[2][2][2]) ? dom_bool : domains)
+                @test (c.error(x; params...) > 0.0) != c.concept(x; params...)
             end
-
-        #     al = c |> args
-        #     x = rand(1:10, isnothing(al) ? 5 : al)
-
-        #     pl = params_length(c)
-
-        #     y_aux = rand(1:10, isnothing(pl) ? 5 : pl)
-        #     y = length(y_aux) == 1 ? first(y_aux) : y_aux
-
-        #     ds = 10
-
-        #     c_concept = pl == 0 ? concept(c, x) : concept(c, x; param = y)
-        #     c_error_f = pl == 0 ? error_f(c, x; dom_size = ds) : error_f(c, x; param = y, dom_size = ds)
-
-        #     @test c_concept ? (c_error_f == 0.0) : (c_error_f > 0.0)
         end
         symmetries(c)
     end
