@@ -29,4 +29,8 @@ const description_cardinality_open = """Global constraint ensuring that all ...`
 concept_cardinality_closed(x; vals) = concept_cardinality(x; closed = true, vals)
 concept_cardinality_open(x; vals) = concept_cardinality(x; vals)
 
+const params_cardinality = [:vals, :bool]
+const params_cardinality_closed = [:vals]
+const params_cardinality_open = [:vals]
+
 @usual cardinality cardinality_closed cardinality_open

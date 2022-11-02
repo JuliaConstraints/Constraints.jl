@@ -21,6 +21,8 @@ export symmetries
 export usual_constraints
 export usual_symmetries
 
+export extract_parameters
+
 # Includes internals
 include("constraint.jl")
 

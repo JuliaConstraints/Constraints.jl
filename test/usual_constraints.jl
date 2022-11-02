@@ -1,20 +1,26 @@
 for (name, c) in usual_constraints
     @testset "Constraint: $name" begin
-        for i in 1:100000
-            al = c |> args
-            x = rand(1:10, isnothing(al) ? 5 : al)
+        # for i in 1:100000
+        for i in 1:1
+            for params in extract_parameters(c.concept)
+                isempty(params) && continue
+                @info name params
+            end
 
-            pl = params_length(c)
+        #     al = c |> args
+        #     x = rand(1:10, isnothing(al) ? 5 : al)
 
-            y_aux = rand(1:10, isnothing(pl) ? 5 : pl)
-            y = length(y_aux) == 1 ? first(y_aux) : y_aux
+        #     pl = params_length(c)
 
-            ds = 10
+        #     y_aux = rand(1:10, isnothing(pl) ? 5 : pl)
+        #     y = length(y_aux) == 1 ? first(y_aux) : y_aux
 
-            c_concept = pl == 0 ? concept(c, x) : concept(c, x; param = y)
-            c_error_f = pl == 0 ? error_f(c, x; dom_size = ds) : error_f(c, x; param = y, dom_size = ds)
+        #     ds = 10
 
-            @test c_concept ? (c_error_f == 0.0) : (c_error_f > 0.0)
+        #     c_concept = pl == 0 ? concept(c, x) : concept(c, x; param = y)
+        #     c_error_f = pl == 0 ? error_f(c, x; dom_size = ds) : error_f(c, x; param = y, dom_size = ds)
+
+        #     @test c_concept ? (c_error_f == 0.0) : (c_error_f > 0.0)
         end
         symmetries(c)
     end

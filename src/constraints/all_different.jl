@@ -12,4 +12,6 @@ concept_all_different(x; vals = nothing) = xcsp_all_different(list = x, except =
 
 const description_all_different = """Global constraint ensuring that all the values of a given configuration are unique"""
 
+const params_all_different = [:vals]
+
 @usual all_different

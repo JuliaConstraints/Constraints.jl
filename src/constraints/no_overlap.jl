@@ -26,38 +26,45 @@ function xcsp_no_overlap(; origins, lengths, zero_ignored = true)
     return xcsp_no_overlap(origins, lengths, zero_ignored)
 end
 
-function concept_no_overlap(x, pair_vars, _, zero_ignored, ::Val{1})
+function concept_no_overlap(x, pair_vars, _, bool, ::Val{1})
     return xcsp_no_overlap(; origins = x, lengths = pair_vars, zero_ignored)
 end
 
-function concept_no_overlap(x, pair_vars, dim, zero_ignored, _)
+function concept_no_overlap(x, pair_vars, dim, bool, _)
     l = length(x) ÷ dim
     origins = reinterpret(reshape, NTuple{dim, eltype(x)}, reshape(x, (dim, l)))
     lengths = reinterpret(reshape, NTuple{dim, eltype(x)}, reshape(pair_vars, (dim, l)))
-    return xcsp_no_overlap(; origins, lengths, zero_ignored)
+    return xcsp_no_overlap(; origins, lengths, zero_ignored = bool)
 end
 
 function concept_no_overlap(
     x;
     pair_vars=ones(eltype(x), length(x)),
     dim=1,
-    zero_ignored = true,
+    bool = true,
 )
-    return concept_no_overlap(x, pair_vars, dim, zero_ignored, Val(dim))
+    return concept_no_overlap(x, pair_vars, dim, bool, Val(dim))
 end
 
 const description_no_overlap = """Global constraint ensuring that all ...`"""
 
+const params_no_overlap = [:pair_vars, :dim, :bool]
+
 function concept_no_overlap_no_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
-    return concept_no_overlap(x; pair_vars, dim, zero_ignored=true)
+    return concept_no_overlap(x; pair_vars, dim, bool=true)
 end
 
 const description_no_overlap_no_zero = """Global constraint ensuring that all ...`"""
 
+const params_no_overlap_no_zero = [:pair_vars, :dim]
+
+
 function concept_no_overlap_with_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
-    return concept_no_overlap(x; pair_vars, dim, zero_ignored=false)
+    return concept_no_overlap(x; pair_vars, dim, bool=false)
 end
 
 const description_no_overlap_with_zero = """Global constraint ensuring that all ...`"""
+
+const params_no_overlap_with_zero = [:pair_vars, :dim]
 
 @usual no_overlap no_overlap_with_zero no_overlap_no_zero

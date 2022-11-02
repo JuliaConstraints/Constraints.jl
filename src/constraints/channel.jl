@@ -18,8 +18,6 @@ end
 
 xcsp_channel(; list...) = xcsp_channel(list...)
 
-concept_channel(x; dim = 1) = concept_channel(x, Val(dim))
-
 function concept_channel(x, ::Val{2})
     mid = length(x) ÷ 2
     return xcsp_channel(list = (@view(x[1:mid]), @view(x[mid+1:end])))
@@ -27,8 +25,10 @@ end
 
 concept_channel(x, ::Val) = xcsp_channel(list = x)
 
+concept_channel(x; dim = 1) = concept_channel(x, Val(dim))
+
 concept_channel(x::AbstractVector{Bool}; id) = count(x) == 1 == x[id]
 
 const description_channel = """Global constraint ensuring that all ...`"""
 
-@usual cardinality
+@usual channel
