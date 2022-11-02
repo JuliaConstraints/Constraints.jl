@@ -1,17 +1,36 @@
 # cardinality (or global_cardinality or gcc)
-function concept_cardinality(x; param)
-    d = Dict{eltype(param).types[1],Int}()
-    for y in x
-        y ∈ Iterators.map(x -> first(x), param) && (d[y] = get!(d, y, 0) + 1)
+
+function xcsp_cardinality(; list, values, occurs, closed=false)
+    counts = zeros(Int, Indices(distinct(values)))
+    for t in list
+        if t ∉ values
+            closed && (return false)
+            continue
+        else
+            incsert!(counts, t)
+        end
     end
-    for (k, r) in param
-        d[k] ∈ r || return false
+    for (id, v) in enumerate(values)
+        counts[v] ∈ occurs[id] || (return false)
     end
     return true
 end
 
-const description_cardinality = """Global constraint ensuring that all the values of a given configuration have the cardinality of the values in `param`, a collection of `Pair{T, UnitRange{Int}}`"""
+function concept_cardinality(x; bool=false, vals)
+    values = vals[1]
+    occurs = if length(vals) ≥ 3
+        map(i -> vals[2][i]:(vals[2][i] ≤ vals[3][i] ? 1 : -1):(vals[3][i]), 1:length(vals[1]))
+    else
+        vals[2]
+    end
+    return xcsp_cardinality(; list=x, values, occurs, closed=bool)
+end
 
-# @usual cardinality
+const description_cardinality = """Global constraint ensuring that all ...`"""
+const description_cardinality_closed = """Global constraint ensuring that all ...`"""
+const description_cardinality_open = """Global constraint ensuring that all ...`"""
 
-# TODO - cardinality_closed
+concept_cardinality_closed(x; vals) = concept_cardinality(x; bool=true, vals)
+concept_cardinality_open(x; vals) = concept_cardinality(x; bool=false, vals)
+
+@usual cardinality cardinality_closed cardinality_open

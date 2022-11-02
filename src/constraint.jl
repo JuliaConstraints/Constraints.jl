@@ -15,7 +15,7 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
     concept::FConcept
     description::String
     error::FError
-    params_length::Int
+    params::Set{Symbol}
     symmetries::Set{Symbol}
 
     function Constraint(;
@@ -23,11 +23,11 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
         concept=x -> true,
         description="No given description!",
         error=(x; param=0, dom_size=0) -> Float64(!concept(x)),
-        param=0,
+        params=Set{Symbol}(),
         syms=Set{Symbol}(),
     )
         return new{typeof(concept),typeof(error)}(
-            args, concept, description, error, param, syms
+            args, concept, description, error, params, syms
         )
     end
 end
@@ -79,38 +79,60 @@ function make_error(symb::Symbol)
         elseif isdefined(Constraints, Symbol("error_$symb"))
             eval(Symbol("error_$symb"))
         else
-            ((x; param=nothing, dom_size=0) -> Float64(!eval(Symbol("concept_$symb"))(x)))
+            ((x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...)))
         end
     end
 end
 
-macro usual(name::Symbol, param_args_syms...)
-    start_syms = 1
+# macro usual_old(name::Symbol, param_args_syms...)
+#     start_syms = 1
 
-    param = if 1 ≤ length(param_args_syms) && isa(param_args_syms[1], Int)
-        start_syms = 2
-        param_args_syms[1]
-    else
-        0
+#     param = if 1 ≤ length(param_args_syms) && isa(param_args_syms[1], Int)
+#         start_syms = 2
+#         param_args_syms[1]
+#     else
+#         0
+#     end
+
+#     args = if length(param_args_syms) ≥ 2 && isa(param_args_syms[2], Int)
+#         start_syms = 3
+#         param_args_syms[2]
+#     else
+#         0
+#     end
+
+#     syms = Set{Symbol}(param_args_syms[start_syms:end])
+#     concept = eval(:concept * name)
+#     error = make_error(name)
+#     ds = :description * name
+
+#     description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
+
+#     push!(
+#         usual_constraints,
+#         name => Constraint(; args, concept, description, error, param, syms),
+#     )
+#     return nothing
+# end
+
+macro usual(names::Symbol...)
+    for name in names
+
+        concept = eval(:concept * name)
+
+        error = make_error(name)
+
+        ds = :description * name
+        description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
+
+        ps = :params * name
+        params = isdefined(Constraints, ps) ? Set(eval(ps)) : Set{Symbol}()
+
+        push!(
+            usual_constraints,
+            name => Constraint(; concept, description, error, params),
+        )
     end
 
-    args = if length(param_args_syms) ≥ 2 && isa(param_args_syms[2], Int)
-        start_syms = 3
-        param_args_syms[2]
-    else
-        0
-    end
-
-    syms = Set{Symbol}(param_args_syms[start_syms:end])
-    concept = eval(:concept * name)
-    error = make_error(name)
-    ds = :description * name
-
-    description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
-
-    push!(
-        usual_constraints,
-        name => Constraint(; args, concept, description, error, param, syms),
-    )
     return nothing
 end

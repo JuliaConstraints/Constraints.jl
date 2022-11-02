@@ -1,12 +1,12 @@
-# all_equal
-concept_all_equal(x) = all(y -> y == x[1], x)
+#!SECTION - all_equal
 
-function error_all_equal(x::V; param = nothing, dom_size = 0
-) where {T <: Number, V <: AbstractVector{T}}
-    acc = Dictionary{T,Int}()
-    foreach(y -> insert_or_inc(acc, y), x)
-    return Float64(length(x) - maximum(acc))
-end
+concept_all_equal(x, val) = all(y -> y == val, x)
+
+xcsp_all_equal(; list) = concept_all_equal(list; val=first(list))
+
+concept_all_equal(x; val=nothing) = concept_all_equal(x, val)
+
+concept_all_equal(x, ::Nothing) = xcsp_all_equal(list=x)
 
 const description_all_equal = """Global constraint ensuring that all the values of `x` are all equal"""
 

@@ -2,6 +2,7 @@ module Constraints
 
 # Imports
 using CompositionalNetworks
+using ConstraintCommons
 using ConstraintDomains
 using DataFrames
 using Dictionaries
@@ -20,14 +21,15 @@ export symmetries
 export usual_constraints
 export usual_symmetries
 
+export extract_parameters
+
 # Includes internals
-include("utils.jl")
 include("constraint.jl")
 
 # Includes learned errors from ICN
-foreach(include, readdir(joinpath(dirname(pathof(Constraints)), "compositions"); join=true))
+# foreach(include, readdir(joinpath(dirname(pathof(Constraints)), "compositions"); join=true))
 
-## SECTION - Usual constraints (based on and including XSP3-core categories)
+## SECTION - Usual constraints (based on and including XCSP3-core categories)
 include("usual_constraints.jl")
 
 # SECTION - Generic Constraints: intension, extension
@@ -65,12 +67,5 @@ include("constraints/circuit.jl")
 # SECTION - Elementary Constraints
 include("constraints/instantiation.jl")
 
-# TODO - where?
-include("constraints/sequential_tasks.jl")
-include("constraints/equals.jl")
-include("constraints/less.jl")
-
-# include learn script
-include("learn.jl")
 
 end
