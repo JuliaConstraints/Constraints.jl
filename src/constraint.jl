@@ -79,7 +79,7 @@ function make_error(symb::Symbol)
         elseif isdefined(Constraints, Symbol("error_$symb"))
             eval(Symbol("error_$symb"))
         else
-            ((x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...)))
+            ((x, X = nothing; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...)))
         end
     end
 end
