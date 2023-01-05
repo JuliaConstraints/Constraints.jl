@@ -73,47 +73,10 @@ Return the list of symmetries of `c`.
 symmetries(c::Constraint) = c.symmetries
 
 function make_error(symb::Symbol)
-    return begin
-        if isdefined(Constraints, Symbol("icn_$symb"))
-            eval(Symbol("icn_$symb"))
-        elseif isdefined(Constraints, Symbol("error_$symb"))
-            eval(Symbol("error_$symb"))
-        else
-            ((x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...)))
-        end
-    end
+    isdefined(Constraints, Symbol("icn_$symb")) && (return eval(Symbol("icn_$symb")))
+    isdefined(Constraints, Symbol("error_$symb")) && (return eval(Symbol("error_$symb")))
+    return (x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...))
 end
-
-# macro usual_old(name::Symbol, param_args_syms...)
-#     start_syms = 1
-
-#     param = if 1 ≤ length(param_args_syms) && isa(param_args_syms[1], Int)
-#         start_syms = 2
-#         param_args_syms[1]
-#     else
-#         0
-#     end
-
-#     args = if length(param_args_syms) ≥ 2 && isa(param_args_syms[2], Int)
-#         start_syms = 3
-#         param_args_syms[2]
-#     else
-#         0
-#     end
-
-#     syms = Set{Symbol}(param_args_syms[start_syms:end])
-#     concept = eval(:concept * name)
-#     error = make_error(name)
-#     ds = :description * name
-
-#     description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
-
-#     push!(
-#         usual_constraints,
-#         name => Constraint(; args, concept, description, error, param, syms),
-#     )
-#     return nothing
-# end
 
 macro usual(names::Symbol...)
     for name in names
