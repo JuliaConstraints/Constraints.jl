@@ -8,20 +8,22 @@ using DataFrames
 using Dictionaries
 using PrettyTables
 
+import ConstraintCommons: extract_parameters
+
 # Exports
 export Constraint
+
+export USUAL_CONSTRAINTS
+export USUAL_SYMMETRIES
 
 export args
 export concept
 export describe
 export error_f
+export extract_parameters
 export learn_from_icn
 export params_length
-export symmetries
-export usual_constraints
-export usual_symmetries
-
-export extract_parameters
+# export symmetries
 
 # Includes internals
 include("constraint.jl")
