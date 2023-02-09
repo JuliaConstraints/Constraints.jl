@@ -1,8 +1,8 @@
 """
-    symmetries
+    USUAL_SYMMETRIES
 A Dictionary that contains the function to apply for each symmetry to avoid searching a whole space.
 """
-const usual_symmetries = Dict(:permutable => sort)
+const USUAL_SYMMETRIES = Dict(:permutable => sort)
 
 """
     Constraint
@@ -88,11 +88,11 @@ macro usual(names::Symbol...)
         ds = :description * name
         description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
 
-        ps = :params * name
-        params = isdefined(Constraints, ps) ? Set(eval(ps)) : Set{Symbol}()
+        ps = extract_parameters(concept)
+        params = Set(Iterators.flatten(ps))
 
         push!(
-            usual_constraints,
+            USUAL_CONSTRAINTS,
             name => Constraint(; concept, description, error, params),
         )
     end
