@@ -25,10 +25,8 @@ end
 
 concept_channel(x, ::Val) = xcsp_channel(list=x)
 
-concept_channel(x; dim=1) = concept_channel(x, Val(dim))
-
-concept_channel(x::AbstractVector{Bool}; id) = count(x) == 1 == x[id]
-
 const description_channel = """Global constraint ensuring that all ...`"""
 
-@usual channel
+@usual concept_channel(x; dim=1) = concept_channel(x, Val(dim))
+
+@usual concept_channel(x::AbstractVector{Bool}; id) = count(x) == 1 == x[id]

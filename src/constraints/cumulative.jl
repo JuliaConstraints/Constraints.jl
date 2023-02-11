@@ -18,10 +18,8 @@ function concept_cumulative(x, pair_vars::Vector{T}, op, val) where {T<:Number}
     return concept_cumulative(x, fill(pair_vars, 2), op, val)
 end
 
-function concept_cumulative(x; pair_vars=ones(eltype(x), length(x)), op=≤, val)
-    return concept_cumulative(x, pair_vars, op, val)
-end
-
 const description_cumulative = """Global constraint ensuring that all ...`"""
 
-@usual cumulative
+@usual function concept_cumulative(x; pair_vars=ones(eltype(x), length(x)), op=≤, val)
+    return concept_cumulative(x, pair_vars, op, val)
+end

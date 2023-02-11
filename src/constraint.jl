@@ -15,7 +15,7 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
     concept::FConcept
     description::String
     error::FError
-    params::Set{Symbol}
+    params::Vector{Dict{Symbol, Bool}}
     symmetries::Set{Symbol}
 
     function Constraint(;
@@ -23,7 +23,7 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
         concept=x -> true,
         description="No given description!",
         error=(x; param=0, dom_size=0) -> Float64(!concept(x)),
-        params=Set{Symbol}(),
+        params=Vector{Dict{Symbol, Bool}}(),
         syms=Set{Symbol}(),
     )
         return new{typeof(concept),typeof(error)}(
@@ -76,26 +76,4 @@ function make_error(symb::Symbol)
     isdefined(Constraints, Symbol("icn_$symb")) && (return eval(Symbol("icn_$symb")))
     isdefined(Constraints, Symbol("error_$symb")) && (return eval(Symbol("error_$symb")))
     return (x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...))
-end
-
-macro usual(names::Symbol...)
-    for name in names
-
-        concept = eval(:concept * name)
-
-        error = make_error(name)
-
-        ds = :description * name
-        description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
-
-        ps = extract_parameters(concept)
-        params = Set(Iterators.flatten(ps))
-
-        push!(
-            USUAL_CONSTRAINTS,
-            name => Constraint(; concept, description, error, params),
-        )
-    end
-
-    return nothing
 end

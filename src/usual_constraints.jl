@@ -42,3 +42,39 @@ function ConstraintCommons.extract_parameters(
 )
     return ConstraintCommons.extract_parameters(concept(constraints_dict[s]); parameters)
 end
+
+macro usual(ex::Expr)
+    # Symbol of the concept, for instance :all_different
+    s = ex.args[1].args[1]
+    c = Symbol(string(s)[9:end])
+
+    # Dict storing the existence or not of a default value for each kwarg
+    defaults = Dict{Symbol, Bool}()
+
+    # Check if a `;` is present in the call, then loop over kwargs
+    if length(ex.args[1].args) > 2
+        for kwarg in ex.args[1].args[2].args
+            if isa(kwarg, Symbol)
+                push!(defaults, kwarg => false)
+            else
+                push!(defaults, kwarg.args[1] => true)
+            end
+        end
+    end
+
+    if haskey(USUAL_CONSTRAINTS, c)
+        push!(USUAL_CONSTRAINTS[c].params, defaults)
+    else # Enter new constraint
+        error = make_error(c)
+        ds = :description * c
+        description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
+
+        concept = eval(ex)
+        params = [defaults]
+        cons = Constraint(; concept, description, error, params)
+
+        push!(USUAL_CONSTRAINTS, c => cons)
+    end
+
+    return nothing
+end

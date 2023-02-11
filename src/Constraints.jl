@@ -23,7 +23,7 @@ export error_f
 export extract_parameters
 export learn_from_icn
 export params_length
-# export symmetries
+export symmetries
 
 # Includes internals
 include("constraint.jl")

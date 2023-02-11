@@ -6,8 +6,10 @@ function xcsp_circuit(; list, size = nothing)
     end
 end
 
+const description_circuit = "Global constraint ensuring that the values of `x` form a circuit. If the indices of the variables are not `1:length(x)`, the indices can be indicated as the `param` collection"
+
 # circuit (full circuit)
-function concept_circuit(x; op = ≥, val = 1)
+@usual function concept_circuit(x; op = ≥, val = 1)
     s = Set(1:length(x))
     d = Dict{Int, Int}()
     while !isempty(s)
@@ -28,7 +30,3 @@ function concept_circuit(x; op = ≥, val = 1)
     end
     return false
 end
-
-const description_circuit = "Global constraint ensuring that the values of `x` form a circuit. If the indices of the variables are not `1:length(x)`, the indices can be indicated as the `param` collection"
-
-@usual circuit

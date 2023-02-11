@@ -1,5 +1,7 @@
 #!NOTE - constraints of type intension represent general predicate over a set of variables
 
+const description_dist_different = """Local constraint ensuring that `concept(dist_different, x) = |x[1] - x[2]| ≠ |x[3] - x[4]|`"""
+
 """
     xcsp_intension(list, predicate)
 
@@ -10,9 +12,4 @@ xcsp_intension(; list, predicate) = predicate(list)
 # Dist different TODO - check if a better name exists
 predicate_dist_different(x) = abs(x[1] - x[2]) ≠ abs(x[3] - x[4])
 
-concept_dist_different(x) = xcsp_intension(list = x, predicate = predicate_dist_different)
-
-const description_dist_different = """Local constraint ensuring that `concept(dist_different, x) = |x[1] - x[2]| ≠ |x[3] - x[4]|`"""
-
-# 0 parameters, 4 variables
-@usual dist_different
+@usual concept_dist_different(x) = xcsp_intension(list = x, predicate = predicate_dist_different)
