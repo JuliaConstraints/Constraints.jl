@@ -7,6 +7,8 @@ using ConstraintDomains
 using DataFrames
 using Dictionaries
 using PrettyTables
+using TestItemRunner
+using TestItems
 
 import ConstraintCommons: extract_parameters
 

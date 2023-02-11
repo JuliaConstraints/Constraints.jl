@@ -77,3 +77,10 @@ function make_error(symb::Symbol)
     isdefined(Constraints, Symbol("error_$symb")) && (return eval(Symbol("error_$symb")))
     return (x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...))
 end
+
+## SECTION - Test Items
+@testitem "Empty constraint" tags = [:constraint, :empty] begin
+    c = Constraint()
+    @test concept(c, []) == true
+    @test error_f(c, []) == 0.0
+end
