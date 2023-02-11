@@ -1,7 +1,7 @@
 domains = fill(domain(0:3), 4)
 dom_bool = fill(domain([false, true]), 4)
 
-for (name, c) in usual_constraints
+for (name, c) in USUAL_CONSTRAINTS
     @testset "Constraint: $name" begin
         @info "Testing $name"
         for _ in 1:10000

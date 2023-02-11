@@ -12,10 +12,8 @@ end
 
 xcsp_nvalues(; list, condition, except = nothing) = xcsp_nvalues(list, condition, except)
 
-function concept_nvalues(x; op = ==, val, vals = nothing)
-    return xcsp_nvalues(list = x, condition = (op, val), except = vals)
-end
-
 const description_nvalues = """Global constraint ensuring that ..."""
 
-@usual nvalues
+@usual function concept_nvalues(x; op = ==, val, vals = nothing)
+    return xcsp_nvalues(list = x, condition = (op, val), except = vals)
+end

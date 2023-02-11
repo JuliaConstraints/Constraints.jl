@@ -17,16 +17,15 @@ function concept_extension(x, pair_vars)
     return xcsp_extension(; list = x, supports, conflicts)
 end
 
-concept_extension(x; pair_vars) = concept_extension(x, pair_vars)
-
 const description_extension = """Global constraint ensuring that all ...`"""
 
-concept_supports(x; pair_vars) = xcsp_extension(list = x, supports = pair_vars)
+@usual concept_extension(x; pair_vars) = concept_extension(x, pair_vars)
+
 
 const description_supports = """Global constraint ensuring that `x` is in the set of configurations given by `pair_vars`: `x ∈ pair_vars`"""
 
-concept_conflicts(x; pair_vars) = xcsp_extension(list = x, conflicts = pair_vars)
+@usual concept_supports(x; pair_vars) = xcsp_extension(list = x, supports = pair_vars)
 
 const description_conflicts = """Global constraint ensuring that `x` is not in the set of configurations given by `pair_vars`: `x ∉ pair_vars`"""
 
-@usual extension supports conflicts
+@usual concept_conflicts(x; pair_vars) = xcsp_extension(list = x, conflicts = pair_vars)
