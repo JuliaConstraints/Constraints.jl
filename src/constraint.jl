@@ -78,6 +78,13 @@ function make_error(symb::Symbol)
     return (x; params...) -> Float64(!eval(Symbol("concept_$symb"))(x; params...))
 end
 
+"""
+    shrink_concept(s)
+
+Simply delete the `concept_` part of symbol or string starting with it. TODO: add a check with a warning if `s` starts with something different.
+"""
+shrink_concept(s) = Symbol(string(s)[9:end])
+
 ## SECTION - Test Items
 @testitem "Empty constraint" tags = [:constraint, :empty] begin
     c = Constraint()
