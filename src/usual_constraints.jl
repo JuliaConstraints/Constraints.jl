@@ -46,7 +46,7 @@ end
 macro usual(ex::Expr)
     # Symbol of the concept, for instance :all_different
     s = ex.args[1].args[1]
-    c = Symbol(string(s)[9:end])
+    c = shrink_concept(s)
 
     # Dict storing the existence or not of a default value for each kwarg
     defaults = Dict{Symbol, Bool}()
