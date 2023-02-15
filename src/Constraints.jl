@@ -10,7 +10,7 @@ using PrettyTables
 using TestItemRunner
 using TestItems
 
-import ConstraintCommons: extract_parameters
+import ConstraintCommons: extract_parameters, USUAL_CONSTRAINT_PARAMETERS
 
 # Exports
 export Constraint
@@ -20,6 +20,8 @@ export USUAL_SYMMETRIES
 
 export args
 export concept
+export constraints_parameters
+export constraints_descriptions
 export describe
 export error_f
 export extract_parameters

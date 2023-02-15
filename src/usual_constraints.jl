@@ -79,6 +79,64 @@ macro usual(ex::Expr)
     return nothing
 end
 
+function constraints_parameters(C=USUAL_CONSTRAINTS)
+    df = DataFrame(Constraint=Symbol[], bool=String[], dim=String[], id=String[], language=String[], op=String[], pair_vars=String[], val=String[], vals=String[])
+
+    for (s,c) in C
+        base = vcat([s], fill("", length(USUAL_CONSTRAINT_PARAMETERS)))
+        for P in c.params
+            push!(df, base)
+            for (p, b) in P
+                df[end, p] = b == 1 ? "o" : "×"
+            end
+        end
+    end
+
+    sort!(df)
+
+    hl_odd = Highlighter(
+        f = (data, i, j) -> i % 2 == 0,
+        crayon = Crayon(background = :light_blue),
+    )
+
+    return pretty_table(
+        df;
+        highlighters = hl_odd,
+        header_crayon = crayon"yellow bold",
+        title = "Available parameters per constraint (× -> required, o -> optional)",
+        show_subheader=false,
+        crop=:none,
+    )
+end
+
+function constraints_descriptions(C=USUAL_CONSTRAINTS)
+    df = DataFrame(Constraint=Symbol[], Description=String[])
+
+    for (s,c) in C
+        push!(df, [s, c.description])
+    end
+
+    sort!(df)
+
+    hl_odd = Highlighter(
+        f = (data, i, j) -> i % 2 == 0,
+        crayon = Crayon(background = :light_blue),
+    )
+
+    return pretty_table(
+        df;
+        # highlighters = hl_odd,
+        header_crayon = crayon"yellow bold",
+        autowrap = true,
+        linebreaks = true,
+        columns_width = [0,80],
+        hlines = :all,
+        alignment=:l,
+        show_subheader=false,
+        crop=:none,
+    )
+end
+
 ## SECTION - Test Items
 @testitem "Usual constraints" tags = [:usual, :constraints] default_imports=false begin
     using ConstraintDomains
