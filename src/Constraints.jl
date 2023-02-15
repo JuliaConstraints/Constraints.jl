@@ -21,6 +21,7 @@ export USUAL_SYMMETRIES
 export args
 export concept
 export constraints_parameters
+export constraints_descriptions
 export describe
 export error_f
 export extract_parameters

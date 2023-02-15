@@ -1,5 +1,7 @@
 #!NOTE - constraints of type intension represent general predicate over a set of variables
 
+# TODO - Add a DSL for intension (cf XCSP3-core)
+
 const description_dist_different = """Local constraint ensuring that `concept(dist_different, x) = |x[1] - x[2]| ≠ |x[3] - x[4]|`"""
 
 """
