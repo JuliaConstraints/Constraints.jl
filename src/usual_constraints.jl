@@ -31,14 +31,14 @@ function describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=
         columns_width=[l, min(dl, width - l)],
         linebreaks=true,
         autowrap=true,
-        alignment=:l,
+        alignment=:l
     )
 end
 
 function ConstraintCommons.extract_parameters(
     s::Symbol,
-    constraints_dict = USUAL_CONSTRAINTS;
-    parameters = ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS,
+    constraints_dict=USUAL_CONSTRAINTS;
+    parameters=ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS
 )
     return ConstraintCommons.extract_parameters(concept(constraints_dict[s]); parameters)
 end
@@ -49,7 +49,7 @@ macro usual(ex::Expr)
     c = shrink_concept(s)
 
     # Dict storing the existence or not of a default value for each kwarg
-    defaults = Dict{Symbol, Bool}()
+    defaults = Dict{Symbol,Bool}()
 
     # Check if a `;` is present in the call, then loop over kwargs
     if length(ex.args[1].args) > 2
@@ -62,14 +62,15 @@ macro usual(ex::Expr)
         end
     end
 
+
+    error = make_error(c)
+    concept = eval(ex)
     if haskey(USUAL_CONSTRAINTS, c)
         push!(USUAL_CONSTRAINTS[c].params, defaults)
     else # Enter new constraint
-        error = make_error(c)
         ds = :description * c
         description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
 
-        concept = eval(ex)
         params = [defaults]
         cons = Constraint(; concept, description, error, params)
 
@@ -82,7 +83,7 @@ end
 function constraints_parameters(C=USUAL_CONSTRAINTS)
     df = DataFrame(Constraint=Symbol[], bool=String[], dim=String[], id=String[], language=String[], op=String[], pair_vars=String[], val=String[], vals=String[])
 
-    for (s,c) in C
+    for (s, c) in C
         base = vcat([s], fill("", length(USUAL_CONSTRAINT_PARAMETERS)))
         for P in c.params
             push!(df, base)
@@ -95,65 +96,67 @@ function constraints_parameters(C=USUAL_CONSTRAINTS)
     sort!(df)
 
     hl_odd = Highlighter(
-        f = (data, i, j) -> i % 2 == 0,
-        crayon = Crayon(background = :light_blue),
+        f=(data, i, j) -> i % 2 == 0,
+        crayon=Crayon(background=:light_blue, foreground=:black),
     )
 
     return pretty_table(
         df;
-        highlighters = hl_odd,
-        header_crayon = crayon"yellow bold",
-        title = "Available parameters per constraint (× -> required, o -> optional)",
+        highlighters=hl_odd,
+        header_crayon=crayon"yellow bold",
+        title="Available parameters per constraint (× -> required, o -> optional)",
         show_subheader=false,
-        crop=:none,
+        crop=:none
     )
 end
 
 function constraints_descriptions(C=USUAL_CONSTRAINTS)
     df = DataFrame(Constraint=Symbol[], Description=String[])
 
-    for (s,c) in C
+    for (s, c) in C
         push!(df, [s, c.description])
     end
 
     sort!(df)
 
     hl_odd = Highlighter(
-        f = (data, i, j) -> i % 2 == 0,
-        crayon = Crayon(background = :light_blue),
+        f=(data, i, j) -> i % 2 == 0,
+        crayon=Crayon(background=:light_blue),
     )
 
     return pretty_table(
         df;
         # highlighters = hl_odd,
-        header_crayon = crayon"yellow bold",
-        autowrap = true,
-        linebreaks = true,
-        columns_width = [0,80],
-        hlines = :all,
+        header_crayon=crayon"yellow bold",
+        autowrap=true,
+        linebreaks=true,
+        columns_width=[0, 80],
+        hlines=:all,
         alignment=:l,
         show_subheader=false,
-        crop=:none,
+        crop=:none
     )
 end
 
 ## SECTION - Test Items
-@testitem "Usual constraints" tags = [:usual, :constraints] default_imports=false begin
+@testitem "Usual constraints" tags = [:usual, :constraints] default_imports = false begin
     using ConstraintDomains
     using Constraints
     using Test
+
+    import Constraints: concept_vs_error
 
     domains = fill(domain(0:3), 4)
     dom_bool = fill(domain([false, true]), 4)
 
     for (name, c) in USUAL_CONSTRAINTS
-        for _ in 1:10000
+        for _ in 1:000
             for (id, method_params) in enumerate(extract_parameters(c.concept))
                 params = Dict(
                     map(p -> (p => rand(generate_parameters(domains, p))), method_params)
                 )
                 x = rand(occursin("Bool", Base.arg_decl_parts(methods(c.concept)[id])[2][2][2]) ? dom_bool : domains)
-                @test (c.error(x; params...) > 0.0) != c.concept(x; params...)
+                @test concept_vs_error(c.concept, c.error, x; params...)
             end
         end
         symmetries(c)

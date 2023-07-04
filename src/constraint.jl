@@ -15,7 +15,7 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
     concept::FConcept
     description::String
     error::FError
-    params::Vector{Dict{Symbol, Bool}}
+    params::Vector{Dict{Symbol,Bool}}
     symmetries::Set{Symbol}
 
     function Constraint(;
@@ -23,8 +23,8 @@ mutable struct Constraint{FConcept<:Function,FError<:Function}
         concept=x -> true,
         description="No given description!",
         error=(x; param=0, dom_size=0) -> Float64(!concept(x)),
-        params=Vector{Dict{Symbol, Bool}}(),
-        syms=Set{Symbol}(),
+        params=Vector{Dict{Symbol,Bool}}(),
+        syms=Set{Symbol}()
     )
         return new{typeof(concept),typeof(error)}(
             args, concept, description, error, params, syms
@@ -85,7 +85,9 @@ Simply delete the `concept_` part of symbol or string starting with it. TODO: ad
 """
 shrink_concept(s) = Symbol(string(s)[9:end])
 
-## SECTION - Test Items
+function concept_vs_error(c, e, args...; kargs...)
+    return c(args...; kargs...) ≠ (e(args...; kargs...) > 0.0)
+end
 @testitem "Empty constraint" tags = [:constraint, :empty] begin
     c = Constraint()
     @test concept(c, []) == true
