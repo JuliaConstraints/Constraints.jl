@@ -34,11 +34,11 @@ concept_channel(x, ::Val) = xcsp_channel(list=x)
 
 const description_channel = """Global constraint ensuring that all ...`"""
 
-@usual concept_channel(x; dim=1) = concept_channel(x, Val(dim))
+concept_channel(x, id) = count(!iszero, x) == 1 == x[id]
 
-@usual concept_channel(x::Vector{Bool}; id) = count(x) == 1 == x[id]
-
-## SECTION - Test Items
+@usual function concept_channel(x; dim=1, id = nothing)
+    return isnothing(id) ? concept_channel(x, Val(dim)) : concept_channel(x, id)
+end
 @testitem "Channel" tags = [:usual, :constraints, :channel] begin
     c = USUAL_CONSTRAINTS[:channel] |> concept
     e = USUAL_CONSTRAINTS[:channel] |> error_f

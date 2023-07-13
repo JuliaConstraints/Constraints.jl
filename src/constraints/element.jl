@@ -1,5 +1,5 @@
 function xcsp_element(list, index, condition::Tuple)
-    condition[1].(list[index], condition[2])
+    return 0 < index ≤ length(list) ? condition[1].(list[index], condition[2]) : false
 end
 xcsp_element(list, index, value) = xcsp_element(list, index, (==, value))
 
@@ -11,6 +11,14 @@ end
 
 function concept_element(x, ::Nothing, op, ::Nothing)
     return concept_element(x[2:end-1]; id=x[1], op, val=x[end])
+end
+
+function concept_element(x, ::Nothing, op, val)
+    return concept_element(x[2:end]; id=x[1], op, val)
+end
+
+function concept_element(x, id, op, ::Nothing)
+    return concept_element(x[1:end-1]; id, op, val=x[end])
 end
 
 const description_element = """Global constraint ensuring that all ...`"""
