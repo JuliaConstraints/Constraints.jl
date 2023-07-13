@@ -150,7 +150,7 @@ end
     dom_bool = fill(domain([false, true]), 4)
 
     for (name, c) in USUAL_CONSTRAINTS
-        for _ in 1:000
+        for _ in 1:1000
             for (id, method_params) in enumerate(extract_parameters(c.concept))
                 params = Dict(
                     map(p -> (p => rand(generate_parameters(domains, p))), method_params)

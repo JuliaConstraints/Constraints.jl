@@ -28,14 +28,14 @@ function xcsp_no_overlap(; origins, lengths, zero_ignored=true)
 end
 
 function concept_no_overlap(x, pair_vars, _, bool, ::Val{1})
-    return xcsp_no_overlap(; origins=x, lengths=pair_vars, zero_ignored=bool)
+    return xcsp_no_overlap(; origins=x, lengths=pair_vars[:,1], zero_ignored=bool)
 end
 
 function concept_no_overlap(x, pair_vars, dim, bool, _)
     l = Int(length(x) ÷ dim)
     # @info l x dim
     origins = reinterpret(reshape, NTuple{dim,eltype(x)}, reshape(x, (dim, l)))
-    lengths = reinterpret(reshape, NTuple{dim,eltype(x)}, reshape(pair_vars, (dim, l)))
+    lengths = reinterpret(reshape, NTuple{dim,eltype(x)}, reshape(pair_vars[:,1], (dim, l)))
     return xcsp_no_overlap(; origins, lengths, zero_ignored=bool)
 end
 
