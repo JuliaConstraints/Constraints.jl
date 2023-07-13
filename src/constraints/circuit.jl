@@ -9,42 +9,26 @@ end
 const description_circuit = "Global constraint ensuring that the values of `x` form a circuit. If the indices of the variables are not `1:length(x)`, the indices can be indicated as the `param` collection"
 
 # circuit (full circuit)
-@usual function concept_circuit(x; op = ≥, val = 1)
-    s = Set(1:length(x))
-    cycle = 0
-    current = Vector{eltype(x)}()
-    while !isempty(s)
-        @info "entering while loop" s current cycle op val
-        u = 0
-        if isempty(current)
-            u = pop!(s)
-        elseif x[last(current)] ∈ current
-            cycle = max(cycle, length(current) - getindex(current, u))
-            op(cycle, val) ? (return true) : break
-        else
-            pop!(s, x[last(current)], 0)
-        end
-        u = isempty(current) ? pop!(s) : pop!(s, x[last(current)], 0)
-        if iszero(u)
-            empty!(current)
-            @info "iszero(u)" s current cycle op val
-            continue
-        end
+@usual function concept_circuit(x; op = ≥, val = length(x))
+    V = Set(1:length(x))
+    S = Vector{eltype(x)}()
+    D = Set{Int}()
 
-        if u ∈ current
-            @info "$u ∈ $current"
-            cycle = max(cycle, length(current) - getindex(current, u))
-            op(cycle, val) ? (return true) : break
+    while !isempty(V)
+        v = isempty(S) ? pop!(V) : pop!(V, x[last(S)])
+        push!(S, v)
+        notvalid = false
+        (cycle = x[v] ∈ S) || (notvalid = (v == x[v] || x[v] ∉ V || x[v] ∈ D))
+        if cycle
+            λ = length(S) - findfirst(u -> u == x[v], S) + 1
+            op(λ, val) && return true
         end
-
-        @warn "pushing $u to $current"
-        push!(current, u)
+        if cycle || notvalid
+            union!(D, S)
+            empty!(S)
+        end
     end
-    u = last(current)
-    if x[u] ∈ current
-        cycle = max(cycle, length(current) - getindex(current, u))
-    end
-    return op(cycle, val)
+    return false
 end
 
 ## SECTION - Test Items
@@ -53,6 +37,13 @@ end
     e = USUAL_CONSTRAINTS[:circuit] |> error_f
     vs = Constraints.concept_vs_error
 
-    # @test c([2, 3, 1, 4])
-    @test c([4, 3, 1, 3])
+    @test !c([1, 2, 3, 4])
+    @test c([2, 3, 4, 1])
+    @test c([2, 3, 1, 4]; op = ==, val = 3)
+    @test c([4, 3, 1, 3]; op = >, val = 0)
+
+    @test vs(c, e, [1, 2, 3, 4])
+    @test vs(c, e, [2, 3, 4, 1])
+    @test vs(c, e, [2, 3, 1, 4]; op = ==, val = 3)
+    @test vs(c, e, [4, 3, 1, 3]; op = >, val = 0)
 end
