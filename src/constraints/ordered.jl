@@ -34,3 +34,19 @@ const description_sctrictly_increasing = """Global constraint ensuring that all 
 const description_strictly_decreasing = """Global constraint ensuring that all the values of `x` are in a strictly decreasing order."""
 
 @usual concept_strictly_decreasing(x) = concept_ordered(x; op = >)
+
+@testitem "Ordered" tags = [:usual, :constraints, :ordered] begin
+    c = USUAL_CONSTRAINTS[:ordered] |> concept
+    e = USUAL_CONSTRAINTS[:ordered] |> error_f
+    vs = Constraints.concept_vs_error
+
+    @test c([1, 2, 3, 4, 4]; op = ≤)
+    @test c([1, 2, 3, 4, 5]; op = <)
+    @test !c([1, 2, 3, 4, 3]; op = ≤)
+    @test !c([1, 2, 3, 4, 3]; op = <)
+
+    @test vs(c, e, [1, 2, 3, 4, 4]; op = ≤)
+    @test vs(c, e, [1, 2, 3, 4, 5]; op = <)
+    @test vs(c, e, [1, 2, 3, 4, 3]; op = ≤)
+    @test vs(c, e, [1, 2, 3, 4, 3]; op = <)
+end

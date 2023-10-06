@@ -21,14 +21,53 @@ function xcsp_cardinality(; list, values, occurs, closed=false)
 end
 
 @usual function concept_cardinality(x; bool=false, vals)
-    values = vals[1]
-    occurs = if length(vals) ≥ 3
-        map(i -> vals[2][i]:(vals[2][i] ≤ vals[3][i] ? 1 : -1):(vals[3][i]), 1:length(vals[1]))
+    values = vals[:, 1]
+    occurs = if size(vals, 2) == 1
+        ones(Int, size(vals, 1))
+    elseif size(vals, 2) ≥ 3
+        map(i -> vals[i, 2]:(vals[i, 2] ≤ vals[i, 3] ? 1 : -1):(vals[i, 3]), 1:size(vals, 1))
     else
-        vals[2]
+        vals[:, 2]
     end
     return xcsp_cardinality(; list=x, values, occurs, closed=bool)
 end
 
 @usual concept_cardinality_closed(x; vals) = concept_cardinality(x; bool=true, vals)
 @usual concept_cardinality_open(x; vals) = concept_cardinality(x; bool=false, vals)
+
+## SECTION - Test Items
+@testitem "Cardinality" tags = [:usual, :constraints, :cardinality] begin
+    c = USUAL_CONSTRAINTS[:cardinality] |> concept
+    e = USUAL_CONSTRAINTS[:cardinality] |> error_f
+    vs = Constraints.concept_vs_error
+
+    @test c([2, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+    @test c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=false)
+    @test !c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=true)
+    @test c([2, 5, 10, 10]; vals=[2 1; 5 1; 10 2])
+    @test c([2, 5, 10, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+    @test !c([2, 5, 5, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+    @test !c([2, 5, 10, 8]; vals=[2 1; 5 1; 10 2])
+    @test !c([5, 5, 5, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+
+
+    @test vs(c, e, [2, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+    @test vs(c, e, [8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=false)
+    @test vs(c, e, [8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=true)
+    @test vs(c, e, [2, 5, 10, 10]; vals=[2 1; 5 1; 10 2])
+    @test vs(c, e, [2, 5, 10, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+    @test vs(c, e, [2, 5, 5, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+    @test vs(c, e, [2, 5, 10, 8]; vals=[2 1; 5 1; 10 2])
+    @test vs(c, e, [5, 5, 5, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+
+    cc = USUAL_CONSTRAINTS[:cardinality_closed] |> concept
+    ec = USUAL_CONSTRAINTS[:cardinality_closed] |> error_f
+    @test cc([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3]) == c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=true)
+    @test vs(cc, ec, [8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+
+    co = USUAL_CONSTRAINTS[:cardinality_open] |> concept
+    eo = USUAL_CONSTRAINTS[:cardinality_open] |> error_f
+    @test co([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3]) == c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=false)
+    @test vs(co, eo, [8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+
+end

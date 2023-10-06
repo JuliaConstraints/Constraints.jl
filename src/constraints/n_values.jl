@@ -17,3 +17,19 @@ const description_nvalues = """Global constraint ensuring that ..."""
 @usual function concept_nvalues(x; op = ==, val, vals = nothing)
     return xcsp_nvalues(list = x, condition = (op, val), except = vals)
 end
+
+@testitem "nValues" tags = [:usual, :constraints, :nvalues] begin
+    c = USUAL_CONSTRAINTS[:nvalues] |> concept
+    e = USUAL_CONSTRAINTS[:nvalues] |> error_f
+    vs = Constraints.concept_vs_error
+
+    @test c([1, 2, 3, 4, 5]; op = ==, val = 5)
+    @test !c([1, 2, 3, 4, 5]; op = ==, val = 2)
+    @test c([1, 2, 3, 4, 3]; op = <=, val = 5)
+    @test !c([1, 2, 3, 4, 3]; op = <=, val = 3)
+
+    @test vs(c, e, [1, 2, 3, 4, 5]; op = ==, val = 5)
+    @test vs(c, e, [1, 2, 3, 4, 5]; op = ==, val = 2)
+    @test vs(c, e, [1, 2, 3, 4, 3]; op = <=, val = 5)
+    @test vs(c, e, [1, 2, 3, 4, 3]; op = <=, val = 3)
+end

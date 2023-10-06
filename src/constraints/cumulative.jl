@@ -1,16 +1,20 @@
 function xcsp_cumulative(; origins, lengths, heights, condition)
-    acc = Dict{eltype(origins),Int}()
-    for t in sort(collect(zip(origins, lengths, heights)))
-        foreach(t -> t ≤ t[1] && delete!(acc, t), keys(acc))
-        incsert!(acc, t[1] + t[2], t[3])
-        condition[1](sum(values(acc)), condition[2]) || return false
+    tasks = Vector{Tuple{eltype(origins),eltype(origins)}}()
+    for t in Iterators.zip(origins, lengths, heights)
+        push!(tasks, (t[1], t[3]))
+        push!(tasks,(t[1]+t[2], -t[3]))
+    end
+    η = zero(eltype(origins))
+    for t in sort!(tasks)
+        η += t[2]
+        condition[1](η, condition[2]) || return false
     end
     return true
 end
 
 function concept_cumulative(x, pair_vars, op, val)
     return xcsp_cumulative(
-        origins=x, lengths=pair_vars[1], heights=pair_vars[2], condition=(op, val)
+        origins=x, lengths=pair_vars[1,:], heights=pair_vars[2, :], condition=(op, val)
     )
 end
 
@@ -20,6 +24,22 @@ end
 
 const description_cumulative = """Global constraint ensuring that all ...`"""
 
-@usual function concept_cumulative(x; pair_vars=ones(eltype(x), length(x)), op=≤, val)
+@usual function concept_cumulative(x; pair_vars=ones(eltype(x), (2, length(x))), op=≤, val)
     return concept_cumulative(x, pair_vars, op, val)
+end
+
+@testitem "Cumulative" tags = [:usual, :constraints, :cumulative] begin
+    c = USUAL_CONSTRAINTS[:cumulative] |> concept
+    e = USUAL_CONSTRAINTS[:cumulative] |> error_f
+    vs = Constraints.concept_vs_error
+
+    @test c([1, 2, 3, 4, 5]; val=1)
+    @test !c([1, 2, 2, 4, 5]; val=1)
+    @test c([1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= ≤, val=5)
+    @test !c([1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= <, val=5)
+
+    @test vs(c, e, [1, 2, 3, 4, 5]; val=1)
+    @test vs(c, e, [1, 2, 2, 4, 5]; val=1)
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= ≤, val=5)
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= <, val=5)
 end
