@@ -39,7 +39,7 @@ include("constraint.jl")
 include("usual_constraints.jl")
 
 # SECTION - Generic Constraints: intension, extension
-include("constraints/intention.jl")
+include("constraints/intension.jl")
 include("constraints/extension.jl")
 
 # SECTION - Constraints defined from Languages

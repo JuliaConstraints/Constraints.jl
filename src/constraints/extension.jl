@@ -19,16 +19,26 @@ function concept_extension(x, pair_vars)
     return xcsp_extension(; list = x, supports) || xcsp_extension(; list = x, conflicts)
 end
 
-const description_extension = """Global constraint ensuring that `x` is in the set of configurations given by `pair_vars[1]` and not in the set given by `pair_vars[2]`: `x ∈ pair_vars[1] || x ∉ pair_vars[2]`"""
+"""
+    USUAL_CONSTRAINTS[:extension]
+
+Global constraint enforcing that the tuple `x` matches a configuration within the supports set `pair_vars[1]` or does not match any configuration within the conflicts set `pair_vars[2]`. It embodies the logic: `x ∈ pair_vars[1] || x ∉ pair_vars[2]`, providing a comprehensive way to define valid (supported) and invalid (conflicted) tuples for constraint satisfaction problems. This constraint is versatile, allowing for the explicit delineation of both acceptable and unacceptable configurations.
+"""
+const description_extension = """
+Global constraint enforcing that the tuple `x` matches a configuration within the supports set `pair_vars[1]` or does not match any configuration within the conflicts set `pair_vars[2]`. It embodies the logic: `x ∈ pair_vars[1] || x ∉ pair_vars[2]`, providing a comprehensive way to define valid (supported) and invalid (conflicted) tuples for constraint satisfaction problems. This constraint is versatile, allowing for the explicit delineation of both acceptable and unacceptable configurations.
+"""
 
 @usual concept_extension(x; pair_vars) = concept_extension(x, pair_vars)
 
-
-const description_supports = """Global constraint ensuring that `x` is in the set of configurations given by `pair_vars`: `x ∈ pair_vars`"""
+const description_supports = """
+Global constraint ensuring that the tuple `x` matches a configuration listed within the support set `pair_vars`. This constraint is derived from the extension model, specifying that `x` must be one of the explicitly defined supported configurations: `x ∈ pair_vars`. It is utilized to directly declare the tuples that are valid and should be included in the solution space.
+"""
 
 @usual concept_supports(x; pair_vars) = xcsp_extension(list = x, supports = pair_vars)
 
-const description_conflicts = """Global constraint ensuring that `x` is not in the set of configurations given by `pair_vars`: `x ∉ pair_vars`"""
+const description_conflicts = """
+Global constraint ensuring that the tuple `x` does not match any configuration listed within the conflict set `pair_vars`. This constraint, originating from the extension model, stipulates that `x` must avoid all configurations defined as conflicts: `x ∉ pair_vars`. It is useful for specifying tuples that are explicitly forbidden and should be excluded from the solution space.
+"""
 
 @usual concept_conflicts(x; pair_vars) = xcsp_extension(list = x, conflicts = pair_vars)
 
