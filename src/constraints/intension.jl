@@ -16,8 +16,11 @@ An intensional constraint is usually defined from a `predicate` over `list`. As 
 - `predicate::Function`: A predicate over `list`
 
 # Variants
-
 - `:dist_different`: $description_dist_different
+```julia
+concept(:dist_different, x)
+concept(:dist_different)(x)
+```
 
 # Examples
 ```julia

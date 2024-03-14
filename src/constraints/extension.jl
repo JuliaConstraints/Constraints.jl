@@ -29,8 +29,20 @@ $description_extension
 
 ## Variants
 - `:extension`: $description_extension
+```julia
+concept(:extension, x; pair_vars)
+concept(:extension)(x; pair_vars)
+```
 - `:supports`: $description_supports
+```julia
+concept(:supports, x; pair_vars)
+concept(:supports)(x; pair_vars)
+```
 - `:conflicts`: $description_conflicts
+```julia
+concept(:conflicts, x; pair_vars)
+concept(:conflicts)(x; pair_vars)
+```
 
 ## Examples
 ```julia
@@ -39,17 +51,12 @@ c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
 c([1, 2, 3, 4, 5]; pair_vars=([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]))
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 
-c = concept(USUAL_CONSTRAINTS[:supports])
+c = concept(:supports)
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
 
-c = concept(USUAL_CONSTRAINTS[:conflicts])
+c = concept(:conflicts)
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 ```
-
-````@example 1
-2 + 2
-````
-
 """
 function xcsp_extension(; list, supports=nothing, conflicts=nothing)
     return xcsp_extension(list, supports, conflicts)
