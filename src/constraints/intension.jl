@@ -15,21 +15,18 @@ An intensional constraint is usually defined from a `predicate` over `list`. As 
 - `list::Vector{Int}`: A list of variables
 - `predicate::Function`: A predicate over `list`
 
-# Instantiations
+# Variants
 
 - `:dist_different`: $description_dist_different
 
 # Examples
 ```julia
-c = concept(USUAL_CONSTRAINTS[:dist_different])
+c = concept(:dist_different)
 c([1, 2, 3, 3]) # true
 c([1, 2, 3, 4]) # false
 ```
 """
 xcsp_intension(; list, predicate) = predicate(list)
-
-"An intensional constraint is usually defined from a `predicate` over `x`. As such it encompass any generic constraint.
-"
 
 # Dist different TODO - check if a better name exists
 predicate_dist_different(x) = abs(x[1] - x[2]) ≠ abs(x[3] - x[4])

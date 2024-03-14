@@ -27,14 +27,14 @@ $description_extension
 - `supports::Vector{Vector{Int}}`: A set of supported tuples. Default to nothing.
 - `conflicts::Vector{Vector{Int}}`: A set of conflicted tuples. Default to nothing.
 
-## Instantiations
+## Variants
 - `:extension`: $description_extension
 - `:supports`: $description_supports
 - `:conflicts`: $description_conflicts
 
 ## Examples
 ```julia
-c = USUAL_CONSTRAINTS[:extension] |> concept
+c = concept(:extension)
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
 c([1, 2, 3, 4, 5]; pair_vars=([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]))
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
@@ -45,11 +45,6 @@ c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
 c = concept(USUAL_CONSTRAINTS[:conflicts])
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 ```
-
-````@example test
-2 + 2
-````
-
 """
 function xcsp_extension(; list, supports=nothing, conflicts=nothing)
     return xcsp_extension(list, supports, conflicts)

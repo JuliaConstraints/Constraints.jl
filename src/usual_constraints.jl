@@ -138,6 +138,8 @@ function constraints_descriptions(C=USUAL_CONSTRAINTS)
     )
 end
 
+concept(s::Symbol) = concept(USUAL_CONSTRAINTS[s])
+
 ## SECTION - Test Items
 @testitem "Usual constraints" tags = [:usual, :constraints] default_imports = false begin
     using ConstraintDomains
