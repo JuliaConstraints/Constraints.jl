@@ -46,7 +46,7 @@ c = concept(USUAL_CONSTRAINTS[:conflicts])
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 ```
 
-````@ansi test
+````@example test
 2 + 2
 ````
 
