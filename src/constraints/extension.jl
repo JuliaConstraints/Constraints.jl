@@ -45,6 +45,11 @@ c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
 c = concept(USUAL_CONSTRAINTS[:conflicts])
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 ```
+
+````@example 1
+2 + 2
+````
+
 """
 function xcsp_extension(; list, supports=nothing, conflicts=nothing)
     return xcsp_extension(list, supports, conflicts)
