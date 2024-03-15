@@ -1,3 +1,55 @@
+const description_no_overlap = """
+The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts.
+"""
+
+const description_no_overlap_no_zero = """
+The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant ignores zero-length tasks.
+"""
+
+const description_no_overlap_with_zero = """
+The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant includes zero-length tasks.
+"""
+
+"""
+    xcsp_no_overlap(; origins, lengths, zero_ignored)
+
+Return `true` if the no_overlap constraint is satisfied, `false` otherwise. The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts.
+
+## Arguments
+- `origins::AbstractVector`: list of origins of the tasks.
+- `lengths::AbstractVector`: list of lengths of the tasks.
+- `zero_ignored::Bool`: whether to ignore zero-length tasks.
+
+## Variants
+- `:no_overlap`: $description_no_overlap
+```julia
+concept(:no_overlap, x; pair_vars, bool)
+concept(:no_overlap)(x; pair_vars, bool)
+```
+- `:no_overlap_no_zero`: $description_no_overlap_no_zero
+```julia
+concept(:no_overlap_no_zero, x; pair_vars)
+concept(:no_overlap_no_zero)(x; pair_vars)
+```
+- `:no_overlap_with_zero`: $description_no_overlap_with_zero
+```julia
+concept(:no_overlap_with_zero, x; pair_vars)
+concept(:no_overlap_with_zero)(x; pair_vars)
+```
+
+## Examples
+```julia
+c = concept(:no_overlap)
+
+c([1, 2, 3, 4, 5])
+c([1, 2, 3, 4, 1])
+c([1, 2, 4, 6, 3]; pair_vars = [1, 1, 1, 1, 1])
+c([1, 2, 4, 6, 3]; pair_vars = [1, 1, 1, 3, 1])
+c([1, 2, 4, 6, 3]; pair_vars = [1, 1, 3, 1, 1])
+c([1, 1, 1, 3, 5, 2, 7, 7, 5, 12, 8, 7]; pair_vars = [2, 4, 1, 4 ,2 ,3, 5, 1, 2, 3, 3, 2], dim = 3)
+c([1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4]; pair_vars = [2, 4, 1, 4 ,2 ,3, 5, 1, 2, 3, 3, 2], dim = 3)
+```
+"""
 function xcsp_no_overlap(origins, lengths, zero_ignored)
     # @info origins lengths collect(zip(origins, lengths))
     previous = (-Inf, -1)
@@ -39,8 +91,6 @@ function concept_no_overlap(x, pair_vars, dim, bool, _)
     return xcsp_no_overlap(; origins, lengths, zero_ignored=bool)
 end
 
-const description_no_overlap = """Global constraint ensuring that all ...`"""
-
 @usual function concept_no_overlap(
     x;
     pair_vars=ones(eltype(x), length(x)),
@@ -51,13 +101,9 @@ const description_no_overlap = """Global constraint ensuring that all ...`"""
     return concept_no_overlap(x, pair_vars, idim, bool, Val(idim))
 end
 
-const description_no_overlap_no_zero = """Global constraint ensuring that all ...`"""
-
 @usual function concept_no_overlap_no_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
     return concept_no_overlap(x; pair_vars, dim, bool=true)
 end
-
-const description_no_overlap_with_zero = """Global constraint ensuring that all ...`"""
 
 @usual function concept_no_overlap_with_zero(x; pair_vars=ones(eltype(x), length(x)), dim=1)
     return concept_no_overlap(x; pair_vars, dim, bool=false)

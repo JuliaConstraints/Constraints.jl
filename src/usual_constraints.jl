@@ -2,23 +2,29 @@
     USUAL_CONSTRAINTS::Dict
 Dictionary that contains all the usual constraints defined in Constraint.jl. It is based on XCSP3-core specifications available at https://arxiv.org/abs/2009.00514
 
-Adding a new constraint is as simple as
+Adding a new constraint is as simple as defining a new function with the same name as the constraint and using the `@usual` macro to define it. The macro will take care of adding the new constraint to the `USUAL_CONSTRAINTS` dictionary.
+
+## Example
 ```julia
-@usual name p a sym₁ sym₂
+@usual concept_all_different(x; vals=nothing) = xcsp_all_different(list=x, except=vals)
 ```
-where
-- `name`: constraint name
-- `p`: the length of the parameters (0 means no parameters)
-- `a`: the length of the arguments/variables (0 means any length is possible).
-- `symᵢ`: a sequence of symmetries (can be left empty)
-
-Both `a` alone, or `p` and `a` together are optional.
-
-Note that `concept_name` needs to be defined. Unless both `error_name` and `icn_error_name` are defined, a default error function will be computed.
-Please (re-)define `error_name` for a hand_made error function.
 """
 const USUAL_CONSTRAINTS = Dict{Symbol,Constraint}(:always_true => Constraint())
 
+"""
+    describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=150)
+
+Return a pretty table with the description of the constraints in `constraints`.
+
+## Arguments
+- `constraints::Dict{Symbol,Constraint}`: dictionary of constraints to describe. Default is `USUAL_CONSTRAINTS`.
+- `width::Int`: width of the table.
+
+## Example
+```julia
+describe()
+```
+"""
 function describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=150)
     df = DataFrame(; Names=Symbol[], Description=String[])
     for (name, cons) in constraints
@@ -35,6 +41,21 @@ function describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=
     )
 end
 
+"""
+    extract_parameters(s::Symbol, constraints_dict=USUAL_CONSTRAINTS; parameters=ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS)
+
+Return the parameters of the constraint `s` in `constraints_dict`.
+
+## Arguments
+- `s::Symbol`: the constraint name.
+- `constraints_dict::Dict{Symbol,Constraint}`: dictionary of constraints. Default is `USUAL_CONSTRAINTS`.
+- `parameters::Vector{Symbol}`: vector of parameters. Default is `ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS`.
+
+## Example
+```julia
+extract_parameters(:all_different)
+```
+"""
 function ConstraintCommons.extract_parameters(
     s::Symbol,
     constraints_dict=USUAL_CONSTRAINTS;
@@ -43,6 +64,30 @@ function ConstraintCommons.extract_parameters(
     return ConstraintCommons.extract_parameters(concept(constraints_dict[s]); parameters)
 end
 
+"""
+    usual(ex::Expr)
+
+This macro is used to define a new constraint or update an existing one in the USUAL_CONSTRAINTS dictionary. It takes an expression ex as input, which represents the definition of a constraint.
+
+Here's a step-by-step explanation of what the macro does:
+1. It first extracts the symbol of the concept from the input expression. This symbol is expected to be the first argument of the first argument of the expression. For example, if the expression is @usual all_different(x; y=1), the symbol would be :all_different.
+2. It then calls the shrink_concept function on the symbol to get a simplified version of the concept symbol.
+3. It initializes a dictionary defaults to store whether each keyword argument of the concept has a default value or not.
+4. It checks if the expression has more than two arguments. If it does, it means that there are keyword arguments present. It then loops over these keyword arguments. If a keyword argument is a symbol, it means it doesn't have a default value, so it adds an entry to the defaults dictionary with the keyword argument as the key and false as the value. If a keyword argument is not a symbol, it means it has a default value, so it adds an entry to the defaults dictionary with the keyword argument as the key and true as the value.
+5. It calls the make_error function on the simplified concept symbol to generate an error function for the constraint.
+6. It evaluates the input expression to get the concept function.
+7. It checks if the USUAL_CONSTRAINTS dictionary already contains an entry for the simplified concept symbol. If it does, it adds the defaults dictionary to the parameters of the existing constraint. If it doesn't, it creates a new constraint with the concept function, a description, the error function, and the defaults dictionary as the parameters, and adds it to the USUAL_CONSTRAINTS dictionary.
+
+This macro is used to make it easier to define and update constraints in a consistent and possibly automated way.
+
+## Arguments
+- `ex::Expr`: expression to parse.
+
+## Example
+```julia
+@usual concept_all_different(x; vals=nothing) = xcsp_all_different(list=x, except=vals)
+```
+"""
 macro usual(ex::Expr)
     # Symbol of the concept, for instance :all_different
     s = ex.args[1].args[1]
@@ -80,6 +125,19 @@ macro usual(ex::Expr)
     return nothing
 end
 
+"""
+    constraints_parameters(C=USUAL_CONSTRAINTS)
+
+Return a pretty table with the parameters of the constraints in `C`.
+
+## Arguments
+- `C::Dict{Symbol,Constraint}`: dictionary of constraints. Default is `USUAL_CONSTRAINTS`.
+
+## Example
+```julia
+constraints_parameters()
+```
+"""
 function constraints_parameters(C=USUAL_CONSTRAINTS)
     df = DataFrame(Constraint=Symbol[], bool=String[], dim=String[], id=String[], language=String[], op=String[], pair_vars=String[], val=String[], vals=String[])
 
@@ -110,6 +168,19 @@ function constraints_parameters(C=USUAL_CONSTRAINTS)
     )
 end
 
+"""
+    constraints_descriptions(C=USUAL_CONSTRAINTS)
+
+Return a pretty table with the descriptions of the constraints in `C`.
+
+## Arguments
+- `C::Dict{Symbol,Constraint}`: dictionary of constraints. Default is `USUAL_CONSTRAINTS`.
+
+## Example
+```julia
+constraints_descriptions()
+```
+"""
 function constraints_descriptions(C=USUAL_CONSTRAINTS)
     df = DataFrame(Constraint=Symbol[], Description=String[])
 
@@ -138,6 +209,21 @@ function constraints_descriptions(C=USUAL_CONSTRAINTS)
     )
 end
 
+"""
+    concept(s::Symbol, args...; kargs...)
+
+Return the concept of the constraint `s` applied to `args` and `kargs`. This is a shortcut for `concept(USUAL_CONSTRAINTS[s])(args...; kargs...)`.
+
+## Arguments
+- `s::Symbol`: the constraint name.
+- `args...`: the arguments to apply the concept to.
+- `kargs...`: the keyword arguments to apply the concept to.
+
+## Example
+```julia
+concept(:all_different, [1, 2, 3])
+```
+"""
 concept(s::Symbol, args...; kargs...) = concept(USUAL_CONSTRAINTS[s])(args...; kargs...)
 
 ## SECTION - Test Items

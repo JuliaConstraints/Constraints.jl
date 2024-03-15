@@ -1,9 +1,64 @@
 # cardinality (or global_cardinality or gcc)
 
-const description_cardinality = """Global constraint ensuring that all ...`"""
-const description_cardinality_closed = """Global constraint ensuring that all ...`"""
-const description_cardinality_open = """Global constraint ensuring that all ...`"""
+const description_cardinality = """
+The cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables.
+"""
+const description_cardinality_closed = """
+The closed cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables. It is closed, meaning that all values in the domain of the variables must be considered.
+"""
 
+const description_cardinality_open = """
+The open cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables. It is open, meaning that only the values in the list of values must be considered.
+"""
+
+"""
+    xcsp_cardinality(list, values, occurs, closed)
+
+Return `true` if the number of occurrences of the values in `values` in `list` satisfies the given condition, `false` otherwise.
+
+## Arguments
+- `list::Vector{Int}`: list of values to check.
+- `values::Vector{Int}`: list of values to check.
+- `occurs::Vector{Int}`: list of occurrences to check.
+- `closed::Bool`: whether the constraint is closed or not.
+
+## Variants
+- `:cardinality`: $description_cardinality
+```julia
+concept(:cardinality, x; bool=false, vals)
+concept(:cardinality)(x; bool=false, vals)
+```
+- `:cardinality_closed`: $description_cardinality_closed
+```julia
+concept(:cardinality_closed, x; vals)
+concept(:cardinality_closed)(x; vals)
+```
+- `:cardinality_open`: $description_cardinality_open
+```julia
+concept(:cardinality_open, x; vals)
+concept(:cardinality_open)(x; vals)
+```
+
+## Examples
+```julia
+c = concept(:cardinality)
+
+c([2, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=false)
+c([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3], bool=true)
+c([2, 5, 10, 10]; vals=[2 1; 5 1; 10 2])
+c([2, 5, 10, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+c([2, 5, 5, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+c([2, 5, 10, 8]; vals=[2 1; 5 1; 10 2])
+c([5, 5, 5, 10]; vals=[2 0 1 42; 5 1 3 7; 10 2 3 -4])
+
+cc = concept(:cardinality_closed)
+cc([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+
+co = concept(:cardinality_open)
+co([8, 5, 10, 10]; vals=[2 0 1; 5 1 3; 10 2 3])
+```
+"""
 function xcsp_cardinality(; list, values, occurs, closed=false)
     counts = zeros(Int, Indices(distinct(values)))
     for t in list

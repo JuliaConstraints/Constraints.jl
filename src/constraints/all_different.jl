@@ -1,5 +1,34 @@
 #!SECTION - all_different
 
+const description_all_different = """
+    Global constraint ensuring that all the values of `x` are all different.
+"""
+
+"""
+    xcsp_all_different(list::Vector{Int})
+
+Return `true` if all the values of `list` are different, `false` otherwise.
+
+## Arguments
+- `list::Vector{Int}`: list of values to check.
+
+## Variants
+- `:all_different`: $description_all_different
+```julia
+concept(:all_different, x; vals)
+concept(:all_different)(x; vals)
+```
+
+## Examples
+```julia
+c = concept(:all_different)
+
+c([1, 2, 3, 4])
+c([1, 2, 3, 1])
+c([1, 0, 0, 4]; vals=[0])
+c([1, 0, 0, 1]; vals=[0])
+```
+"""
 xcsp_all_different(list, ::Nothing) = allunique(list)
 
 function xcsp_all_different(list, except)
@@ -7,8 +36,6 @@ function xcsp_all_different(list, except)
 end
 
 xcsp_all_different(; list, except=nothing) = xcsp_all_different(list, except)
-
-const description_all_different = """Global constraint ensuring that all the values of a given configuration are unique"""
 
 @usual concept_all_different(x; vals=nothing) = xcsp_all_different(list=x, except=vals)
 

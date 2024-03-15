@@ -1,6 +1,35 @@
-xcsp_sum(; list, coeffs, condition) = condition[1](sum(coeffs .* list), condition[2])
+const description_sum = """
+Global constraint ensuring that the sum of the variables in `x` satisfies a given condition.
+"""
 
-const description_sum = """Global constraint ensuring that `op(sum(x *. pair_vars), val)` is true. Defaults to `op = ==` and `pair_vars = ones(eltype(x), length(x))`"""
+"""
+    xcsp_sum(list, coeffs, condition)
+
+Return `true` if the sum of the variables in `list` satisfies the given condition, `false` otherwise.
+
+## Arguments
+- `list::Vector{Int}`: list of values to check.
+- `coeffs::Vector{Int}`: list of coefficients to use.
+- `condition`: condition to satisfy.
+
+## Variants
+- `:sum`: $description_sum
+```julia
+concept(:sum, x; op===, pair_vars=ones(x), val)
+concept(:sum)(x; op===, pair_vars=ones(x), val)
+```
+
+## Examples
+```julia
+c = concept(:sum)
+
+c([1, 2, 3, 4, 5]; op===, val=15)
+c([1, 2, 3, 4, 5]; op===, val=2)
+c([1, 2, 3, 4, 3]; op=≤, val=15)
+c([1, 2, 3, 4, 3]; op=≤, val=3)
+```
+"""
+xcsp_sum(; list, coeffs, condition) = condition[1](sum(coeffs .* list), condition[2])
 
 @usual function concept_sum(x; op = ==, pair_vars = ones(eltype(x), length(x)), val)
     return xcsp_sum(list = x, coeffs = pair_vars, condition = (op, val))

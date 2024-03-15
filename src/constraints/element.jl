@@ -1,3 +1,34 @@
+const description_element = """
+The element constraint is a global constraint used in constraint programming that specifies that the value of a variable should be equal to the value of another variable indexed by a third variable.
+"""
+
+"""
+    xcsp_element(; list, index, condition)
+
+Return `true` if the element constraint is satisfied, `false` otherwise. The element constraint is a global constraint used in constraint programming that specifies that the value of a variable should be equal to the value of another variable indexed by a third variable.
+
+## Arguments
+- `list::Union{AbstractVector, Tuple}`: list of values to check.
+- `index::Int`: index of the value to check.
+- `condition::Tuple`: condition to check.
+
+## Variants
+- `:element`: $description_element
+```julia
+concept(:element, x; id=nothing, op===, val=nothing)
+concept(:element)(x; id=nothing, op===, val=nothing)
+```
+
+## Examples
+```julia
+c = concept(:element)
+
+c([1, 2, 3, 4, 5]; id=1, val=1)
+c([1, 2, 3, 4, 5]; id=1, val=2)
+c([1, 2, 3, 4, 2])
+c([1, 2, 3, 4, 1])
+```
+"""
 function xcsp_element(list, index, condition::Tuple)
     return 0 < index ≤ length(list) ? condition[1].(list[index], condition[2]) : false
 end
@@ -20,8 +51,6 @@ end
 function concept_element(x, id, op, ::Nothing)
     return concept_element(x[1:end-1]; id, op, val=x[end])
 end
-
-const description_element = """Global constraint ensuring that all ...`"""
 
 @usual concept_element(x; id = nothing, op = ==, val = nothing) = concept_element(x, id, op, val)
 

@@ -1,9 +1,39 @@
 #!SECTION - all_equal
 
-const description_all_equal = """Global constraint ensuring that all the values of `x` are all equal"""
+const description_all_equal = """
+    Global constraint ensuring that all the values of `x` are all equal.
+"""
 
 concept_all_equal(x, val) = all(y -> y == val, x)
 
+"""
+    xcsp_all_equal(list::Vector{Int}, val::Int)
+
+Return `true` if all the values of `list` are equal to `val`, `false` otherwise.
+
+## Arguments
+- `list::Vector{Int}`: list of values to check.
+- `val::Int`: value to compare to.
+
+## Variants
+- `:all_equal`: $description_all_equal
+```julia
+concept(:all_equal, x; val=nothing, pair_vars=zeros(x), op=+)
+concept(:all_equal)(x; val=nothing, pair_vars=zeros(x), op=+)
+```
+
+## Examples
+```julia
+c = concept(:all_equal)
+
+c([0, 0, 0, 0])
+c([1, 2, 3, 4])
+c([3, 2, 1, 0]; pair_vars=[0, 1, 2, 3])
+c([0, 1, 2, 3]; pair_vars=[0, 1, 2, 3])
+c([1, 2, 3, 4]; op=/, val=1, pair_vars=[1, 2, 3, 4])
+c([1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
+```
+"""
 xcsp_all_equal(; list) = concept_all_equal(list; val=first(list))
 
 @usual function concept_all_equal(x; val=nothing, pair_vars=zero(x), op=+)
