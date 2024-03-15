@@ -1,3 +1,35 @@
+const description_cumulative = """
+The cumulative constraint is a global constraint used in constraint programming that is often used in scheduling problems. It ensures that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit.
+"""
+
+"""
+    xcsp_cumulative(; origins, lengths, heights, condition)
+
+Return `true` if the cumulative constraint is satisfied, `false` otherwise. The cumulative constraint is a global constraint used in constraint programming that is often used in scheduling problems. It ensures that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit.
+
+## Arguments
+- `origins::AbstractVector`: list of origins of the tasks.
+- `lengths::AbstractVector`: list of lengths of the tasks.
+- `heights::AbstractVector`: list of heights of the tasks.
+- `condition::Tuple`: condition to check.
+
+## Variants
+- `:cumulative`: $description_cumulative
+```julia
+concept(:cumulative, x; pair_vars, op, val)
+concept(:cumulative)(x; pair_vars, op, val)
+```
+
+## Examples
+```julia
+c = concept(:cumulative)
+
+c([1, 2, 3, 4, 5]; val = 1)
+c([1, 2, 2, 4, 5]; val = 1)
+c([1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = ≤, val = 5)
+c([1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = <, val = 5)
+```
+"""
 function xcsp_cumulative(; origins, lengths, heights, condition)
     tasks = Vector{Tuple{eltype(origins),eltype(origins)}}()
     for t in Iterators.zip(origins, lengths, heights)
@@ -21,8 +53,6 @@ end
 function concept_cumulative(x, pair_vars::Vector{T}, op, val) where {T<:Number}
     return concept_cumulative(x, fill(pair_vars, 2), op, val)
 end
-
-const description_cumulative = """Global constraint ensuring that all ...`"""
 
 @usual function concept_cumulative(x; pair_vars=ones(eltype(x), (2, length(x))), op=≤, val)
     return concept_cumulative(x, pair_vars, op, val)

@@ -1,3 +1,35 @@
+const description = """
+The channel constraint establishes a bijective correspondence between two sets of variables. This means that each value in the first set of variables corresponds to a unique value in the second set, and vice versa.
+"""
+
+"""
+    xcsp_channel(; list)
+
+Return `true` if the channel constraint is satisfied, `false` otherwise. The channel constraint establishes a bijective correspondence between two sets of variables. This means that each value in the first set of variables corresponds to a unique value in the second set, and vice versa.
+
+## Arguments
+- `list::Union{AbstractVector, Tuple}`: list of values to check.
+
+## Variants
+- `:channel`: $description
+```julia
+concept(:channel, x; dim=1, id=nothing)
+concept(:channel)(x; dim=1, id=nothing)
+```
+
+## Examples
+```julia
+c = concept(:channel)
+
+c([2, 1, 4, 3])
+c([1, 2, 3, 4])
+c([2, 3, 1, 4])
+c([2, 1, 5, 3, 4, 2, 1, 4, 5, 3]; dim=2)
+c([2, 1, 4, 3, 5, 2, 1, 4, 5, 3]; dim=2)
+c([false, false, true, false]; id=3)
+c([false, false, true, false]; id=1)
+```
+"""
 function xcsp_channel(list::AbstractVector)
     for (i, j) in enumerate(list)
         if i ≤ j
@@ -31,8 +63,6 @@ function concept_channel(x, ::Val{2})
 end
 
 concept_channel(x, ::Val) = xcsp_channel(list=x)
-
-const description_channel = """Global constraint ensuring that all ...`"""
 
 concept_channel(x, id) = count(!iszero, x) == 1 == x[id]
 

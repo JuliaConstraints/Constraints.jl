@@ -72,6 +72,24 @@ Return the list of symmetries of `c`.
 """
 symmetries(c::Constraint) = c.symmetries
 
+"""
+    make_error(symb::Symbol)
+
+Create a function that returns an error based on the predicate of the constraint identified by the symbol provided.
+
+## Arguments
+- `symb::Symbol`: The symbol used to determine the error function to be returned. The function first checks if a predicate with the prefix "icn_" exists in the Constraints module. If it does, it returns that function. If it doesn't, it checks for a predicate with the prefix "error_". If that exists, it returns that function. If neither exists, it returns a function that evaluates the predicate with the prefix "concept_" and returns the negation of its result cast to Float64.
+
+## Returns
+- Function: A function that takes in a variable `x` and an arbitrary number of parameters `params`. The function returns a Float64.
+
+# Examples
+```julia
+e = make_error(:all_different)
+e([1, 2, 3]) # Returns 0.0
+e([1, 1, 3]) # Returns 1.0
+```
+"""
 function make_error(symb::Symbol)
     isdefined(Constraints, Symbol("icn_$symb")) && (return eval(Symbol("icn_$symb")))
     isdefined(Constraints, Symbol("error_$symb")) && (return eval(Symbol("error_$symb")))
@@ -85,6 +103,25 @@ Simply delete the `concept_` part of symbol or string starting with it. TODO: ad
 """
 shrink_concept(s) = Symbol(string(s)[9:end])
 
+"""
+    concept_vs_error(c, e, args...; kargs...)
+
+Compare the results of a concept function and an error function for the same inputs. It is mainly used for testing purposes.
+
+# Arguments
+- `c`: The concept function.
+- `e`: The error function.
+- `args...`: Positional arguments to be passed to both the concept and error functions.
+- `kargs...`: Keyword arguments to be passed to both the concept and error functions.
+
+# Returns
+- Boolean: Returns true if the result of the concept function is not equal to whether the result of the error function is greater than 0.0. Otherwise, it returns false.
+
+# Examples
+```julia
+concept_vs_error(all_different, make_error(:all_different), [1, 2, 3]) # Returns false
+```
+"""
 function concept_vs_error(c, e, args...; kargs...)
     return c(args...; kargs...) ≠ (e(args...; kargs...) > 0.0)
 end
