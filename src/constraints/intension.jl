@@ -23,11 +23,12 @@ concept(:dist_different)(x)
 ```
 
 # Examples
-```julia
+
+```@example intention
 c = concept(:dist_different)
-c([1, 2, 3, 3]) # true
-c([1, 2, 3, 4]) # false
+c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
 ```
+
 """
 xcsp_intension(; list, predicate) = predicate(list)
 
