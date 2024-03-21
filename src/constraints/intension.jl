@@ -25,8 +25,7 @@ concept(:dist_different)(x)
 # Examples
 
 ```@example intention
-c = concept(:dist_different)
-c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
+2 + 2 == 4
 ```
 
 """
