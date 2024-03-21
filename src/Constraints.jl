@@ -38,8 +38,8 @@ include("constraint.jl")
 ## SECTION - Usual constraints (based on and including XCSP3-core categories)
 include("usual_constraints.jl")
 
-# SECTION - Generic Constraints: intension, extension
-include("constraints/intension.jl")
+# SECTION - Generic Constraints: intention, extension
+include("constraints/intention.jl")
 include("constraints/extension.jl")
 
 # SECTION - Constraints defined from Languages

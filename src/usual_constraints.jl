@@ -225,6 +225,7 @@ concept(:all_different, [1, 2, 3])
 ```
 """
 concept(s::Symbol, args...; kargs...) = concept(USUAL_CONSTRAINTS[s])(args...; kargs...)
+concept(s::Symbol) = concept(USUAL_CONSTRAINTS[s])
 
 ## SECTION - Test Items
 @testitem "Usual constraints" tags = [:usual, :constraints] default_imports = false begin
