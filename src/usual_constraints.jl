@@ -113,7 +113,7 @@ macro usual(ex::Expr)
     if haskey(USUAL_CONSTRAINTS, c)
         push!(USUAL_CONSTRAINTS[c].params, defaults)
     else # Enter new constraint
-        ds = :description * c
+        ds = symcon(:description, c)
         description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
 
         params = [defaults]
