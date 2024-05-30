@@ -60,7 +60,7 @@ end
 end
 
 ## SECTION - Test Items
-@testitem "Circuit" tags = [:usual, :constraints, :circuit] begin
+@testitem "Circuit" tags=[:usual, :constraints, :circuit] begin
     c = USUAL_CONSTRAINTS[:circuit] |> concept
     e = USUAL_CONSTRAINTS[:circuit] |> error_f
     vs = Constraints.concept_vs_error

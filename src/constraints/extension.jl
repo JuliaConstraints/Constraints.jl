@@ -58,7 +58,7 @@ c = concept(:conflicts)
 c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
 ```
 """
-function xcsp_extension(; list, supports=nothing, conflicts=nothing)
+function xcsp_extension(; list, supports = nothing, conflicts = nothing)
     return xcsp_extension(list, supports, conflicts)
 end
 
@@ -78,7 +78,7 @@ end
 
 @usual concept_conflicts(x; pair_vars) = xcsp_extension(list = x, conflicts = pair_vars)
 
-@testitem "Extension" tags = [:usual, :constraints, :extension] begin
+@testitem "Extension" tags=[:usual, :constraints, :extension] begin
     c = USUAL_CONSTRAINTS[:extension] |> concept
     e = USUAL_CONSTRAINTS[:extension] |> error_f
     c_supports = USUAL_CONSTRAINTS[:supports] |> concept
@@ -87,19 +87,37 @@ end
     e_conflicts = USUAL_CONSTRAINTS[:conflicts] |> error_f
     vs = Constraints.concept_vs_error
 
-    @test c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
-    @test c([1, 2, 3, 4, 5]; pair_vars=([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]))
-    @test !c([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test c_supports([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
-    @test !c_supports([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test c_conflicts([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test !c_conflicts([1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
+    @test c([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
+    @test c(
+        [1, 2, 3, 4, 5];
+        pair_vars = ([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    )
+    @test !c([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    @test c_supports([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
+    @test !c_supports([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    @test c_conflicts([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    @test !c_conflicts([1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
 
-    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
-    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]))
-    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test vs(c_supports, e_supports, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
-    @test vs(c_supports, e_supports, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test vs(c_conflicts, e_conflicts, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
-    @test vs(c_conflicts, e_conflicts, [1, 2, 3, 4, 5]; pair_vars=[[1, 2, 3, 4, 5]])
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
+    @test vs(
+        c,
+        e,
+        [1, 2, 3, 4, 5];
+        pair_vars = ([[1, 2, 3, 4, 5]], [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    )
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]])
+    @test vs(c_supports, e_supports, [1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
+    @test vs(
+        c_supports,
+        e_supports,
+        [1, 2, 3, 4, 5];
+        pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]
+    )
+    @test vs(
+        c_conflicts,
+        e_conflicts,
+        [1, 2, 3, 4, 5];
+        pair_vars = [[1, 2, 1, 4, 5], [1, 2, 3, 5, 5]]
+    )
+    @test vs(c_conflicts, e_conflicts, [1, 2, 3, 4, 5]; pair_vars = [[1, 2, 3, 4, 5]])
 end

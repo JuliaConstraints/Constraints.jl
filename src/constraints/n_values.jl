@@ -47,7 +47,7 @@ xcsp_nvalues(; list, condition, except = nothing) = xcsp_nvalues(list, condition
     return xcsp_nvalues(list = x, condition = (op, val), except = vals)
 end
 
-@testitem "nValues" tags = [:usual, :constraints, :nvalues] begin
+@testitem "nValues" tags=[:usual, :constraints, :nvalues] begin
     c = USUAL_CONSTRAINTS[:nvalues] |> concept
     e = USUAL_CONSTRAINTS[:nvalues] |> error_f
     vs = Constraints.concept_vs_error

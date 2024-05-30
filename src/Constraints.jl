@@ -25,7 +25,7 @@ export constraints_descriptions
 export describe
 export error_f
 export extract_parameters
-export learn_from_icn
+# export learn_from_icn
 export params_length
 export symmetries
 
@@ -72,6 +72,5 @@ include("constraints/circuit.jl")
 
 # SECTION - Elementary Constraints
 include("constraints/instantiation.jl")
-
 
 end

@@ -10,24 +10,29 @@ Parametric stucture with the following fields.
 - `concept`: a Boolean function that, given an assignment `x`, outputs `true` if `x` satisfies the constraint, and `false` otherwise.
 - `error`: a positive function that works as preferences over invalid assignements. Return `0.0` if the constraint is satisfied, and a strictly positive real otherwise.
 """
-mutable struct Constraint{FConcept<:Function,FError<:Function}
+mutable struct Constraint{FConcept <: Function, FError <: Function}
     args::Int
     concept::FConcept
     description::String
     error::FError
-    params::Vector{Dict{Symbol,Bool}}
+    params::Vector{Dict{Symbol, Bool}}
     symmetries::Set{Symbol}
 
     function Constraint(;
-        args=0,
-        concept=x -> true,
-        description="No given description!",
-        error=(x; param=0, dom_size=0) -> Float64(!concept(x)),
-        params=Vector{Dict{Symbol,Bool}}(),
-        syms=Set{Symbol}()
+            args = 0,
+            concept = x -> true,
+            description = "No given description!",
+            error = (x; param = 0, dom_size = 0) -> Float64(!concept(x)),
+            params = Vector{Dict{Symbol, Bool}}(),
+            syms = Set{Symbol}()
     )
-        return new{typeof(concept),typeof(error)}(
-            args, concept, description, error, params, syms
+        return new{typeof(concept), typeof(error)}(
+            args,
+            concept,
+            description,
+            error,
+            params,
+            syms
         )
     end
 end
@@ -39,7 +44,7 @@ Return the concept (function) of constraint `c`.
 Apply the concept of `c` to values `x` and optionally `param`.
 """
 concept(c::Constraint) = c.concept
-function concept(c::Constraint, x; param=nothing)
+function concept(c::Constraint, x; param = nothing)
     return isnothing(param) ? concept(c)(x) : concept(c)(x; param)
 end
 
@@ -50,7 +55,7 @@ Return the error function of constraint `c`.
 Apply the error function of `c` to values `x` and optionally `param`.
 """
 error_f(c::Constraint) = c.error
-function error_f(c::Constraint, x; param=nothing, dom_size=0)
+function error_f(c::Constraint, x; param = nothing, dom_size = 0)
     return isnothing(param) ? error_f(c)(x; dom_size) : error_f(c)(x; param, dom_size)
 end
 
@@ -125,7 +130,7 @@ concept_vs_error(all_different, make_error(:all_different), [1, 2, 3]) # Returns
 function concept_vs_error(c, e, args...; kargs...)
     return c(args...; kargs...) ≠ (e(args...; kargs...) > 0.0)
 end
-@testitem "Empty constraint" tags = [:constraint, :empty] begin
+@testitem "Empty constraint" tags=[:constraint, :empty] begin
     c = Constraint()
     @test concept(c, []) == true
     @test error_f(c, []) == 0.0
