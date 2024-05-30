@@ -35,7 +35,7 @@ xcsp_sum(; list, coeffs, condition) = condition[1](sum(coeffs .* list), conditio
     return xcsp_sum(list = x, coeffs = pair_vars, condition = (op, val))
 end
 
-@testitem "sum" tags = [:usual, :constraints, :sum] begin
+@testitem "sum" tags=[:usual, :constraints, :sum] begin
     c = USUAL_CONSTRAINTS[:sum] |> concept
     e = USUAL_CONSTRAINTS[:sum] |> error_f
     vs = Constraints.concept_vs_error

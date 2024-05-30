@@ -41,31 +41,32 @@ function concept_element(x, id, op, val)
 end
 
 function concept_element(x, ::Nothing, op, ::Nothing)
-    return concept_element(x[2:end-1]; id=x[1], op, val=x[end])
+    return concept_element(x[2:(end - 1)]; id = x[1], op, val = x[end])
 end
 
 function concept_element(x, ::Nothing, op, val)
-    return concept_element(x[2:end]; id=x[1], op, val)
+    return concept_element(x[2:end]; id = x[1], op, val)
 end
 
 function concept_element(x, id, op, ::Nothing)
-    return concept_element(x[1:end-1]; id, op, val=x[end])
+    return concept_element(x[1:(end - 1)]; id, op, val = x[end])
 end
 
-@usual concept_element(x; id = nothing, op = ==, val = nothing) = concept_element(x, id, op, val)
+@usual concept_element(x; id = nothing, op = ==, val = nothing) = concept_element(
+    x, id, op, val)
 
-@testitem "Element" tags = [:usual, :constraints, :element] begin
+@testitem "Element" tags=[:usual, :constraints, :element] begin
     c = USUAL_CONSTRAINTS[:element] |> concept
     e = USUAL_CONSTRAINTS[:element] |> error_f
     vs = Constraints.concept_vs_error
 
-    @test c([1, 2, 3, 4, 5]; id=1, val=1)
-    @test !c([1, 2, 3, 4, 5]; id=1, val=2)
+    @test c([1, 2, 3, 4, 5]; id = 1, val = 1)
+    @test !c([1, 2, 3, 4, 5]; id = 1, val = 2)
     @test c([1, 2, 3, 4, 2])
     @test !c([1, 2, 3, 4, 1])
 
-    @test vs(c, e, [1, 2, 3, 4, 5]; id=1, val=1)
-    @test vs(c, e, [1, 2, 3, 4, 5]; id=1, val=2)
+    @test vs(c, e, [1, 2, 3, 4, 5]; id = 1, val = 1)
+    @test vs(c, e, [1, 2, 3, 4, 5]; id = 1, val = 2)
     @test vs(c, e, [1, 2, 3, 4, 2])
     @test vs(c, e, [1, 2, 3, 4, 1])
 end

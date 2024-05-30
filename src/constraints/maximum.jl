@@ -30,7 +30,7 @@ xcsp_maximum(; list, condition) = condition[1](maximum(list), condition[2])
 
 @usual concept_maximum(x; op = ==, val) = xcsp_maximum(; list = x, condition = (op, val))
 
-@testitem "Maximum" tags = [:usual, :constraints, :maximum] begin
+@testitem "Maximum" tags=[:usual, :constraints, :maximum] begin
     c = USUAL_CONSTRAINTS[:maximum] |> concept
     e = USUAL_CONSTRAINTS[:maximum] |> error_f
     vs = Constraints.concept_vs_error

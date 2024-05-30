@@ -59,17 +59,17 @@ function xcsp_channel(; list)
 end
 function concept_channel(x, ::Val{2})
     mid = length(x) ÷ 2
-    return xcsp_channel(list=(@view(x[1:mid]), @view(x[mid+1:end])))
+    return xcsp_channel(list = (@view(x[1:mid]), @view(x[(mid + 1):end])))
 end
 
-concept_channel(x, ::Val) = xcsp_channel(list=x)
+concept_channel(x, ::Val) = xcsp_channel(list = x)
 
 concept_channel(x, id) = count(!iszero, x) == 1 == x[id]
 
-@usual function concept_channel(x; dim=1, id = nothing)
+@usual function concept_channel(x; dim = 1, id = nothing)
     return isnothing(id) ? concept_channel(x, Val(dim)) : concept_channel(x, id)
 end
-@testitem "Channel" tags = [:usual, :constraints, :channel] begin
+@testitem "Channel" tags=[:usual, :constraints, :channel] begin
     c = USUAL_CONSTRAINTS[:channel] |> concept
     e = USUAL_CONSTRAINTS[:channel] |> error_f
     vs = Constraints.concept_vs_error
@@ -77,16 +77,16 @@ end
     @test c([2, 1, 4, 3])
     @test c([1, 2, 3, 4])
     @test !c([2, 3, 1, 4])
-    @test c([2, 1, 5, 3, 4, 2, 1, 4, 5, 3]; dim=2)
-    @test !c([2, 1, 4, 3, 5, 2, 1, 4, 5, 3]; dim=2)
-    @test c([false, false, true, false]; id=3)
-    @test !c([false, false, true, false]; id=1)
+    @test c([2, 1, 5, 3, 4, 2, 1, 4, 5, 3]; dim = 2)
+    @test !c([2, 1, 4, 3, 5, 2, 1, 4, 5, 3]; dim = 2)
+    @test c([false, false, true, false]; id = 3)
+    @test !c([false, false, true, false]; id = 1)
 
     @test vs(c, e, [2, 1, 4, 3])
     @test vs(c, e, [1, 2, 3, 4])
     @test vs(c, e, [2, 3, 1, 4])
-    @test vs(c, e, [2, 1, 5, 3, 4, 2, 1, 4, 5, 3]; dim=2)
-    @test vs(c, e, [2, 1, 4, 3, 5, 2, 1, 4, 5, 3]; dim=2)
-    @test vs(c, e, [false, false, true, false]; id=3)
-    @test vs(c, e, [false, false, true, false]; id=1)
+    @test vs(c, e, [2, 1, 5, 3, 4, 2, 1, 4, 5, 3]; dim = 2)
+    @test vs(c, e, [2, 1, 4, 3, 5, 2, 1, 4, 5, 3]; dim = 2)
+    @test vs(c, e, [false, false, true, false]; id = 3)
+    @test vs(c, e, [false, false, true, false]; id = 1)
 end

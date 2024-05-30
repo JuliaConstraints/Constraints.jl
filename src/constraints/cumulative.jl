@@ -31,10 +31,10 @@ c([1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = <, val = 5)
 ```
 """
 function xcsp_cumulative(; origins, lengths, heights, condition)
-    tasks = Vector{Tuple{eltype(origins),eltype(origins)}}()
+    tasks = Vector{Tuple{eltype(origins), eltype(origins)}}()
     for t in Iterators.zip(origins, lengths, heights)
         push!(tasks, (t[1], t[3]))
-        push!(tasks,(t[1]+t[2], -t[3]))
+        push!(tasks, (t[1] + t[2], -t[3]))
     end
     η = zero(eltype(origins))
     for t in sort!(tasks)
@@ -46,30 +46,38 @@ end
 
 function concept_cumulative(x, pair_vars, op, val)
     return xcsp_cumulative(
-        origins=x, lengths=pair_vars[1,:], heights=pair_vars[2, :], condition=(op, val)
+        origins = x,
+        lengths = pair_vars[1, :],
+        heights = pair_vars[2, :],
+        condition = (op, val)
     )
 end
 
-function concept_cumulative(x, pair_vars::Vector{T}, op, val) where {T<:Number}
+function concept_cumulative(x, pair_vars::Vector{T}, op, val) where {T <: Number}
     return concept_cumulative(x, fill(pair_vars, 2), op, val)
 end
 
-@usual function concept_cumulative(x; pair_vars=ones(eltype(x), (2, length(x))), op=≤, val)
+@usual function concept_cumulative(
+        x;
+        pair_vars = ones(eltype(x), (2, length(x))),
+        op = ≤,
+        val
+)
     return concept_cumulative(x, pair_vars, op, val)
 end
 
-@testitem "Cumulative" tags = [:usual, :constraints, :cumulative] begin
+@testitem "Cumulative" tags=[:usual, :constraints, :cumulative] begin
     c = USUAL_CONSTRAINTS[:cumulative] |> concept
     e = USUAL_CONSTRAINTS[:cumulative] |> error_f
     vs = Constraints.concept_vs_error
 
-    @test c([1, 2, 3, 4, 5]; val=1)
-    @test !c([1, 2, 2, 4, 5]; val=1)
-    @test c([1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= ≤, val=5)
-    @test !c([1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= <, val=5)
+    @test c([1, 2, 3, 4, 5]; val = 1)
+    @test !c([1, 2, 2, 4, 5]; val = 1)
+    @test c([1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = ≤, val = 5)
+    @test !c([1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = <, val = 5)
 
-    @test vs(c, e, [1, 2, 3, 4, 5]; val=1)
-    @test vs(c, e, [1, 2, 2, 4, 5]; val=1)
-    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= ≤, val=5)
-    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars=[3 2 5 4 2; 1 2 1 1 3], op= <, val=5)
+    @test vs(c, e, [1, 2, 3, 4, 5]; val = 1)
+    @test vs(c, e, [1, 2, 2, 4, 5]; val = 1)
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = ≤, val = 5)
+    @test vs(c, e, [1, 2, 3, 4, 5]; pair_vars = [3 2 5 4 2; 1 2 1 1 3], op = <, val = 5)
 end
