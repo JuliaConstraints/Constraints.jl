@@ -23,11 +23,27 @@ concept(:dist_different)(x)
 ```
 
 # Examples
-```julia
-c = concept(:dist_different)
-c([1, 2, 3, 3]) # true
-c([1, 2, 3, 4]) # false
+
+````@example debug2
+2 + 2
+````
+
+```@example debug1
+2 + 2
 ```
+
+```@example intention1
+using Constraints # hide
+c = concept(:dist_different)
+c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
+```
+
+````@example intention2
+using Constraints # hide
+c = concept(:dist_different)
+c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
+````
+
 """
 xcsp_intension(; list, predicate) = predicate(list)
 
