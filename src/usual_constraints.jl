@@ -9,7 +9,7 @@ Adding a new constraint is as simple as defining a new function with the same na
 @usual concept_all_different(x; vals=nothing) = xcsp_all_different(list=x, except=vals)
 ```
 """
-const USUAL_CONSTRAINTS = Dict{Symbol,Constraint}(:always_true => Constraint())
+const USUAL_CONSTRAINTS = Dict{Symbol, Constraint}(:always_true => Constraint())
 
 """
     describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=150)
@@ -25,8 +25,8 @@ Return a pretty table with the description of the constraints in `constraints`.
 describe()
 ```
 """
-function describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=150)
-    df = DataFrame(; Names=Symbol[], Description=String[])
+function describe(constraints::Dict{Symbol, Constraint} = USUAL_CONSTRAINTS; width = 150)
+    df = DataFrame(; Names = Symbol[], Description = String[])
     for (name, cons) in constraints
         push!(df, (name, cons.description))
     end
@@ -34,10 +34,10 @@ function describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=
     dl = maximum(c -> length(string(c.description)), values(USUAL_CONSTRAINTS))
     return pretty_table(
         df;
-        columns_width=[l, min(dl, width - l)],
-        linebreaks=true,
-        autowrap=true,
-        alignment=:l
+        columns_width = [l, min(dl, width - l)],
+        linebreaks = true,
+        autowrap = true,
+        alignment = :l
     )
 end
 
@@ -57,9 +57,9 @@ extract_parameters(:all_different)
 ```
 """
 function ConstraintCommons.extract_parameters(
-    s::Symbol,
-    constraints_dict=USUAL_CONSTRAINTS;
-    parameters=ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS
+        s::Symbol,
+        constraints_dict = USUAL_CONSTRAINTS;
+        parameters = ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS
 )
     return ConstraintCommons.extract_parameters(concept(constraints_dict[s]); parameters)
 end
@@ -94,7 +94,7 @@ macro usual(ex::Expr)
     c = shrink_concept(s)
 
     # Dict storing the existence or not of a default value for each kwarg
-    defaults = Dict{Symbol,Bool}()
+    defaults = Dict{Symbol, Bool}()
 
     # Check if a `;` is present in the call, then loop over kwargs
     if length(ex.args[1].args) > 2
@@ -107,13 +107,12 @@ macro usual(ex::Expr)
         end
     end
 
-
     error = make_error(c)
     concept = eval(ex)
     if haskey(USUAL_CONSTRAINTS, c)
         push!(USUAL_CONSTRAINTS[c].params, defaults)
     else # Enter new constraint
-        ds = :description * c
+        ds = symcon(:description, c)
         description = isdefined(Constraints, ds) ? eval(ds) : "No given description!"
 
         params = [defaults]
@@ -138,8 +137,18 @@ Return a pretty table with the parameters of the constraints in `C`.
 constraints_parameters()
 ```
 """
-function constraints_parameters(C=USUAL_CONSTRAINTS)
-    df = DataFrame(Constraint=Symbol[], bool=String[], dim=String[], id=String[], language=String[], op=String[], pair_vars=String[], val=String[], vals=String[])
+function constraints_parameters(C = USUAL_CONSTRAINTS)
+    df = DataFrame(
+        Constraint = Symbol[],
+        bool = String[],
+        dim = String[],
+        id = String[],
+        language = String[],
+        op = String[],
+        pair_vars = String[],
+        val = String[],
+        vals = String[]
+    )
 
     for (s, c) in C
         base = vcat([s], fill("", length(USUAL_CONSTRAINT_PARAMETERS)))
@@ -154,17 +163,17 @@ function constraints_parameters(C=USUAL_CONSTRAINTS)
     sort!(df)
 
     hl_odd = Highlighter(
-        f=(data, i, j) -> i % 2 == 0,
-        crayon=Crayon(background=:light_blue, foreground=:black),
+        f = (data, i, j) -> i % 2 == 0,
+        crayon = Crayon(background = :light_blue, foreground = :black)
     )
 
     return pretty_table(
         df;
-        highlighters=hl_odd,
-        header_crayon=crayon"yellow bold",
-        title="Available parameters per constraint (× -> required, o -> optional)",
-        show_subheader=false,
-        crop=:none
+        highlighters = hl_odd,
+        header_crayon = crayon"yellow bold",
+        title = "Available parameters per constraint (× -> required, o -> optional)",
+        show_subheader = false,
+        crop = :none
     )
 end
 
@@ -181,8 +190,8 @@ Return a pretty table with the descriptions of the constraints in `C`.
 constraints_descriptions()
 ```
 """
-function constraints_descriptions(C=USUAL_CONSTRAINTS)
-    df = DataFrame(Constraint=Symbol[], Description=String[])
+function constraints_descriptions(C = USUAL_CONSTRAINTS)
+    df = DataFrame(Constraint = Symbol[], Description = String[])
 
     for (s, c) in C
         push!(df, [s, c.description])
@@ -191,21 +200,21 @@ function constraints_descriptions(C=USUAL_CONSTRAINTS)
     sort!(df)
 
     hl_odd = Highlighter(
-        f=(data, i, j) -> i % 2 == 0,
-        crayon=Crayon(background=:light_blue),
+        f = (data, i, j) -> i % 2 == 0,
+        crayon = Crayon(background = :light_blue)
     )
 
     return pretty_table(
         df;
         # highlighters = hl_odd,
-        header_crayon=crayon"yellow bold",
-        autowrap=true,
-        linebreaks=true,
-        columns_width=[0, 80],
-        hlines=:all,
-        alignment=:l,
-        show_subheader=false,
-        crop=:none
+        header_crayon = crayon"yellow bold",
+        autowrap = true,
+        linebreaks = true,
+        columns_width = [0, 80],
+        hlines = :all,
+        alignment = :l,
+        show_subheader = false,
+        crop = :none
     )
 end
 
@@ -225,9 +234,10 @@ concept(:all_different, [1, 2, 3])
 ```
 """
 concept(s::Symbol, args...; kargs...) = concept(USUAL_CONSTRAINTS[s])(args...; kargs...)
+concept(s::Symbol) = concept(USUAL_CONSTRAINTS[s])
 
 ## SECTION - Test Items
-@testitem "Usual constraints" tags = [:usual, :constraints] default_imports = false begin
+@testitem "Usual constraints" tags=[:usual, :constraints] default_imports=false begin
     using ConstraintDomains
     using Constraints
     using Test
@@ -241,9 +251,12 @@ concept(s::Symbol, args...; kargs...) = concept(USUAL_CONSTRAINTS[s])(args...; k
         for _ in 1:1000
             for (id, method_params) in enumerate(extract_parameters(c.concept))
                 params = Dict(
-                    map(p -> (p => rand(generate_parameters(domains, p))), method_params)
+                    map(p -> (p => rand(generate_parameters(domains, p))), method_params),
                 )
-                x = rand(occursin("Bool", Base.arg_decl_parts(methods(c.concept)[id])[2][2][2]) ? dom_bool : domains)
+                x = rand(
+                    occursin("Bool", Base.arg_decl_parts(methods(c.concept)[id])[2][2][2]) ?
+                    dom_bool : domains,
+                )
                 @test concept_vs_error(c.concept, c.error, x; params...)
             end
         end

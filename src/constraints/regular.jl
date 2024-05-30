@@ -44,7 +44,7 @@ xcsp_regular(; list, automaton) = accept(automaton, list)
 
 @usual concept_regular(x; language) = xcsp_regular(; list = x, automaton = language)
 
-@testitem "regular" tags = [:usual, :constraints, :regular] default_imports = false begin
+@testitem "regular" tags=[:usual, :constraints, :regular] default_imports=false begin
     using ConstraintCommons
     using Constraints
     using Test
@@ -60,15 +60,15 @@ xcsp_regular(; list, automaton) = accept(automaton, list)
         (:c, 0) => :d,
         (:d, 0) => :d,
         (:d, 1) => :e,
-        (:e, 0) => :e,
+        (:e, 0) => :e
     )
     start = :a
     finish = :e
     a = Automaton(states, start, finish)
 
-    @test c([0,0,1,1,0,0,1,0,0]; language = a)
-    @test !c([1,1,1,0,1]; language = a)
+    @test c([0, 0, 1, 1, 0, 0, 1, 0, 0]; language = a)
+    @test !c([1, 1, 1, 0, 1]; language = a)
 
-    @test vs(c, e, [0,0,1,1,0,0,1,0,0]; language = a)
-    @test vs(c, e, [1,1,1,0,1]; language = a)
+    @test vs(c, e, [0, 0, 1, 1, 0, 0, 1, 0, 0]; language = a)
+    @test vs(c, e, [1, 1, 1, 0, 1]; language = a)
 end

@@ -84,11 +84,11 @@ xcsp_ordered(; list, operator, lengths = nothing) = xcsp_ordered(list, operator,
     return xcsp_ordered(list = x, operator = op, lengths = pair_vars)
 end
 @usual concept_increasing(x) = issorted(x)
-@usual concept_decreasing(x) = issorted(x; rev=true)
+@usual concept_decreasing(x) = issorted(x; rev = true)
 @usual concept_strictly_increasing(x) = concept_ordered(x; op = <)
 @usual concept_strictly_decreasing(x) = concept_ordered(x; op = >)
 
-@testitem "Ordered" tags = [:usual, :constraints, :ordered] begin
+@testitem "Ordered" tags=[:usual, :constraints, :ordered] begin
     c = USUAL_CONSTRAINTS[:ordered] |> concept
     e = USUAL_CONSTRAINTS[:ordered] |> error_f
     vs = Constraints.concept_vs_error

@@ -25,7 +25,7 @@ export constraints_descriptions
 export describe
 export error_f
 export extract_parameters
-export learn_from_icn
+# export learn_from_icn
 export params_length
 export symmetries
 
@@ -38,8 +38,8 @@ include("constraint.jl")
 ## SECTION - Usual constraints (based on and including XCSP3-core categories)
 include("usual_constraints.jl")
 
-# SECTION - Generic Constraints: intension, extension
-include("constraints/intension.jl")
+# SECTION - Generic Constraints: intention, extension
+include("constraints/intention.jl")
 include("constraints/extension.jl")
 
 # SECTION - Constraints defined from Languages
@@ -72,6 +72,5 @@ include("constraints/circuit.jl")
 
 # SECTION - Elementary Constraints
 include("constraints/instantiation.jl")
-
 
 end

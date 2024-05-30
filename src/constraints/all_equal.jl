@@ -34,9 +34,9 @@ c([1, 2, 3, 4]; op=/, val=1, pair_vars=[1, 2, 3, 4])
 c([1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
 ```
 """
-xcsp_all_equal(; list) = concept_all_equal(list; val=first(list))
+xcsp_all_equal(; list) = concept_all_equal(list; val = first(list))
 
-@usual function concept_all_equal(x; val=nothing, pair_vars=zero(x), op=+)
+@usual function concept_all_equal(x; val = nothing, pair_vars = zero(x), op = +)
     if iszero(pair_vars)
         return concept_all_equal(x, val)
     else
@@ -44,25 +44,25 @@ xcsp_all_equal(; list) = concept_all_equal(list; val=first(list))
         return concept_all_equal(aux, val)
     end
 end
-concept_all_equal(x, ::Nothing) = xcsp_all_equal(list=x)
+concept_all_equal(x, ::Nothing) = xcsp_all_equal(list = x)
 
 ## SECTION - Test Items
-@testitem "All Equal" tags = [:usual, :constraints, :all_equal] begin
+@testitem "All Equal" tags=[:usual, :constraints, :all_equal] begin
     c = USUAL_CONSTRAINTS[:all_equal] |> concept
     e = USUAL_CONSTRAINTS[:all_equal] |> error_f
     vs = Constraints.concept_vs_error
 
     @test c([0, 0, 0, 0])
     @test !c([1, 2, 3, 4])
-    @test c([3, 2, 1, 0]; pair_vars=[0, 1, 2, 3])
-    @test !c([0, 1, 2, 3]; pair_vars=[0, 1, 2, 3])
-    @test c([1, 2, 3, 4]; op=/, val=1, pair_vars=[1, 2, 3, 4])
-    @test !c([1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
+    @test c([3, 2, 1, 0]; pair_vars = [0, 1, 2, 3])
+    @test !c([0, 1, 2, 3]; pair_vars = [0, 1, 2, 3])
+    @test c([1, 2, 3, 4]; op = /, val = 1, pair_vars = [1, 2, 3, 4])
+    @test !c([1, 2, 3, 4]; op = *, val = 1, pair_vars = [1, 2, 3, 4])
 
     @test vs(c, e, [0, 0, 0, 0])
     @test vs(c, e, [1, 2, 3, 4])
-    @test vs(c, e, [3, 2, 1, 0]; pair_vars=[0, 1, 2, 3])
-    @test vs(c, e, [0, 1, 2, 3]; pair_vars=[0, 1, 2, 3])
-    @test vs(c, e, [1, 2, 3, 4]; op=/, val=1, pair_vars=[1, 2, 3, 4])
-    @test vs(c, e, [1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
+    @test vs(c, e, [3, 2, 1, 0]; pair_vars = [0, 1, 2, 3])
+    @test vs(c, e, [0, 1, 2, 3]; pair_vars = [0, 1, 2, 3])
+    @test vs(c, e, [1, 2, 3, 4]; op = /, val = 1, pair_vars = [1, 2, 3, 4])
+    @test vs(c, e, [1, 2, 3, 4]; op = *, val = 1, pair_vars = [1, 2, 3, 4])
 end
