@@ -1,6 +1,7 @@
 @testset "Aqua.jl" begin
     import Aqua
     import Constraints
+    import ConstraintCommons
 
     # TODO: Fix the broken tests and remove the `broken = true` flag
     Aqua.test_all(
@@ -12,11 +13,12 @@
     )
 
     @testset "Ambiguities: Constraints" begin
-        # Aqua.test_ambiguities(Constraints;)
+        Aqua.test_ambiguities(Constraints;)
     end
 
     @testset "Piracies: Constraints" begin
-        # Aqua.test_piracies(Constraints;)
+        Aqua.test_piracies(
+            Constraints; treat_as_own = [ConstraintCommons.extract_parameters])
     end
 
     @testset "Dependencies compatibility (no extras)" begin
@@ -27,6 +29,6 @@
     end
 
     @testset "Unbound type parameters" begin
-        # Aqua.test_unbound_args(Constraints;)
+        #   Aqua.test_unbound_args(Constraints;)
     end
 end
