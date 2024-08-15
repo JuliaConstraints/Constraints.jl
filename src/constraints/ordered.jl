@@ -10,7 +10,7 @@ const description_decreasing = """
 Global constraint ensuring that all the values of `x` are in a decreasing order.
 """
 
-const description_sctrictly_increasing = """
+const description_strictly_increasing = """
 Global constraint ensuring that all the values of `x` are in a strictly increasing order.
 """
 
@@ -44,7 +44,7 @@ concept(:increasing)(x; op=≤, pair_vars=nothing)
 concept(:decreasing, x; op=≥, pair_vars=nothing)
 concept(:decreasing)(x; op=≥, pair_vars=nothing)
 ```
-- `:strictly_increasing`: $description_sctrictly_increasing
+- `:strictly_increasing`: $description_strictly_increasing
 ```julia
 concept(:strictly_increasing, x; op=<, pair_vars=nothing)
 concept(:strictly_increasing)(x; op=<, pair_vars=nothing)
