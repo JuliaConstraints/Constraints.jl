@@ -1,4 +1,4 @@
-const description = """
+const description_channel = """
 The channel constraint establishes a bijective correspondence between two sets of variables. This means that each value in the first set of variables corresponds to a unique value in the second set, and vice versa.
 """
 
@@ -11,7 +11,7 @@ Return `true` if the channel constraint is satisfied, `false` otherwise. The cha
 - `list::Union{AbstractVector, Tuple}`: list of values to check.
 
 ## Variants
-- `:channel`: $description
+- `:channel`: $description_channel
 ```julia
 concept(:channel, x; dim=1, id=nothing)
 concept(:channel)(x; dim=1, id=nothing)
