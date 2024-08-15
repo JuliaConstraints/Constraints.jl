@@ -1,21 +1,21 @@
 const description_ordered = """
-    Global constraint ensuring that all the values of `x` are in an increasing order.
+Global constraint ensuring that all the values of `x` are in an increasing order.
 """
 
 const description_increasing = """
-    Global constraint ensuring that all the values of `x` are in an increasing order.
+Global constraint ensuring that all the values of `x` are in an increasing order.
 """
 
 const description_decreasing = """
-    Global constraint ensuring that all the values of `x` are in a decreasing order.
+Global constraint ensuring that all the values of `x` are in a decreasing order.
 """
 
 const description_sctrictly_increasing = """
-    Global constraint ensuring that all the values of `x` are in a strictly increasing order.
+Global constraint ensuring that all the values of `x` are in a strictly increasing order.
 """
 
 const description_strictly_decreasing = """
-    Global constraint ensuring that all the values of `x` are in a strictly decreasing order.
+Global constraint ensuring that all the values of `x` are in a strictly decreasing order.
 """
 
 """
