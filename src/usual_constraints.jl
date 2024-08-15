@@ -9,7 +9,7 @@ Adding a new constraint is as simple as defining a new function with the same na
 @usual concept_all_different(x; vals=nothing) = xcsp_all_different(list=x, except=vals)
 ```
 """
-const USUAL_CONSTRAINTS = Dict{Symbol, Constraint}(:always_true => Constraint())
+const USUAL_CONSTRAINTS = Dict{Symbol, Constraint}()
 
 """
     describe(constraints::Dict{Symbol,Constraint}=USUAL_CONSTRAINTS; width=150)
@@ -40,6 +40,8 @@ function describe(constraints::Dict{Symbol, Constraint} = USUAL_CONSTRAINTS; wid
         alignment = :l
     )
 end
+
+describe(s::Symbol) = USUAL_CONSTRAINTS[s].description
 
 """
     extract_parameters(s::Symbol, constraints_dict=USUAL_CONSTRAINTS; parameters=ConstraintCommons.USUAL_CONSTRAINT_PARAMETERS)
