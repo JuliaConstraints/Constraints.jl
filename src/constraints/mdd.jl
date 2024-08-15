@@ -1,9 +1,8 @@
 #!SECTION - Multi-valued Decision Diagram
 
 const description_mdd = """
-    Multi-valued Decision Diagram (MDD) constraint.
-
-    The MDD constraint is a constraint that can be used to model a wide range of problems. It is a directed graph where each node is labeled with a value and each edge is labeled with a value. The constraint is satisfied if there is a path from the first node to the last node such that the sequence of edge labels is a valid sequence of the value labels.
+Multi-valued Decision Diagram (MDD) constraint.
+The MDD constraint is a constraint that can be used to model a wide range of problems. It is a directed graph where each node is labeled with a value and each edge is labeled with a value. The constraint is satisfied if there is a path from the first node to the last node such that the sequence of edge labels is a valid sequence of the value labels.
 """
 
 """
