@@ -8,15 +8,43 @@
 
 # Constraints.jl
 
-A  back-end package for JuliaConstraints front packages, such as `LocalSearchSolvers.jl`.
+A back-end package for JuliaConstraints front packages, such as `LocalSearchSolvers.jl`.
 
 It provides the following features:
-- A dictionary to store usual constraint: `usual_constraint`, which contains the following entries
-  - `:all_different`
-  - `:dist_different`
-  - `:eq`, `:all_equal`, `:all_equal_param`
-  - `:ordered`
-  - `:always_true` (mainly for testing default `Constraint()` constructor)
+- A dictionary to store usual constraint: `usual_constraint`, which contains the following entries (in alphabetical order):
+  - :`all_different`
+  - :`all_equal`
+  - :`at_least`
+  - :`at_most`
+  - :`cardinality`
+  - :`cardinality_closed`
+  - :`cardinality_open`
+  - :`channel`
+  - :`circuit`
+  - :`conflicts`
+  - :`count`
+  - :`cumulative`
+  - :`decreasing`
+  - :`dist_different`
+  - :`element`
+  - :`exactly`
+  - :`extension`
+  - :`increasing`
+  - :`instantiation`
+  - :`maximum`
+  - :`mdd`
+  - :`minimum`
+  - :`no_overlap`
+  - :`no_overlap_no_zero`
+  - :`no_overlap_with_zero`
+  - :`nvalues`
+  - :`ordered`
+  - :`regular`
+  - :`strictly_decreasing`
+  - :`strictly_increasing`
+  - :`sum`
+  - :`supports`
+
 - For each constraint `c`, the following properties
   - arguments length
   - concept (predicate the variables compliance with `c`)
