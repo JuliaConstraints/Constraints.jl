@@ -5,7 +5,7 @@ Global constraint ensuring that the values of `x` form a circuit, i.e., a sequen
 """
     xcsp_circuit(; list, size)
 
-Return `true` if the circuit constraint is satisfied, `false` otherwise. The circuit constraint is a global constraint ensuring that the values of a list of variables form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start.
+Return `true` if the circuit constraint is satisfied, `false` otherwise. The circuit constraint is a global constraint ensuring that the values of `x` form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start.
 
 ## Arguments
 - `list::AbstractVector`: list of values to check.

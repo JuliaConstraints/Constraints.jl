@@ -1,5 +1,5 @@
 const description_minimum = """
-Global constraint specifying that a certain numerical condition should hold for the minimum value in `x`.
+Global constraint ensuring that a certain numerical condition holds for the minimum value in `x`.
 """
 
 """
