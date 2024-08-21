@@ -1,11 +1,11 @@
 const description_cumulative = """
-The cumulative constraint is a global constraint used in constraint programming that is often used in scheduling problems. It ensures that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit.
+Global constraint ensuring that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit. Often used in scheduling problems
 """
 
 """
     xcsp_cumulative(; origins, lengths, heights, condition)
 
-Return `true` if the cumulative constraint is satisfied, `false` otherwise. The cumulative constraint is a global constraint used in constraint programming that is often used in scheduling problems. It ensures that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit.
+Return `true` if the cumulative constraint is satisfied, `false` otherwise. The cumulative constraint is a global constraint ensuring that for any point in time, the sum of the "heights" of tasks that are ongoing at that time does not exceed a certain limit.
 
 ## Arguments
 - `origins::AbstractVector`: list of origins of the tasks.

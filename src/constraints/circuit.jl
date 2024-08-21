@@ -1,11 +1,11 @@
 const description_circuit = """
-The circuit constraint is a global constraint used in constraint programming, often in routing problems. It ensures that the values of a list of variables form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start.
+Global constraint ensuring that the values of `x` form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start. Often used for routing problems.
 """
 
 """
     xcsp_circuit(; list, size)
 
-Return `true` if the circuit constraint is satisfied, `false` otherwise. The circuit constraint is a global constraint used in constraint programming, often in routing problems. It ensures that the values of a list of variables form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start.
+Return `true` if the circuit constraint is satisfied, `false` otherwise. The circuit constraint is a global constraint ensuring that the values of a list of variables form a circuit, i.e., a sequence where each value is the index of the next value in the sequence, and the sequence eventually loops back to the start.
 
 ## Arguments
 - `list::AbstractVector`: list of values to check.

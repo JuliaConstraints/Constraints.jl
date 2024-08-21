@@ -1,7 +1,7 @@
 #!SECTION - all_equal
 
 const description_all_equal = """
-Global constraint ensuring that all the values of `x` are all equal.
+Global constraint ensuring that the values in `x` are all equal.
 """
 
 concept_all_equal(x, val) = all(y -> y == val, x)

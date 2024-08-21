@@ -1,7 +1,8 @@
 #!SECTION - nValues
 
 const description_nvalues = """
-The nValues constraint specifies that the number of distinct values in the list of variables x is equal to a given value. The constraint is defined by the following expression: nValues(x, op, val) where x is a list of variables, op is a comparison operator, and val is an integer value.
+Ensures that the number of distinct values in `x` satisfies a given numerical condition. 
+The constraint is defined by the following expression: `nValues(x, op, val)` where `x` is a list of variables, `op` is a comparison operator, and `val` is an integer value.
 """
 
 """

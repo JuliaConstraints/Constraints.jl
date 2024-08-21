@@ -1,14 +1,13 @@
 # cardinality (or global_cardinality or gcc)
 
 const description_cardinality = """
-The cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables.
+Global constraint that restricts the number of times specific values in a list `values` can appear in `x`.
 """
 const description_cardinality_closed = """
-The closed cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables. It is closed, meaning that all values in the domain of the variables must be considered.
+Global constraint that restricts the number of times in a list `values` can appear in `x`. It is closed, meaning that the variables in `x` cannot have values outside the ones in `list`.
 """
-
 const description_cardinality_open = """
-The open cardinality constraint, also known as the global cardinality constraint (GCC), is a constraint in constraint programming that restricts the number of times a value can appear in a set of variables. It is open, meaning that only the values in the list of values must be considered.
+Global constraint that restricts the number of times in a list `values` can appear in `x`. It is open, meaning that the variables in `x` can have values outside the ones in `list`.
 """
 
 """

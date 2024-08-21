@@ -1,11 +1,11 @@
 const description_minimum = """
-The minimum constraint is a global constraint used in constraint programming that specifies that a certain condition should hold for the minimum value in a list of variables.
+Global constraint specifying that a certain numerical condition should hold for the minimum value in `x`.
 """
 
 """
     xcsp_minimum(; list, condition)
 
-Return `true` if the minimum constraint is satisfied, `false` otherwise. The minimum constraint is a global constraint used in constraint programming that specifies that a certain condition should hold for the minimum value in a list of variables.
+Return `true` if the minimum constraint is satisfied, `false` otherwise. The minimum constraint is a global constraint specifying that a certain condition should hold for the minimum value in a list of variables.
 
 ## Arguments
 - `list::Union{AbstractVector, Tuple}`: list of values to check.
