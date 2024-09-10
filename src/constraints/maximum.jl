@@ -1,11 +1,11 @@
 const description_maximum = """
-The maximum constraint is a global constraint used in constraint programming that specifies that a certain condition should hold for the maximum value in a list of variables.
+Global constraint ensuring that a certain numerical condition holds for the maximum value in `x`.
 """
 
 """
     xcsp_maximum(; list, condition)
 
-Return `true` if the maximum constraint is satisfied, `false` otherwise. The maximum constraint is a global constraint used in constraint programming that specifies that a certain condition should hold for the maximum value in a list of variables.
+Return `true` if the maximum constraint is satisfied, `false` otherwise. The maximum constraint is a global constraint specifying that a certain condition should hold for the maximum value in a list of variables.
 
 ## Arguments
 - `list::Union{AbstractVector, Tuple}`: list of values to check.

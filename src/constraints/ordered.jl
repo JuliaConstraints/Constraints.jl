@@ -1,5 +1,5 @@
 const description_ordered = """
-Global constraint ensuring that all the values of `x` are in an increasing order.
+Global constraint ensuring that all the values of `x` are in a total order defined by a comparison operator.
 """
 
 const description_increasing = """

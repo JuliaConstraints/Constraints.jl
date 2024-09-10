@@ -1,13 +1,13 @@
 const description_no_overlap = """
-The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts.
+Global constraint operating on a set of tasks, defined by `origin` (starting times), and `length`. This constraint ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. Often used in scheduling problems.
 """
 
 const description_no_overlap_no_zero = """
-The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant ignores zero-length tasks.
+Global constraint operating on a set of tasks, defined by `origin` (starting times), and `length`. This constraint ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant ignores zero-length tasks. Often used in scheduling problems.
 """
 
 const description_no_overlap_with_zero = """
-The no_overlap constraint is a global constraint used in constraint programming, often in scheduling problems. It ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant includes zero-length tasks.
+Global constraint operating on a set of tasks, defined by `origin` (starting times), and `length`. This constraint ensures that tasks do not overlap in time, i.e., for any two tasks, either the first task finishes before the second task starts, or the second task finishes before the first task starts. This variant includes zero-length tasks. Often used in scheduling problems.
 """
 
 """
