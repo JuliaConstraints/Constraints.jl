@@ -1,5 +1,5 @@
 const description_sum = """
-Global constraint ensuring that the sum of the variables in `x` satisfies a given condition.
+Global constraint ensuring that the sum of the variables in `x` satisfies a given numerical condition.
 """
 
 """

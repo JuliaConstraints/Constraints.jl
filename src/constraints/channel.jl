@@ -1,11 +1,11 @@
 const description_channel = """
-The channel constraint establishes a bijective correspondence between two sets of variables. This means that each value in the first set of variables corresponds to a unique value in the second set, and vice versa.
+Ensures that if the i-th element of `x` is assigned the value j, then the j-th element of `x` must be assigned the value i.
 """
 
 """
     xcsp_channel(; list)
 
-Return `true` if the channel constraint is satisfied, `false` otherwise. The channel constraint establishes a bijective correspondence between two sets of variables. This means that each value in the first set of variables corresponds to a unique value in the second set, and vice versa.
+Return `true` if the channel constraint is satisfied, `false` otherwise. The channel constraint ensures that if the i-th element of `list` is assigned the value j, then the j-th element of `list` must be assigned the value i.
 
 ## Arguments
 - `list::Union{AbstractVector, Tuple}`: list of values to check.

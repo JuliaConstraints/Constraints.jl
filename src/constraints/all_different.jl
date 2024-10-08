@@ -1,7 +1,7 @@
 #!SECTION - all_different
 
 const description_all_different = """
-Global constraint ensuring that all the values of `x` are all different.
+Global constraint ensuring that the values in `x` are all different.
 """
 
 """

@@ -1,11 +1,11 @@
 const description_element = """
-The element constraint is a global constraint used in constraint programming that specifies that the value of a variable should be equal to the value of another variable indexed by a third variable.
+Global constraint specifying that a variable in `x` indexed by `id` should be equal to a `value`.
 """
 
 """
     xcsp_element(; list, index, condition)
 
-Return `true` if the element constraint is satisfied, `false` otherwise. The element constraint is a global constraint used in constraint programming that specifies that the value of a variable should be equal to the value of another variable indexed by a third variable.
+Return `true` if the element constraint is satisfied, `false` otherwise. The element constraint is a global constraint specifying that a variable in `x` indexed by `id` should be equal to a `value`.
 
 ## Arguments
 - `list::Union{AbstractVector, Tuple}`: list of values to check.

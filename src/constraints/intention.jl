@@ -3,7 +3,7 @@
 # TODO - Add a DSL for intension (cf XCSP3-core)
 
 const description_dist_different = """
-A constraint ensuring that the distances between marks on the ruler are unique. Specifically, it checks that the distance between `x[1]` and `x[2]`, and the distance between `x[3]` and `x[4]`, are different. This constraint is fundamental in ensuring the validity of a Golomb ruler, where no two pairs of marks should have the same distance between them.
+Given a 4-dimensional vector `x`, ensures that the absolute difference between `x[1]` and `x[2]`, and between `x[3]` and `x[4]`, are different. This constraint is fundamental in ensuring the validity of a Golomb ruler, where no two pairs of marks should have the same distance between them.
 """
 
 """

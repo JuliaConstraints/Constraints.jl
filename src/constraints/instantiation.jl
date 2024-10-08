@@ -1,11 +1,11 @@
 const description_instantiation = """
-The instantiation constraint is a global constraint used in constraint programming that ensures that a list of variables takes on a specific set of values in a specific order.
+Global constraint ensuring that `x` takes on a specific set of `values` in a specific order.
 """
 
 """
     xcsp_instantiation(; list, values)
 
-Return `true` if the instantiation constraint is satisfied, `false` otherwise. The instantiation constraint is a global constraint used in constraint programming that ensures that a list of variables takes on a specific set of values in a specific order.
+Return `true` if the instantiation constraint is satisfied, `false` otherwise. The instantiation constraint is a global constraint ensuring that `x` takes on a specific set of `values` in a specific order.
 
 ## Arguments
 - `list::AbstractVector`: list of values to check.
