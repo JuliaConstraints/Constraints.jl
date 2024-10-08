@@ -13,9 +13,9 @@ Global constraint ensuring that the tuple `x` matches a configuration listed wit
 const description_conflicts = """
 Global constraint ensuring that the tuple `x` does not match any configuration listed within the conflict set `pair_vars`. This constraint, originating from the extension model, stipulates that `x` must avoid all configurations defined as conflicts: `x ∉ pair_vars`. It is useful for specifying tuples that are explicitly forbidden and should be excluded from the solution space.
 """
-
+xcsp_extension(list, ::Nothing, ::Nothing) = false
 xcsp_extension(list, ::Nothing, conflicts) = list ∉ conflicts
-xcsp_extension(list, supports, _) = list ∈ supports
+xcsp_extension(list, supports, ::Nothing) = list ∈ supports
 
 """
     xcsp_extension(; list, supports=nothing, conflicts=nothing)
