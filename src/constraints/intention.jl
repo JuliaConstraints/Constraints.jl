@@ -23,22 +23,7 @@ concept(:dist_different)(x)
 ```
 
 # Examples
-
-````@example debug2
-2 + 2
-````
-
-```@example debug1
-2 + 2
-```
-
-```@example intention1
-using Constraints # hide
-c = concept(:dist_different)
-c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
-```
-
-````@example intention2
+````julia
 using Constraints # hide
 c = concept(:dist_different)
 c([1, 2, 3, 3]) && !c([1, 2, 3, 4])
