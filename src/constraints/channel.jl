@@ -57,10 +57,12 @@ end
 function xcsp_channel(; list)
     xcsp_channel(values(list))
 end
-function concept_channel(x, ::Val{2})
+function concept_channel(x::AbstractVector, ::Val{2})
     mid = length(x) ÷ 2
     return xcsp_channel(list = (@view(x[1:mid]), @view(x[(mid + 1):end])))
 end
+
+concept_channel(x, ::Val{2}) = concept_channel(collect(x), Val(2))
 
 concept_channel(x, ::Val) = xcsp_channel(list = x)
 

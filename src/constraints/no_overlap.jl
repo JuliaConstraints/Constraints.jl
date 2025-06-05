@@ -87,7 +87,7 @@ end
 function concept_no_overlap(x, pair_vars, dim, bool, _)
     l = Int(length(x) ÷ dim)
     # @info l x dim
-    origins = reinterpret(reshape, NTuple{dim, eltype(x)}, reshape(x, (dim, l)))
+    origins = reinterpret(reshape, NTuple{dim, eltype(x)}, reshape(collect(x), (dim, l)))
     lengths = reinterpret(
         reshape, NTuple{dim, eltype(x)}, reshape(pair_vars[:, 1], (dim, l)))
     return xcsp_no_overlap(; origins, lengths, zero_ignored = bool)
