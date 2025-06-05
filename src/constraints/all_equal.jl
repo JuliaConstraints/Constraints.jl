@@ -36,7 +36,8 @@ c([1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
 """
 xcsp_all_equal(; list) = concept_all_equal(list; val = first(list))
 
-@usual function concept_all_equal(x; val = nothing, pair_vars = zero(x), op = +)
+@usual function concept_all_equal(
+        x; val = nothing, pair_vars = zeros(eltype(x), length(x)), op = +)
     if iszero(pair_vars)
         return concept_all_equal(x, val)
     else
