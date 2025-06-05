@@ -5,7 +5,7 @@
     # TODO: Fix the broken tests and remove the `broken = true` flag
     Aqua.test_all(
         Constraints;
-        ambiguities = (broken = true,),
+        ambiguities = (broken = false,),
         deps_compat = false,
         piracies = (broken = true,),
         unbound_args = (broken = false)
