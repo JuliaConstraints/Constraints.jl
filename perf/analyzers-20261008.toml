@@ -1,0 +1,386 @@
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+recorded_utc = "2026-10-08T20:41:09.955"
+case_sha256 = "34915d1bf6da9ccbf637fad4c8b6d1000cbda1f244f3c74e6a9c89e757470228"
+julia_threads = 2
+cpu_affinity = [4, 6]
+optimization_contract = "Built-in comparisons on primitive one-based vectors and primitive offsets use indexing. Custom comparisons, custom numbers and offset axes retain the original copied-tail validator, including comparisons that mutate their input."
+artifact_policy = "Raw redacted heaps were created under OS temporary directories and removed after collecting summary evidence; no snapshot path is retained as a deliverable."
+timing_qualification = "Operational same-input measurements while other tasks were active; no controlled scaling claim. Preparation and verification excluded."
+blas_threads = 1
+remaining_findings = "Aqua found the pre-existing unbound T parameter in xcsp_no_overlap on NTuple{K,T} arrays (src/constraints/no_overlap.jl:65)."
+runtime = "1.13.1"
+gc_threads = 1
+source_sha256 = "70820b8a4285666bab7083fb3a786d58d6c229315ba4ce1da7cf86f1ac30e581"
+
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "current"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.04e-7
+    maximum = 1.09e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "current"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 4.66e-7
+    maximum = 1.2200000000000002e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+message = ""
+implementation = "current"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+message = ""
+implementation = "current"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "original"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 6.56e-7
+    maximum = 1.853e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 3
+    maximum = 3
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 8072
+    maximum = 8072
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "original"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 4.91e-7
+    maximum = 1.1210000000000002e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 3.0
+    maximum = 3.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 8072.0
+    maximum = 8072.0
+
+[tests]
+full_package_assertions = 119066
+stateful_generic_fallbacks = "passed"
+
+[[diagnostics]]
+tool = "aqua"
+correctness = "not_checked"
+quality = "failed"
+summary = ""
+tool_version = "0.8.18"
+status = "complete"
+heap_summary = []
+message = ""
+analysis_scope = ""
+limitations = []
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "quality.aqua"
+    message = "Some tests did not pass: 0 passed, 1 failed, 0 errored, 0 broken."
+
+        [diagnostics.findings.evidence]
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""
+
+    [diagnostics.measurements]
+[[diagnostics]]
+tool = "jet"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = ""
+tool_version = "0.12.3"
+status = "complete"
+heap_summary = []
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+message = ""
+limitations = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+tool = "alloccheck"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = ""
+tool_version = "0.2.6"
+status = "complete"
+heap_summary = []
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+message = ""
+limitations = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+tool = "snoopcompile"
+correctness = "passed"
+quality = "not_checked"
+summary = ""
+tool_version = "3.2.9"
+status = "complete"
+heap_summary = []
+message = ""
+analysis_scope = "first complete scenario lifecycle in diagnostic process"
+limitations = []
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "compilation.inference"
+    message = "InferenceTimingNode: 0.000014/0.000015 on Base.Compiler.Timings.ROOT() with 0 direct children"
+
+        [diagnostics.findings.evidence]
+        inference_seconds = 1.537799835205078e-5
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""
+
+    [diagnostics.measurements]
+    inference_seconds = 1.537799835205078e-5
+[[diagnostics]]
+tool = "latency"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = ""
+tool_version = ""
+status = "complete"
+heap_summary = []
+analysis_scope = ""
+message = ""
+limitations = []
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.043593467
+    load_seconds = 0.737576579
+    warm_case_seconds = 6.715e-6
+[[diagnostics]]
+tool = "gc"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+tool_version = ""
+status = "complete"
+heap_summary = []
+analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+message = ""
+limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+
+    [diagnostics.measurements]
+    samples = 5
+
+        [diagnostics.measurements.full_sweep]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.operation_seconds]
+        minimum = 3.08e-7
+        maximum = 8.21e-7
+
+        [diagnostics.measurements.lock_conflicts]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.malloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.gc_seconds]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.bigalloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.poolalloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.compile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.allocated_bytes]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.recompile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.realloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.pause]
+        minimum = 0
+        maximum = 0
+[[diagnostics]]
+tool = "memory"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+tool_version = ""
+status = "complete"
+heap_summary = []
+analysis_scope = ""
+message = ""
+limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+
+    [diagnostics.measurements]
+    samples = 5
+
+        [diagnostics.measurements.state_before_bytes]
+        minimum = 16096
+        maximum = 16096
+
+        [diagnostics.measurements.state_after_bytes]
+        minimum = 16096
+        maximum = 16096
+
+        [diagnostics.measurements.reachable_state_growth_bytes]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.state_and_result_bytes]
+        minimum = 16104
+        maximum = 16104
+[[diagnostics]]
+tool = "locks"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = "5 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+tool_version = ""
+status = "complete"
+heap_summary = []
+analysis_scope = ""
+message = ""
+limitations = ["Counts do not measure blocked duration or prove a scalability bottleneck.", "Only runtime-reported lock conflicts are covered; native locks and device barriers are not."]
+
+    [diagnostics.measurements]
+    samples = 5
+
+        [diagnostics.measurements.full_sweep]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.operation_seconds]
+        minimum = 4.77e-7
+        maximum = 9.37e-7
+
+        [diagnostics.measurements.lock_conflicts]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.malloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.gc_seconds]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.bigalloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.poolalloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.compile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.allocated_bytes]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.recompile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [diagnostics.measurements.realloc]
+        minimum = 0
+        maximum = 0
+
+        [diagnostics.measurements.pause]
+        minimum = 0
+        maximum = 0
+[[diagnostics]]
+tool = "heap"
+findings = []
+correctness = "passed"
+quality = "not_checked"
+summary = "Redacted heap snapshot captured after verification. Covers GC-managed objects in the whole worker; native and device memory are excluded."
+tool_version = ""
+status = "complete"
+message = ""
+analysis_scope = ""
+limitations = ["Snapshot covers the entire diagnostic process, not just the scenario.", "Only GC-managed memory is represented; native and device memory are excluded.", "Snapshot capture is intrusive and its duration is not baseline performance evidence."]
+
+    [diagnostics.measurements]
+
+    [[diagnostics.heap_summary]]
+    bytes = 349683489
+    kind = "heap_snapshot"
+    sha256 = "f71d66344989fa08a701293e7d411666dc79527ece49a3c7e64c17ae7ee341ad"
+    redacted = true

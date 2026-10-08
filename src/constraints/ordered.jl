@@ -78,6 +78,34 @@ function xcsp_ordered(list, operator, lengths)
     end
     return true
 end
+
+const _OrderedScalar = Union{Bool, Int8, Int16, Int32, Int64, Int128,
+    UInt8, UInt16, UInt32, UInt64, UInt128, Float16, Float32, Float64}
+const _OrderedComparison = Union{typeof(<), typeof(<=), typeof(>), typeof(>=),
+    typeof(==), typeof(!=)}
+
+# Primitive values and built-in comparisons cannot mutate the copied tail.
+# Other inputs keep the generic validator's original snapshot behavior.
+function xcsp_ordered(list::AbstractVector{T}, operator::_OrderedComparison,
+        ::Nothing) where {T<:_OrderedScalar}
+    !Base.has_offset_axes(list) ||
+        return invoke(xcsp_ordered, Tuple{Any, Any, Nothing}, list, operator, nothing)
+    for id in 1:(length(list) - 1)
+        operator(list[id], list[id + 1]) || return false
+    end
+    return true
+end
+
+function xcsp_ordered(list::AbstractVector{T}, operator::_OrderedComparison,
+        lengths::AbstractVector{S}) where {T<:_OrderedScalar,S<:_OrderedScalar}
+    if Base.has_offset_axes(list) || Base.has_offset_axes(lengths)
+        return invoke(xcsp_ordered, Tuple{Any, Any, Any}, list, operator, lengths)
+    end
+    for id in 1:(length(list) - 1)
+        operator(list[id] + lengths[id], list[id + 1]) || return false
+    end
+    return true
+end
 xcsp_ordered(; list, operator, lengths = nothing) = xcsp_ordered(list, operator, lengths)
 
 @usual function concept_ordered(x; op = ≤, pair_vars = nothing)
