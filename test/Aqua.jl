@@ -7,7 +7,7 @@
         ambiguities = (broken = false,),
         deps_compat = false,
         piracies = (broken = false,),
-        unbound_args = (broken = false)
+        unbound_args = (broken = false,)
     )
 
     @testset "Dependencies compatibility (no extras)" begin

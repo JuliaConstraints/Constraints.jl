@@ -1,0 +1,323 @@
+recorded_utc = "2026-10-09T04:28:54.695"
+cleanup = "Pkg-created test environment removed automatically; frozen Project/Manifest fingerprints unchanged. No helper scripts, backups, logs or intermediate reports persist."
+analyzer_scope = "Direct JET and AllocCheck specialization of the complete former/current prepared Int two-dimensional callback only; zero findings in all four analyses. Whole-package quality evidence comes from unrestricted Aqua, not these callback analyzers."
+test_configuration_fix = "Add the trailing comma to (broken = false,) so the unbound-argument Aqua category actually runs. The original parenthesized assignment evaluated to false and skipped that category."
+baseline_commit = "a9a83f550490b677348e8a1e9f17cc860d7d11d1"
+contract = "Bind the numeric tuple element in a mandatory first coordinate for nonempty homogeneous boxes; handle Tuple{} separately. Forward both signatures to the identical former dimensional algorithm with Val(dimension). Preserve scalar and heterogeneous/mismatched tuple fallbacks, zero-width behavior, getter/mutation/error observations and primitive floating/integer results."
+julia_threads = 2
+cpu_affinity = [4, 6]
+algorithm_body_identical_after_line_metadata_removal = true
+measurement_scope = "Twenty complete no-overlap calls in former/current/current/former order, 100 BenchmarkTools samples and evals=1. Five fixed inputs with dimensions zero through three and native Int/Float64 tuples. Both implementations allocate zero bytes/objects; all warmed compilation/recompilation counters asserted zero. Operational timings; no controlled speed, cold-start, solver-throughput or universal allocation claim."
+blas_threads = 1
+runtime = "1.13.1"
+gc_threads = 1
+test_dependency_fix = "Declare Random used by the pre-existing sum_defaults test and compatibility bounds for Aqua, Random, Test and TestItemRunner. Exact installed test versions remain unchanged. Runtime dependency keys/values and every pre-existing compatibility bound are unchanged."
+schema = "constraints-explicit-quality-qualification/1"
+
+[source_hashes]
+"Project.toml" = "b90f869dd097b42bf3941d46b6d10d1242547fe4a9bec7d95b4af82c46226b0a"
+"test/Aqua.jl" = "e8e4d31473862e80a68bd1617efa3502ebfb5aab5bfa4eeae8c8c7a874da3d28"
+"src/constraints/no_overlap.jl" = "f6fad0ab5f5a9ba749d59ab14064ef980c66f1395de6e15497ce035ec6f2c8b5"
+"test/no_overlap_signatures.jl" = "71eb1e7753eee10502e0c462a123ddbc337a2bb5115aff513cf6733ccb39d54a"
+"test/runtests.jl" = "b58fe025eec1da18bcb7cfb07c802963578e2b303efb558b2e24dfd7bc81a54a"
+
+[current_quality]
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+aqua_version = "0.8.18"
+recorded_utc = "2026-10-09T04:24:03.213"
+project_sha256 = "b90f869dd097b42bf3941d46b6d10d1242547fe4a9bec7d95b4af82c46226b0a"
+julia_threads = 2
+cpu_affinity = [4, 6]
+entrypoint_coverage = "Standard runtests now executes its unbound-argument category. This separate Aqua check uses all unrestricted defaults, including test-extra compatibility bounds; no ignore lists or suppressed categories."
+candidate_commit = "a9a83f550490b677348e8a1e9f17cc860d7d11d1"
+runtests_sha256 = "b58fe025eec1da18bcb7cfb07c802963578e2b303efb558b2e24dfd7bc81a54a"
+blas_threads = 1
+metadata_state = "Candidate splits empty/nonempty tuple signatures, enables the formerly disabled unbound-argument test, and declares the existing sum test's Random dependency and four test-extra compatibility bounds. Runtime dependencies and existing compatibility bounds are unchanged."
+gc_threads = 1
+runtime = "1.13.1"
+schema = "constraints-explicit-quality-checks/1"
+
+    [[current_quality.checks]]
+    check = "aqua-default"
+    errored = 0
+    completed_utc = "2026-10-09T04:24:11.525"
+    status = "passed"
+    started_utc = "2026-10-09T04:24:03.433"
+    passed = 11
+    failed = 0
+    broken = 0
+
+[baseline_quality]
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+aqua_version = "0.8.18"
+recorded_utc = "2026-10-09T04:03:23.077"
+project_sha256 = "1b7ec62d2b0a22935c18c8c9bca6627dfbd01ab7d0f86358d7225cb1645e9353"
+julia_threads = 2
+cpu_affinity = [4, 6]
+entrypoint_coverage = "Standard runtests includes a customized Aqua call that disables the unbound-argument category and extra compatibility checks. This is a separate unrestricted Aqua check; no ignore lists or suppressed categories."
+candidate_commit = "a9a83f550490b677348e8a1e9f17cc860d7d11d1"
+runtests_sha256 = "b58fe025eec1da18bcb7cfb07c802963578e2b303efb558b2e24dfd7bc81a54a"
+blas_threads = 1
+metadata_state = "Baseline owned Project and runtime sources; no mutation."
+gc_threads = 1
+runtime = "1.13.1"
+schema = "constraints-explicit-quality-checks/1"
+
+    [[baseline_quality.checks]]
+    completed_utc = "2026-10-09T04:03:33.773"
+    findings = ["""Test Failed at /home/azzaare/.julia/packages/Aqua/yUvBM/src/unbound_args.jl:38\n  Expression: isempty(unbounds)\n   Evaluated: isempty(Method[xcsp_no_overlap(origins::AbstractArray{NTuple{K, T}, 1}, lengths::AbstractArray{NTuple{K, T}, 1}, zero_ignored) where {K, T<:Number} @ Constraints ~/.julia/dev/JuliaConstraintsPerfNightICN/Constraints/src/constraints/no_overlap.jl:65])""", """Test Failed at /home/azzaare/.julia/packages/Aqua/yUvBM/src/deps_compat.jl:60\n  Expression: isempty(result)\n   Evaluated: isempty(Base.PkgId[Base.PkgId(Base.UUID(\"4c88cf16-eb10-579e-8560-4a9242c79595\"), \"Aqua\"), Base.PkgId(Base.UUID(\"8dfed614-e22c-5e08-85e1-65c5234f0b40\"), \"Test\"), Base.PkgId(Base.UUID(\"f8b46487-2199-4994-9208-9a1283c18c0a\"), \"TestItemRunner\")])"""]
+    error_type = "TestSetException"
+    check = "aqua-default"
+    errored = 0
+    failed = 2
+    passed = 9
+    status = "failed"
+    started_utc = "2026-10-09T04:03:23.263"
+    message = "Some tests did not pass: 9 passed, 2 failed, 0 errored, 0 broken."
+    broken = 0
+
+[standard_failure_before_random_declaration]
+errored = 1
+project_sha256 = "2bddff2062b24d9fed2552e69bdb2709322289f16137d0c3908a92658f1aab0a"
+failed = 0
+passed = 145964
+error = "Package Random not found in current path in test/sum_defaults.jl:4"
+
+[matched_checks]
+recorded_utc = "2026-10-09T04:24:21.965"
+source_sha256 = "f6fad0ab5f5a9ba749d59ab14064ef980c66f1395de6e15497ce035ec6f2c8b5"
+
+    [[matched_checks.measurements]]
+    variant = "former"
+    bytes = 0
+    dimension = 0
+    n = 2
+    result = false
+    element = "Int64"
+    objects = 0
+    minimum_ns = 13.0
+    [[matched_checks.measurements]]
+    variant = "current"
+    bytes = 0
+    dimension = 0
+    n = 2
+    result = false
+    element = "Int64"
+    objects = 0
+    minimum_ns = 13.0
+    [[matched_checks.measurements]]
+    variant = "current-repeat"
+    bytes = 0
+    dimension = 0
+    n = 2
+    result = false
+    element = "Int64"
+    objects = 0
+    minimum_ns = 13.0
+    [[matched_checks.measurements]]
+    variant = "former-repeat"
+    bytes = 0
+    dimension = 0
+    n = 2
+    result = false
+    element = "Int64"
+    objects = 0
+    minimum_ns = 13.0
+    [[matched_checks.measurements]]
+    variant = "former"
+    bytes = 0
+    dimension = 1
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 77.0
+    [[matched_checks.measurements]]
+    variant = "current"
+    bytes = 0
+    dimension = 1
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 76.0
+    [[matched_checks.measurements]]
+    variant = "current-repeat"
+    bytes = 0
+    dimension = 1
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 76.0
+    [[matched_checks.measurements]]
+    variant = "former-repeat"
+    bytes = 0
+    dimension = 1
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 76.0
+    [[matched_checks.measurements]]
+    variant = "former"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 74.0
+    [[matched_checks.measurements]]
+    variant = "current"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 66.0
+    [[matched_checks.measurements]]
+    variant = "current-repeat"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 64.0
+    [[matched_checks.measurements]]
+    variant = "former-repeat"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Int64"
+    objects = 0
+    minimum_ns = 65.0
+    [[matched_checks.measurements]]
+    variant = "former"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 78.0
+    [[matched_checks.measurements]]
+    variant = "current"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 77.0
+    [[matched_checks.measurements]]
+    variant = "current-repeat"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 77.0
+    [[matched_checks.measurements]]
+    variant = "former-repeat"
+    bytes = 0
+    dimension = 2
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 77.0
+    [[matched_checks.measurements]]
+    variant = "former"
+    bytes = 0
+    dimension = 3
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 79.0
+    [[matched_checks.measurements]]
+    variant = "current"
+    bytes = 0
+    dimension = 3
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 79.0
+    [[matched_checks.measurements]]
+    variant = "current-repeat"
+    bytes = 0
+    dimension = 3
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 78.0
+    [[matched_checks.measurements]]
+    variant = "former-repeat"
+    bytes = 0
+    dimension = 3
+    n = 16
+    result = true
+    element = "Float64"
+    objects = 0
+    minimum_ns = 79.0
+
+    [[matched_checks.analyzers]]
+    jet_reports = []
+    alloccheck_findings = 0
+    jet_findings = 0
+    alloccheck_reports = []
+    implementation = "former"
+    [[matched_checks.analyzers]]
+    jet_reports = []
+    alloccheck_findings = 0
+    jet_findings = 0
+    alloccheck_reports = []
+    implementation = "current"
+
+[tests]
+explicit_unrestricted_aqua_assertions = 11
+scope = "Full offline Pkg-generated test target and complete unchanged test/runtests.jl entrypoint; source path redirected only for Constraints in an in-memory frozen V7 context; no resolution/install. Full standard run includes all 165427 package test-item checks plus ten configured Aqua checks. A separate unrestricted Aqua call passes all eleven categories/checks."
+focused_regression_assertions = 5299
+regression_scope = "Fourteen primitive numeric types; dimensions 0 through 4; empty/singleton lists, mismatched lengths, mixed tuple types/sizes retaining original fallbacks, extrema/overflow and floating Inf/NaN/signed zero; custom box getters with mutation/failure preserve complete traces."
+standard_configured_aqua_assertions = 10
+standard_entrypoint_assertions = 165437
+
+[standard_test_sandbox]
+recorded_utc = "2026-10-09T04:17:57.932"
+exit_code = 0
+temporary_environment_removed = true
+
+    [standard_test_sandbox.baseline_extra_versions]
+    Aqua = "0.8.18"
+    Random = "1.11.0"
+    Test = "1.11.0"
+    TestItemRunner = "1.3.2"
+
+    [standard_test_sandbox.extra_versions]
+    Aqua = "0.8.18"
+    Random = "1.11.0"
+    Test = "1.11.0"
+    TestItemRunner = "1.3.2"
+
+    [standard_test_sandbox.frozen_environment_sha256]
+    "Project.toml" = "9523463e63a0ef4d5795e761b3bcb4b1466c6358ee9a88aff6c69af9bf74144d"
+    "Manifest.toml" = "fc37225b20f76ec93f47fa4a90fa15e0889db45a1fe59fda9446c14f4a533f06"
+
+    [standard_test_sandbox.source_hashes]
+    "Project.toml" = "b90f869dd097b42bf3941d46b6d10d1242547fe4a9bec7d95b4af82c46226b0a"
+    "test/Aqua.jl" = "e8e4d31473862e80a68bd1617efa3502ebfb5aab5bfa4eeae8c8c7a874da3d28"
+    "src/constraints/no_overlap.jl" = "f6fad0ab5f5a9ba749d59ab14064ef980c66f1395de6e15497ce035ec6f2c8b5"
+    "test/no_overlap_signatures.jl" = "71eb1e7753eee10502e0c462a123ddbc337a2bb5115aff513cf6733ccb39d54a"
+    "test/runtests.jl" = "b58fe025eec1da18bcb7cfb07c802963578e2b303efb558b2e24dfd7bc81a54a"
+
+[exact_learned_bank]
+scope = "Exact bank SHA/schema checks, saved W4/W2/W52 weights, zero-field decoded functions and independent scalar/full-square pair semantics; plus one owned Constraints import-path assertion."
+assertions = 29
+sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"

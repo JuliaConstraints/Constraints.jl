@@ -63,10 +63,24 @@ function xcsp_no_overlap(origins, lengths, zero_ignored)
 end
 
 function xcsp_no_overlap(
-        origins::AbstractVector{NTuple{K, T}},
-        lengths::AbstractVector{NTuple{K, T}},
+        origins::AbstractVector{Tuple{T, Vararg{T, K}}},
+        lengths::AbstractVector{Tuple{T, Vararg{T, K}}},
         zero_ignored
 ) where {K, T <: Number}
+    return _xcsp_no_overlap_dimensions(origins, lengths, zero_ignored, Val(K + 1))
+end
+
+# NTuple{0, T} is Tuple{}, so its element type cannot bind T. Keep the same
+# zero-dimensional box behavior through a separate, fully bound signature.
+function xcsp_no_overlap(
+        origins::AbstractVector{Tuple{}},
+        lengths::AbstractVector{Tuple{}},
+        zero_ignored
+)
+    return _xcsp_no_overlap_dimensions(origins, lengths, zero_ignored, Val(0))
+end
+
+function _xcsp_no_overlap_dimensions(origins, lengths, zero_ignored, ::Val{K}) where {K}
     length(origins) == length(lengths) ||
         throw(DimensionMismatch("origins and lengths must contain the same number of boxes"))
     for first_index in firstindex(origins):(lastindex(origins) - 1)
