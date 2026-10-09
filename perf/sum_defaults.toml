@@ -1,0 +1,22 @@
+schema_version = "perfchecker-scenario-catalog/1"
+root = ".."
+
+[[scenarios]]
+id = "sum-default-coefficients"
+source = "sum_cases.jl"
+factory = "SumCases.defaults"
+implementation = "current"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+n = 1000
+method = "current"
+
+[[scenarios]]
+id = "sum-default-coefficients"
+source = "sum_cases.jl"
+factory = "SumCases.defaults"
+implementation = "original"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+n = 1000
+method = "original"

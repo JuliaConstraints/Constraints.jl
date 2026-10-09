@@ -31,7 +31,18 @@ c([1, 2, 3, 4, 3]; op=≤, val=3)
 """
 xcsp_sum(; list, coeffs, condition) = condition[1](sum(coeffs .* list), condition[2])
 
-@usual function concept_sum(x; op = ==, pair_vars = ones(eltype(x), length(x)), val)
+struct _SumDefaultCoefficients end
+const _SumNativeInteger = Union{Bool, Int8, Int16, Int32, Int64, Int128,
+    UInt8, UInt16, UInt32, UInt64, UInt128}
+
+_sum_default_coefficients(x) = ones(eltype(x), length(x))
+_sum_default_coefficients(::Vector{T}) where {T<:_SumNativeInteger} =
+    _SumDefaultCoefficients()
+
+@usual function concept_sum(x; op = ==, pair_vars = _sum_default_coefficients(x), val)
+    # Primitive integer multiplication by one preserves each value and its
+    # type. Sum the same vector with Base's original reduction and widening.
+    pair_vars isa _SumDefaultCoefficients && return op(sum(x), val)
     return xcsp_sum(list = x, coeffs = pair_vars, condition = (op, val))
 end
 

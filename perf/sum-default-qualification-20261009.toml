@@ -1,0 +1,862 @@
+analyzer_scope = "Fresh JET, AllocCheck, GC and reachable-memory operation specializations for the prepared Int64 default. No findings; five GC observations have zero bytes, compilation and recompilation, and input state remains 8056 bytes."
+baseline_commit = "7e0115e7b58092588fef210d5464eb3997f75c81"
+baseline_source_sha256 = "48a6382ac6672a7fafdc9e7be5f552b5c4d762a37e026395d5debcb48797f16f"
+blas_threads = 1
+case_sha256 = "ef62a21640d3370db3fd0712e4ca904f1a0ac6eb908a8bf4fddb1865e90eace8"
+catalog_sha256 = "ff326cc51d27c88e9de22ba2086844d6c021a6b3f05fd4bb4beba767b92acc7d"
+cc_commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+change = "Omitted coefficients on concrete primitive integer vectors use a private zero-field marker. Base sum consumes the original values without allocating either the all-one coefficient vector or its product."
+cleanup = "Only intrinsic source, regression tests, reusable profiling case/catalog and this record persisted. No scripts, raw reports, backups or temporary environments."
+cn_commit = "94f146716e6f527cd2497ab765e5f1095b855125"
+cpu_affinity = [4, 6]
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+gc_threads = 1
+julia_threads = 2
+limits = ["Zero bytes apply to successful prepared native integer default calls; explicit coefficients and error paths may allocate.", "Floating, BigInt, Rational, abstract-element and unknown-storage defaults retain original construction and callbacks.", "Operational concurrent timings only; no controlled elapsed-time, full-solver, cold-start, training or fitted-scaling claim.", "Julia 1.13.1 executed; no Julia 1.12 runtime claim. Shared Root and frozen checkouts untouched."]
+measurement_scope = "Prepared private all-one Bool/Int8/Int64/Int128 vectors at lengths 0,1,2,1000. Complete equality result, former/current/current/former, 100 samples/evals=1. Registered concept and error separately at length 1000. Preparation and verification excluded."
+native_types = ["Bool", "Int8", "Int16", "Int32", "Int64", "Int128", "UInt8", "UInt16", "UInt32", "UInt64", "UInt128"]
+proof = "For the closed primitive integer union, one(T)*x[i] has the same value and type as x[i], including wrapping arithmetic. Base sum preserves its original widening and integer result. No change to explicit coefficients, the reduction implementation, operator invocation or metadata."
+recorded_utc = "2026-10-09T03:01:33.909"
+reference = "Complete former ones default followed by eager coefficient broadcast multiplication and Base sum, then the supplied operator. No noinline barrier or reduction shortcut."
+rejected_prototype = "Scalar floating coefficient one(T) .* x avoided a vector but changed Float16 NaN bits in four seeded singleton cases. Former bits 7e6f/ff11/7f37/7f1a versus candidate 7c6f/fd11/7d37/7d1a at seed 91373, trials 6/24/50/67. No floating shortcut shipped; full eager former floating path is regression-tested."
+runtime = "1.13.1"
+schema = "juliaconstraints-sum-default-qualification/1"
+source_sha256 = "8c2fd465abb2cc57b9283d783a4a9eae56574a769c50ea456df79ca432315e2c"
+test_sha256 = "120af80c64fe733efa13eaba82fa25423b24348fb684e42123f10db7e988acf9"
+
+[analyzer_evidence]
+case_sha256 = "ef62a21640d3370db3fd0712e4ca904f1a0ac6eb908a8bf4fddb1865e90eace8"
+recorded_utc = "2026-10-09T02:58:18.410"
+source_sha256 = "8c2fd465abb2cc57b9283d783a4a9eae56574a769c50ea456df79ca432315e2c"
+
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    quality = "not_checked"
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.allocated_bytes]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.bigalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.compile_time]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.full_sweep]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.gc_seconds]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.lock_conflicts]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.malloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.operation_seconds]
+            maximum = 6.14e-7
+            minimum = 9.7e-8
+
+            [analyzer_evidence.analyzers.measurements.pause]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.poolalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.realloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.recompile_time]
+            maximum = 0.0
+            minimum = 0.0
+    [[analyzer_evidence.analyzers]]
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    quality = "not_checked"
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.state_after_bytes]
+            maximum = 8056
+            minimum = 8056
+
+            [analyzer_evidence.analyzers.measurements.state_and_result_bytes]
+            maximum = 8064
+            minimum = 8064
+
+            [analyzer_evidence.analyzers.measurements.state_before_bytes]
+            maximum = 8056
+            minimum = 8056
+
+[collector_evidence]
+case_sha256 = "ef62a21640d3370db3fd0712e4ca904f1a0ac6eb908a8bf4fddb1865e90eace8"
+recorded_utc = "2026-10-09T02:58:17.412"
+source_sha256 = "8c2fd465abb2cc57b9283d783a4a9eae56574a769c50ea456df79ca432315e2c"
+
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.46e-7
+        minimum = 9.2e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.48e-7
+        minimum = 9.400000000000001e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 16144
+        minimum = 16144
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 6
+        minimum = 6
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 3.295e-6
+        minimum = 1.361e-6
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "sum-default-coefficients"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 16144.0
+        minimum = 16144.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 6.0
+        minimum = 6.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 2.04e-6
+        minimum = 7.420000000000001e-7
+        samples = 5
+
+[matched_evidence]
+case_sha256 = "ef62a21640d3370db3fd0712e4ca904f1a0ac6eb908a8bf4fddb1865e90eace8"
+evals = 1
+recorded_utc = "2026-10-09T02:58:35.504"
+samples = 100
+source_sha256 = "8c2fd465abb2cc57b9283d783a4a9eae56574a769c50ea456df79ca432315e2c"
+
+    [[matched_evidence.measurements]]
+    allocations = 3
+    bytes = 96
+    minimum_ns = 23.0
+    n = 0
+    type = "Bool"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 0
+    type = "Bool"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 0
+    type = "Bool"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 3
+    bytes = 96
+    minimum_ns = 25.0
+    n = 0
+    type = "Bool"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 160
+    minimum_ns = 38.0
+    n = 1
+    type = "Bool"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 14.0
+    n = 1
+    type = "Bool"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 14.0
+    n = 1
+    type = "Bool"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 160
+    minimum_ns = 38.0
+    n = 1
+    type = "Bool"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 160
+    minimum_ns = 39.0
+    n = 2
+    type = "Bool"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 14.0
+    n = 2
+    type = "Bool"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 14.0
+    n = 2
+    type = "Bool"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 160
+    minimum_ns = 38.0
+    n = 2
+    type = "Bool"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 1344
+    minimum_ns = 172.0
+    n = 1000
+    type = "Bool"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 34.0
+    n = 1000
+    type = "Bool"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 34.0
+    n = 1000
+    type = "Bool"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 5
+    bytes = 1344
+    minimum_ns = 172.0
+    n = 1000
+    type = "Bool"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 21.0
+    n = 0
+    type = "Int8"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 0
+    type = "Int8"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 0
+    type = "Int8"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 21.0
+    n = 0
+    type = "Int8"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 29.0
+    n = 1
+    type = "Int8"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 1
+    type = "Int8"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 1
+    type = "Int8"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 31.0
+    n = 1
+    type = "Int8"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 31.0
+    n = 2
+    type = "Int8"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 14.0
+    n = 2
+    type = "Int8"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 2
+    type = "Int8"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 30.0
+    n = 2
+    type = "Int8"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 2240
+    minimum_ns = 142.0
+    n = 1000
+    type = "Int8"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 92.0
+    n = 1000
+    type = "Int8"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 93.0
+    n = 1000
+    type = "Int8"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 2240
+    minimum_ns = 142.0
+    n = 1000
+    type = "Int8"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 21.0
+    n = 0
+    type = "Int64"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 0
+    type = "Int64"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 0
+    type = "Int64"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 21.0
+    n = 0
+    type = "Int64"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 30.0
+    n = 1
+    type = "Int64"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 1
+    type = "Int64"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 1
+    type = "Int64"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 128
+    minimum_ns = 30.0
+    n = 1
+    type = "Int64"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 160
+    minimum_ns = 31.0
+    n = 2
+    type = "Int64"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 2
+    type = "Int64"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 2
+    type = "Int64"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 160
+    minimum_ns = 30.0
+    n = 2
+    type = "Int64"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 6
+    bytes = 16144
+    minimum_ns = 895.0
+    n = 1000
+    type = "Int64"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 53.0
+    n = 1000
+    type = "Int64"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 52.0
+    n = 1000
+    type = "Int64"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 6
+    bytes = 16144
+    minimum_ns = 1125.0
+    n = 1000
+    type = "Int64"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 20.0
+    n = 0
+    type = "Int128"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 0
+    type = "Int128"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 0
+    type = "Int128"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 2
+    bytes = 64
+    minimum_ns = 20.0
+    n = 0
+    type = "Int128"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 160
+    minimum_ns = 32.0
+    n = 1
+    type = "Int128"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 1
+    type = "Int128"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 1
+    type = "Int128"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 160
+    minimum_ns = 31.0
+    n = 1
+    type = "Int128"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 192
+    minimum_ns = 33.0
+    n = 2
+    type = "Int128"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 13.0
+    n = 2
+    type = "Int128"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 12.0
+    n = 2
+    type = "Int128"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 4
+    bytes = 192
+    minimum_ns = 34.0
+    n = 2
+    type = "Int128"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 6
+    bytes = 32144
+    minimum_ns = 2079.0
+    n = 1000
+    type = "Int128"
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 230.0
+    n = 1000
+    type = "Int128"
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 230.0
+    n = 1000
+    type = "Int128"
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 6
+    bytes = 32144
+    minimum_ns = 2070.0
+    n = 1000
+    type = "Int128"
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 74.0
+    n = 1000
+    type = "Int64"
+    variant = "registered-concept"
+    [[matched_evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    minimum_ns = 76.0
+    n = 1000
+    type = "Int64"
+    variant = "registered-error"
+
+[tests]
+added = 19473
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cn_nontraining = 59231
+cn_standalone = 4872
+constraints = 160128
+error_scope = "Native error type/fields and custom callback traces checked; opaque BoundsError backing identity not compared."
+exact_bank = 29
+exclusions = ["extension tags", "view_learning.jl", "composed_learning.jl"]
+fallback_scope = "3300 random raw-bit floating vectors with exact result bits and unchanged inputs; custom eltype/length/size/getindex traces, mutation/late errors, custom one/product/add callbacks, explicit coefficient and operator failures."
+metadata_scope = "Original required/default flags, exactly one reflected keyword declaration, registered concept/error results unchanged."
+native_integer_scope = "All eleven types, exhaustive extreme triples, empty and singleton cases, pairwise boundaries, wrapped sums, exact return type and input bytes; inference checks."
+quality_scope = "These are behavioral checks; separate explicit CN Aqua/import diagnostic does not contribute to this passing count."
