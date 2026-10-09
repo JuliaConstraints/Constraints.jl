@@ -84,11 +84,33 @@ const _OrderedScalar = Union{Bool, Int8, Int16, Int32, Int64, Int128,
 const _OrderedComparison = Union{typeof(<), typeof(<=), typeof(>), typeof(>=),
     typeof(==), typeof(!=)}
 
-# Primitive values and built-in comparisons cannot mutate the copied tail.
-# Other inputs keep the generic validator's original snapshot behavior.
+# Custom storage and view selectors can mutate values during indexing. Check
+# the storage before querying axes, which may also have custom behavior.
+_ordered_native_storage(::Any) = false
+_ordered_native_storage(::Array) = true
+_ordered_native_storage(::Union{UnitRange{T}, Base.OneTo{T}}) where {T<:_OrderedScalar} =
+    T <: Integer
+_ordered_native_storage(::StepRange{T,S}) where {T<:_OrderedScalar,S<:_OrderedScalar} =
+    T <: Integer && S <: Integer
+_ordered_native_storage(values::SubArray) =
+    _ordered_native_storage(getfield(values, :parent)) &&
+    all(_ordered_native_index, getfield(values, :indices))
+
+_ordered_native_index(::Any) = false
+_ordered_native_index(index::_OrderedScalar) = index isa Integer
+_ordered_native_index(::CartesianIndex) = true
+_ordered_native_index(::Array{T}) where {T} =
+    (T <: _OrderedScalar && T <: Integer) || T <: CartesianIndex
+_ordered_native_index(index::Base.Slice) =
+    _ordered_native_storage(getfield(index, :indices))
+_ordered_native_index(index::Union{UnitRange, Base.OneTo, StepRange}) =
+    _ordered_native_storage(index)
+
+# Native primitive storage permits a direct scan. Other inputs retain the
+# generic validator's copied tail and its original indexing order.
 function xcsp_ordered(list::AbstractVector{T}, operator::_OrderedComparison,
         ::Nothing) where {T<:_OrderedScalar}
-    !Base.has_offset_axes(list) ||
+    (_ordered_native_storage(list) && !Base.has_offset_axes(list)) ||
         return invoke(xcsp_ordered, Tuple{Any, Any, Nothing}, list, operator, nothing)
     for id in 1:(length(list) - 1)
         operator(list[id], list[id + 1]) || return false
@@ -98,7 +120,8 @@ end
 
 function xcsp_ordered(list::AbstractVector{T}, operator::_OrderedComparison,
         lengths::AbstractVector{S}) where {T<:_OrderedScalar,S<:_OrderedScalar}
-    if Base.has_offset_axes(list) || Base.has_offset_axes(lengths)
+    if !(_ordered_native_storage(list) && _ordered_native_storage(lengths)) ||
+            Base.has_offset_axes(list) || Base.has_offset_axes(lengths)
         return invoke(xcsp_ordered, Tuple{Any, Any, Any}, list, operator, lengths)
     end
     for id in 1:(length(list) - 1)

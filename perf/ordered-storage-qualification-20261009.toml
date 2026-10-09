@@ -1,0 +1,247 @@
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+recorded_utc = "2026-10-09T00:58:30.183"
+cn_commit = "84838810398433d93db9817eef8a6c0c9bd5148b"
+case_sha256 = "34915d1bf6da9ccbf637fad4c8b6d1000cbda1f244f3c74e6a9c89e757470228"
+cleanup = "No helper scripts, reports, logs, backup copies or environments persisted; only intrinsic source, regression tests and this qualification record added."
+analyzer_scope = "Four separate native-operation analyzer specializations: JET, AllocCheck, GC and reachable memory. All complete with no findings. Five GC observations have zero allocation, compilation and recompilation; five memory observations retain 16096 bytes of reachable input state and 16104 joint state/result bytes."
+baseline_commit = "ba5d8afcebde2515870ecc35a2592ecc002db86d"
+baseline_source_sha256 = "70820b8a4285666bab7083fb3a786d58d6c229315ba4ce1da7cf86f1ac30e581"
+test_sha256 = "7cdda1d8461a5ed17114deb09293e05b861bf94dc28ba217b9773310e596067b"
+contract = "Before querying axes, accept only native Array storage, recursively trusted SubArray parents/selectors, and built-in UnitRange/OneTo/StepRange with primitive integer fields. Native primitive values and built-in comparisons use a direct scan. Unknown storage, selectors, floating ranges, custom numbers/comparators and offset axes retain the original copied-tail method."
+julia_threads = 2
+cpu_affinity = [4, 6]
+cc_commit = "54ee23d9f2a41fbcb674937c558de181b84e6d5d"
+integration_note = "Root V4 was independently frozen at Constraints ba5d8af. This published repair supersedes that general-library custom-storage edge case; root-frozen worktrees and shared application sources were not edited."
+measurement_scope = "Prepared 1000-element Int vector and zero offsets. Six fresh-process collectors; current benchmark/chairmark observe zero bytes and zero objects, original copied-tail benchmark/chairmark observe 8072 bytes and three objects. Preparation and verification excluded."
+reference = "Explicit invoke of the generic original method, using Tuple{Any,Any,Nothing} for no offsets and Tuple{Any,Any,Any} for offsets."
+bank_scope = "Exact saved W4/W2/W52 schemas, weight application and independent decoder outputs; bank bytes unchanged; no training."
+blas_threads = 1
+correctness_repair = "The prior primitive AbstractVector specialization scanned custom getters directly. A getter that changes the last value while reading index 1 returned false instead of the original true, both with no offsets and with native offsets; direct reads [1,2,2,3] replaced original snapshot reads [2,3,1,2]."
+runtime = "1.13.1"
+gc_threads = 1
+harness_corrections = "The initial custom-read reference incorrectly invoked the lengths overload for nothing and stopped; corrected overload selection reproduced the mismatch. A full-test macro selected the surrounding multi-package directory and failed immediately on a CN test import; reran Constraints through its explicit package path, failfast. The initial memory wrapper omitted vector-of-dictionary numeric samples; reran GC/memory only with min/max compaction. Only successful correctly scoped evidence supports qualification."
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+pf_commit = "7a43c9bb4b2a395dca75fab2a443e316c87b914e"
+source_sha256 = "fa5ec64bb9e8a83818027fc9f4f1e3e3147a5d5bb2b17fca4f3d404b3a38ce25"
+timing_limitations = "Operational timings under concurrent overnight jobs. No elapsed-time, cold-construction, scaling or native-solver claim."
+
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "current"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.05e-7
+    maximum = 8.0e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "current"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.16e-7
+    maximum = 6.25e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+message = ""
+implementation = "current"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+message = ""
+implementation = "current"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "original"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 7.35e-7
+    maximum = 1.7e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 3
+    maximum = 3
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 8072
+    maximum = 8072
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "original"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 4.800000000000001e-7
+    maximum = 1.0590000000000002e-6
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 3.0
+    maximum = 3.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 8072.0
+    maximum = 8072.0
+
+[[analyzers]]
+correctness = "passed"
+summary = ""
+status = "complete"
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+tool = "jet"
+findings_count = 0
+quality = "not_checked"
+findings = []
+
+    [analyzers.measurements]
+[[analyzers]]
+correctness = "passed"
+summary = ""
+status = "complete"
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+tool = "alloccheck"
+findings_count = 0
+quality = "not_checked"
+findings = []
+
+    [analyzers.measurements]
+[[analyzers]]
+tool = "gc"
+findings = []
+correctness = "passed"
+findings_count = 0
+quality = "not_checked"
+measurements_recorded_utc = "2026-10-09T00:57:22.626"
+summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+status = "complete"
+analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+
+    [analyzers.measurements]
+    samples = 5
+
+        [analyzers.measurements.full_sweep]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.operation_seconds]
+        minimum = 3.2e-7
+        maximum = 8.84e-7
+
+        [analyzers.measurements.lock_conflicts]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.malloc]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.gc_seconds]
+        minimum = 0.0
+        maximum = 0.0
+
+        [analyzers.measurements.bigalloc]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.poolalloc]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.compile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [analyzers.measurements.allocated_bytes]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.recompile_time]
+        minimum = 0.0
+        maximum = 0.0
+
+        [analyzers.measurements.realloc]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.pause]
+        minimum = 0
+        maximum = 0
+[[analyzers]]
+correctness = "passed"
+measurements_recorded_utc = "2026-10-09T00:57:22.626"
+summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+status = "complete"
+findings_count = 0
+tool = "memory"
+findings = []
+quality = "not_checked"
+limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+
+    [analyzers.measurements]
+    samples = 5
+
+        [analyzers.measurements.state_before_bytes]
+        minimum = 16096
+        maximum = 16096
+
+        [analyzers.measurements.state_after_bytes]
+        minimum = 16096
+        maximum = 16096
+
+        [analyzers.measurements.reachable_state_growth_bytes]
+        minimum = 0
+        maximum = 0
+
+        [analyzers.measurements.state_and_result_bytes]
+        minimum = 16104
+        maximum = 16104
+
+[tests]
+focused_ordered_assertions = 13330
+cn_evaluator_arithmetic_assertions = 4872
+custom_storage_coverage = "All six built-in comparisons with independent custom list, custom offset, short-offset, custom-parent view and custom-selector view fixtures; compare result or exception type, complete axes/index-read event sequence and mutated backing values against the original snapshot method."
+floating_range_coverage = "StepRangeLen and LinRange fixtures retain original slice reconstruction; all six comparisons, with/without floating offsets, agree with explicit original method."
+full_constraints_assertions = 119284
+exact_bank_assertions = 29
+native_allocation_coverage = "Dense vectors with/without offsets, native full views with native offset views, a matrix-column view, a view with a dense integer selector vector, UnitRange and StepRange all allocate zero bytes after warming."
+added_assertions = 218
