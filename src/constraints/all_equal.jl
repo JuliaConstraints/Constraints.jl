@@ -36,9 +36,18 @@ c([1, 2, 3, 4]; op=*, val=1, pair_vars=[1, 2, 3, 4])
 """
 xcsp_all_equal(; list) = concept_all_equal(list; val = first(list))
 
+struct _AllEqualDefaultPairs end
+const _AllEqualScalar = Union{Bool, Int8, Int16, Int32, Int64, Int128,
+    UInt8, UInt16, UInt32, UInt64, UInt128, Float16, Float32, Float64}
+
+_all_equal_default_pairs(x) = zeros(eltype(x), length(x))
+_all_equal_default_pairs(::Vector{T}) where {T<:_AllEqualScalar} = _AllEqualDefaultPairs()
+
 @usual function concept_all_equal(
-        x; val = nothing, pair_vars = zeros(eltype(x), length(x)), op = +)
-    if iszero(pair_vars)
+        x; val = nothing, pair_vars = _all_equal_default_pairs(x), op = +)
+    # Only an omitted native default uses the marker. Explicit parameters and
+    # custom storage keep their original zero checks, arithmetic and callbacks.
+    if pair_vars isa _AllEqualDefaultPairs || iszero(pair_vars)
         return concept_all_equal(x, val)
     else
         aux = map(t -> op(t...), Iterators.zip(x, pair_vars))

@@ -1,0 +1,724 @@
+analyzer_scope = "Eight fresh operation specializations: JET, AllocCheck, GC and reachable memory for both default forms. All complete with zero findings. Five warmed GC observations per form have zero bytes, compilation and recompilation; reachable input state stable."
+baseline_commit = "a399df351c5d9b0bf753c0612ea2178eee4fa4cb"
+baseline_source_sha256 = "1d7497c4d0f919cbd380c6e875a533fc2274e42d9fd10298de861c84bafecdb4"
+case_sha256 = "b6677497bde68e1d3ee1f507df77dfb1b462f91a22b6fbb4a6eab8e9b92750e4"
+catalog_sha256 = "703350eefabcb8948f2892f2db7d9ba45a0ffa021b450c1447828ec58ffdd9a7"
+cc_commit = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+change = "Only omitted offset defaults on concrete native primitive vectors use a private zero-field marker. Avoid the outer zero vector and the recursive zero vector created when val is omitted. Explicit offsets, explicit nothing, custom storage and custom numeric types retain their original behavior."
+cleanup = "Only intrinsic source, regression test, reusable profiling case/catalog and this qualification record persisted. No helper scripts, dumps, backups, raw reports or temporary environments created."
+cn_commit = "94f146716e6f527cd2497ab765e5f1095b855125"
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+harness_corrections = ["The first in-memory prototype skipped only the outer zero vector and still called the former recursive keyword method. A complete prototype reconstructed the recursive path and measured zero bytes.", "An initial final test assertion used nonexistent error_f(::Symbol). Corrected it to error_f(registered_constraint); the complete passing full suite includes that public error check."]
+limits = ["Zero-allocation observations apply to successful prepared native calls with omitted offset defaults, not all explicit parameters or exception paths.", "Unknown storage, BigInt/Rational/abstract element types and custom numeric callbacks keep original default construction and cost.", "Operational concurrent timings, not controlled elapsed-time, cold-construction, full-solver throughput or fitted scaling claims.", "Julia 1.13.1 executed; no Julia 1.12 runtime claim.", "Shared Root sources and frozen integrated checkouts were not edited; no native solver execution or training."]
+measurement_scope = "Prepared private all-one Int64 vectors of length 1,2,1000; complete true equality checks for omitted/fixed value defaults. Former/current/current/former order, 100 samples/evals=1. Registered concept and error are separately measured at 1000. Preparation and verification excluded."
+native_types = ["Bool", "Int8", "Int16", "Int32", "Int64", "Int128", "UInt8", "UInt16", "UInt32", "UInt64", "UInt128", "Float16", "Float32", "Float64"]
+proof = "For Vector elements from the closed primitive numeric union, the former default zeros vector is uniformly zero with no user callbacks. Its only role is to select the no-offset branch. The private omitted-default marker selects that same branch while preserving all equality evaluation and recursion. All other defaults still execute zeros(eltype(x),length(x)) in the original order."
+recorded_utc = "2026-10-09T02:50:16.290"
+reference = "A complete copied former recursive implementation, including fresh zeros defaults on both calls when val is omitted. Same all predicate and mapped offset arithmetic; no noinline barrier or shortcut reference."
+schema = "juliaconstraints-all-equal-default-qualification/1"
+source_sha256 = "f5d99aa1e653c06d1d0e733053918e324a3e3a84962f82a6dd0392fa4ef851c8"
+test_sha256 = "0d485f35f2f8b7a60456d4e32bf590a788f090c7704eed86a36bc4cfe24a2b2d"
+
+[analyzer_evidence]
+case_sha256 = "b6677497bde68e1d3ee1f507df77dfb1b462f91a22b6fbb4a6eab8e9b92750e4"
+recorded_utc = "2026-10-09T02:44:17.861"
+source_sha256 = "f5d99aa1e653c06d1d0e733053918e324a3e3a84962f82a6dd0392fa4ef851c8"
+
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    quality = "not_checked"
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.allocated_bytes]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.bigalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.compile_time]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.full_sweep]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.gc_seconds]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.lock_conflicts]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.malloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.operation_seconds]
+            maximum = 6.12e-7
+            minimum = 2.55e-7
+
+            [analyzer_evidence.analyzers.measurements.pause]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.poolalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.realloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.recompile_time]
+            maximum = 0.0
+            minimum = 0.0
+    [[analyzer_evidence.analyzers]]
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    quality = "not_checked"
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.state_after_bytes]
+            maximum = 8048
+            minimum = 8048
+
+            [analyzer_evidence.analyzers.measurements.state_and_result_bytes]
+            maximum = 8056
+            minimum = 8056
+
+            [analyzer_evidence.analyzers.measurements.state_before_bytes]
+            maximum = 8048
+            minimum = 8048
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    quality = "not_checked"
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.allocated_bytes]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.bigalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.compile_time]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.full_sweep]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.gc_seconds]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.lock_conflicts]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.malloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.operation_seconds]
+            maximum = 6.72e-7
+            minimum = 2.64e-7
+
+            [analyzer_evidence.analyzers.measurements.pause]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.poolalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.realloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.recompile_time]
+            maximum = 0.0
+            minimum = 0.0
+    [[analyzer_evidence.analyzers]]
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    quality = "not_checked"
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.state_after_bytes]
+            maximum = 8048
+            minimum = 8048
+
+            [analyzer_evidence.analyzers.measurements.state_and_result_bytes]
+            maximum = 8056
+            minimum = 8056
+
+            [analyzer_evidence.analyzers.measurements.state_before_bytes]
+            maximum = 8048
+            minimum = 8048
+
+[bank]
+populated = 3
+schemas = ["W4 sum", "W2 all_equal", "W52 ordered"]
+sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+slots = 52
+training = false
+weights_unchanged = true
+
+[collector_evidence]
+case_sha256 = "b6677497bde68e1d3ee1f507df77dfb1b462f91a22b6fbb4a6eab8e9b92750e4"
+recorded_utc = "2026-10-09T02:44:18.827"
+source_sha256 = "f5d99aa1e653c06d1d0e733053918e324a3e3a84962f82a6dd0392fa4ef851c8"
+
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.39e-7
+        minimum = 2.5e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.590000000000001e-7
+        minimum = 2.6400000000000003e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 16144
+        minimum = 16144
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 6
+        minimum = 6
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 2.826e-6
+        minimum = 1.568e-6
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "all-equal-implicit-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 16144.0
+        minimum = 16144.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 6.0
+        minimum = 6.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 1.8760000000000001e-6
+        minimum = 9.99e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.88e-7
+        minimum = 2.53e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.690000000000001e-7
+        minimum = 2.53e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "current"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 8072
+        minimum = 8072
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 3
+        minimum = 3
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 2.132e-6
+        minimum = 8.81e-7
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original"
+    message = ""
+    scenario = "all-equal-fixed-defaults"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 8072.0
+        minimum = 8072.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 3.0
+        minimum = 3.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 1.145e-6
+        minimum = 6.47e-7
+        samples = 5
+
+[matched]
+case_sha256 = "b6677497bde68e1d3ee1f507df77dfb1b462f91a22b6fbb4a6eab8e9b92750e4"
+evals = 1
+recorded_utc = "2026-10-09T02:46:14.655"
+samples = 100
+source_sha256 = "f5d99aa1e653c06d1d0e733053918e324a3e3a84962f82a6dd0392fa4ef851c8"
+
+    [[matched.measurements]]
+    allocations = 4
+    bytes = 128
+    comparison = "implicit"
+    minimum_ns = 30.0
+    n = 1
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 12.0
+    n = 1
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 12.0
+    n = 1
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 4
+    bytes = 128
+    comparison = "implicit"
+    minimum_ns = 30.0
+    n = 1
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 2
+    bytes = 64
+    comparison = "fixed"
+    minimum_ns = 22.0
+    n = 1
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 12.0
+    n = 1
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 12.0
+    n = 1
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 2
+    bytes = 64
+    comparison = "fixed"
+    minimum_ns = 21.0
+    n = 1
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 4
+    bytes = 160
+    comparison = "implicit"
+    minimum_ns = 30.0
+    n = 2
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 12.0
+    n = 2
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 12.0
+    n = 2
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 4
+    bytes = 160
+    comparison = "implicit"
+    minimum_ns = 30.0
+    n = 2
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 2
+    bytes = 80
+    comparison = "fixed"
+    minimum_ns = 21.0
+    n = 2
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 12.0
+    n = 2
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 12.0
+    n = 2
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 2
+    bytes = 80
+    comparison = "fixed"
+    minimum_ns = 21.0
+    n = 2
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 6
+    bytes = 16144
+    comparison = "implicit"
+    minimum_ns = 1224.0
+    n = 1000
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 234.0
+    n = 1000
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "implicit"
+    minimum_ns = 234.0
+    n = 1000
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 6
+    bytes = 16144
+    comparison = "implicit"
+    minimum_ns = 1311.0
+    n = 1000
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 3
+    bytes = 8072
+    comparison = "fixed"
+    minimum_ns = 706.0
+    n = 1000
+    variant = "original"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 233.0
+    n = 1000
+    variant = "current"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "fixed"
+    minimum_ns = 234.0
+    n = 1000
+    variant = "current-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 3
+    bytes = 8072
+    comparison = "fixed"
+    minimum_ns = 703.0
+    n = 1000
+    variant = "original-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "registered-concept"
+    minimum_ns = 234.0
+    n = 1000
+    variant = "current"
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    comparison = "registered-error"
+    minimum_ns = 234.0
+    n = 1000
+    variant = "current"
+
+[runtime]
+blas_threads = 1
+cpu_affinity = [4, 6]
+julia = "1.13.1"
+julia_gc_threads = 1
+julia_threads = 2
+mkl_threads = 1
+omp_threads = 1
+package_precompile_auto = false
+
+[tests]
+added_assertions = 21371
+cn_nontraining = 59231
+cn_standalone = 4872
+constraints = 140655
+coverage = ["All 14 primitive types with empty, singleton, equal/unequal and exhaustive extreme-value triples", "Float signed zeros, infinities and NaNs preserve original outcomes and input bytes", "Native cases compare complete exception fields; explicit nothing retains its iszero MethodError", "Explicit zero, nonzero, empty and mismatched offset lists retain truncation, arithmetic and callback order", "Custom storage eltype/length/read events, mutation and late errors match separate original fixtures", "Custom Real zero, iszero and equality callback sequences and zero-construction errors remain unchanged", "Registration schema/default flags, reflected keyword order, public concept and registered error remain compatible"]
+exact_bank = 29
+prototype_assertions = 45
+source_unchanged_during_full_tests = true

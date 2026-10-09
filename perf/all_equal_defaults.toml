@@ -1,0 +1,47 @@
+schema_version = "perfchecker-scenario-catalog/1"
+root = ".."
+
+[[scenarios]]
+id = "all-equal-implicit-defaults"
+source = "all_equal_cases.jl"
+factory = "AllEqualCases.defaults"
+implementation = "current"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+n = 1000
+comparison = "implicit"
+method = "current"
+
+[[scenarios]]
+id = "all-equal-implicit-defaults"
+source = "all_equal_cases.jl"
+factory = "AllEqualCases.defaults"
+implementation = "original"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+n = 1000
+comparison = "implicit"
+method = "original"
+
+[[scenarios]]
+id = "all-equal-fixed-defaults"
+source = "all_equal_cases.jl"
+factory = "AllEqualCases.defaults"
+implementation = "current"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+n = 1000
+comparison = "fixed"
+method = "current"
+
+[[scenarios]]
+id = "all-equal-fixed-defaults"
+source = "all_equal_cases.jl"
+factory = "AllEqualCases.defaults"
+implementation = "original"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+n = 1000
+comparison = "fixed"
+method = "original"
+
