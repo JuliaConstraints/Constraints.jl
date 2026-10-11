@@ -1,7 +1,7 @@
 name = "Constraints"
 uuid = "30f324ab-b02d-43f0-b619-e131c61659f7"
 authors = ["Jean-François Baffier"]
-version = "0.5.11"
+version = "0.5.12"
 
 [deps]
 CompositionalNetworks = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
@@ -15,9 +15,9 @@ TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 
 [compat]
 Aqua = "0.8"
-CompositionalNetworks = "0.6.2"
-ConstraintCommons = "0.3.1"
-ConstraintDomains = "0.4.1"
+CompositionalNetworks = "0.6.4"
+ConstraintCommons = "0.3.2"
+ConstraintDomains = "0.4.2"
 DataFrames = "1"
 Dictionaries = "0.4"
 MacroTools = "0.5"
@@ -26,7 +26,7 @@ Random = "1"
 Test = "1"
 TestItemRunner = "1"
 TestItems = "1"
-julia = "1.12"
+julia = "1.13"
 
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
